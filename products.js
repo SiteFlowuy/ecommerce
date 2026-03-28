@@ -434,10 +434,12 @@ function _cardHtml(p, index) {
                 </p>`
     : '';
 
-  /* Badges */
-  const badgesHtml = p.badges.map(b =>
-    `<span class="${_BADGE_BG[b.color] || 'bg-slate-600'} text-white text-[10px] font-bold px-2 py-0.5 rounded-md shadow-sm leading-5">${b.text}</span>`
-  ).join('\n                  ');
+  /* Badges — replaced by AGOTADO when stock === 0 */
+  const badgesHtml = p.stock === 0
+    ? `<span class="bg-slate-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-md shadow-sm leading-5">AGOTADO</span>`
+    : p.badges.map(b =>
+        `<span class="${_BADGE_BG[b.color] || 'bg-slate-600'} text-white text-[10px] font-bold px-2 py-0.5 rounded-md shadow-sm leading-5">${b.text}</span>`
+      ).join('\n                  ');
 
   /* Social proof chip (4th element in rating row — QV reads children[1] and [2] only) */
   let socialProofHtml = '';
@@ -536,10 +538,10 @@ function _cardHtml(p, index) {
                 ${urgencyHtml}
 
                 <!-- CTA principal -->
-                <button class="btn-add-cart group/btn mt-auto w-full bg-brand-600 hover:bg-brand-700 active:scale-[0.98] text-white text-sm font-bold py-3 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-sm hover:shadow-lg hover:shadow-brand-600/30"
-                  type="button" aria-label="Agregar ${p.name} al carrito">
-                  ${_SVG.cart}
-                  Agregar al carrito
+                <button class="btn-add-cart group/btn mt-auto w-full ${p.stock === 0 ? 'bg-slate-200 text-slate-400 cursor-not-allowed' : 'bg-brand-600 hover:bg-brand-700 active:scale-[0.98] text-white hover:shadow-lg hover:shadow-brand-600/30'} text-sm font-bold py-3 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-sm"
+                  type="button" aria-label="Agregar ${p.name} al carrito"${p.stock === 0 ? ' disabled' : ''}>
+                  ${p.stock === 0 ? '' : _SVG.cart}
+                  ${p.stock === 0 ? 'Sin stock' : 'Agregar al carrito'}
                 </button>
 
                 <!-- CTA secundario -->

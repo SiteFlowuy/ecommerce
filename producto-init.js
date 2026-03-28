@@ -155,9 +155,13 @@
     /* ── Stock status ───────────────────────────────── */
     const stockEl = $('product-stock');
     if (stockEl) {
-      stockEl.textContent = p.stock > 0 ? 'En stock' : 'Agotado';
-      stockEl.className   = stockEl.className
-        .replace(/text-(?:emerald|rose)-\d+/, p.stock > 0 ? 'text-emerald-600' : 'text-rose-600');
+      if (p.stock > 0) {
+        stockEl.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> En stock`;
+        stockEl.className = stockEl.className.replace(/text-(?:emerald|rose)-\d+/, 'text-emerald-600');
+      } else {
+        stockEl.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Sin stock`;
+        stockEl.className = stockEl.className.replace(/text-(?:emerald|rose)-\d+/, 'text-rose-600');
+      }
     }
 
     /* ── Main image ─────────────────────────────────── */
@@ -174,12 +178,17 @@
     /* ── Badge on main image ────────────────────────── */
     const badgeEl = $('product-main-badge');
     if (badgeEl) {
-      const b = p.badges.find(b => b.text.startsWith('-')) || p.badges[0];
-      if (b) {
-        badgeEl.textContent = b.text;
-        badgeEl.className   = `absolute top-4 left-4 ${BADGE_BG[b.color] || 'bg-rose-500'} text-white text-xs font-bold px-2.5 py-1 rounded-lg shadow`;
+      if (p.stock === 0) {
+        badgeEl.textContent = 'AGOTADO';
+        badgeEl.className   = `absolute top-4 left-4 bg-slate-600 text-white text-xs font-bold px-2.5 py-1 rounded-lg shadow`;
       } else {
-        badgeEl.classList.add('hidden');
+        const b = p.badges.find(b => b.text.startsWith('-')) || p.badges[0];
+        if (b) {
+          badgeEl.textContent = b.text;
+          badgeEl.className   = `absolute top-4 left-4 ${BADGE_BG[b.color] || 'bg-rose-500'} text-white text-xs font-bold px-2.5 py-1 rounded-lg shadow`;
+        } else {
+          badgeEl.classList.add('hidden');
+        }
       }
     }
 
@@ -274,6 +283,16 @@
       addCartBtn.dataset.productId    = p.id;
       addCartBtn.dataset.productName  = p.name;
       addCartBtn.dataset.productPrice = p.price.toFixed(2);
+      if (p.stock === 0) {
+        addCartBtn.disabled = true;
+        addCartBtn.textContent = 'Sin stock';
+        addCartBtn.className = addCartBtn.className
+          .replace(/bg-brand-\d+\s*/g, '')
+          .replace(/hover:bg-brand-\d+\s*/g, '')
+          .replace(/active:scale-\S+\s*/g, '')
+          .replace(/hover:shadow-\S+\s*/g, '')
+          + ' bg-slate-200 text-slate-400 cursor-not-allowed';
+      }
     }
 
     /* ── Related products ───────────────────────────── */
