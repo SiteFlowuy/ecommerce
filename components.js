@@ -59,7 +59,7 @@ function injectHeader() {
         <!-- Actions -->
         <div class="flex items-center gap-2">
           <!-- Search -->
-          <form class="hidden sm:flex items-center bg-slate-100 rounded-xl px-3 py-2 gap-2 focus-within:ring-2 focus-within:ring-brand-500 focus-within:bg-white transition-all" role="search" action="/buscar" method="get">
+          <form class="hidden sm:flex items-center bg-slate-100 rounded-xl px-3 py-2 gap-2 focus-within:ring-2 focus-within:ring-brand-500 focus-within:bg-white transition-all" role="search" action="buscar.html" method="get">
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             <label for="search" class="sr-only">Buscar productos</label>
             <input type="search" id="search" name="q" placeholder="Buscar…" class="bg-transparent text-sm text-slate-700 placeholder-slate-400 outline-none w-36 lg:w-52" />

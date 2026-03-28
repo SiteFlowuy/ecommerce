@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Búsqueda — ShopBase</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          colors: {
+            brand: { 50:'#f0f4ff', 100:'#e0eaff', 500:'#6366f1', 600:'#4f46e5', 700:'#4338ca' },
+          },
+          animation: { 'fade-in': 'fadeIn .3s ease' },
+          keyframes: { fadeIn: { from: { opacity: 0, transform: 'translateY(6px)' }, to: { opacity: 1, transform: 'translateY(0)' } } },
+        },
+      },
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased">
+
+  <div id="site-header"></div>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Ruta de navegación" class="mb-8">
+      <ol class="flex items-center gap-1.5 text-xs text-slate-500">
+        <li><a href="index.html" class="hover:text-brand-600 transition-colors">Inicio</a></li>
+        <li aria-hidden="true" class="text-slate-300">›</li>
+        <li class="text-slate-500">Búsqueda</li>
+        <li aria-hidden="true" class="text-slate-300">›</li>
+        <li id="breadcrumb-query" class="text-slate-800 font-medium" aria-current="page"></li>
+      </ol>
+    </nav>
+
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-2xl font-extrabold text-slate-900 leading-tight">
+        <span id="results-headline"></span>
+      </h1>
+      <p id="results-subline" class="text-sm text-slate-400 mt-0.5"></p>
+    </div>
+
+    <!-- Empty state -->
+    <div id="search-empty" class="hidden text-center py-24">
+      <div class="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-5">
+        <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </div>
+      <h2 class="text-xl font-bold text-slate-800 mb-2">Sin resultados</h2>
+      <p id="empty-message" class="text-slate-400 text-sm mb-7"></p>
+      <a href="index.html"
+        class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-bold px-7 py-3.5 rounded-xl transition-colors shadow-lg text-sm">
+        Ver todos los productos
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+
+    <!-- Results grid -->
+    <ul id="search-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 animate-fade-in" role="list"></ul>
+
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="config.js" defer></script>
+  <script src="seo.js" defer></script>
+  <script src="products.js" defer></script>
+  <script src="categories.js" defer></script>
+  <script src="components.js" defer></script>
+  <script src="app.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      /* ── 1. Read query from URL ── */
+      const params = new URLSearchParams(window.location.search);
+      const raw    = (params.get('q') || '').trim();
+
+      if (!raw) {
+        window.location.replace('index.html');
+        return;
+      }
+
+      /* ── 2. Normalize helper (strips accents, lowercases) ── */
+      function normalize(str) {
+        return (str || '')
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .toLowerCase();
+      }
+
+      const term = normalize(raw);
+
+      /* ── 3. Filter PRODUCTS ── */
+      const all     = typeof PRODUCTS !== 'undefined' ? PRODUCTS : [];
+      const results = all.filter(p => {
+        const fields = [
+          p.name, p.brand, p.description,
+          ...(Array.isArray(p.tags) ? p.tags : []),
+        ].map(normalize).join(' ');
+        return fields.includes(term);
+      });
+
+      /* ── 4. Update document.title + breadcrumb ── */
+      const siteName = (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.name) || 'ShopBase';
+      document.title = `"${raw}" — ${siteName}`;
+
+      document.getElementById('breadcrumb-query').textContent = `"${raw}"`;
+
+      /* ── 5. Headline + subline ── */
+      const headlineEl  = document.getElementById('results-headline');
+      const sublineEl   = document.getElementById('results-subline');
+      const n           = results.length;
+
+      headlineEl.textContent = n === 0
+        ? `Sin resultados para: "${raw}"`
+        : `${n} resultado${n !== 1 ? 's' : ''} para: "${raw}"`;
+
+      if (n > 0) {
+        sublineEl.textContent = `Mostrando ${n} producto${n !== 1 ? 's' : ''} que coinciden con tu búsqueda.`;
+      }
+
+      /* ── 6. Render ── */
+      const grid     = document.getElementById('search-grid');
+      const emptyEl  = document.getElementById('search-empty');
+
+      if (n === 0) {
+        emptyEl.classList.remove('hidden');
+        document.getElementById('empty-message').textContent =
+          `No encontramos productos que coincidan con "${raw}". Intentá con otro término o explorá el catálogo completo.`;
+      } else {
+        grid.innerHTML = results.map((p, i) => _cardHtml(p, i)).join('');
+      }
+    });
+  </script>
+</body>
+</html>

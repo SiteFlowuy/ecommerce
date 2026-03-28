@@ -85,7 +85,7 @@
           <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center shadow-md">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
           </div>
-          <span class="text-xl font-bold text-slate-900 tracking-tight">ShopBase</span>
+          <span id="checkout-brand-name" class="text-xl font-bold text-slate-900 tracking-tight">ShopBase</span>
         </a>
 
         <div class="flex items-center gap-1.5 text-xs text-slate-500">
@@ -371,6 +371,7 @@
   </main>
 
   <script src="config.js" defer></script>
+  <script src="seo.js" defer></script>
   <script src="app.js" defer></script>
   <script>
     /* ── Stripe public key — leer de meta tag para no hardcodear en el JS ── */
@@ -383,6 +384,12 @@
     const BACKEND_URL = 'http://localhost:3001';
 
     document.addEventListener('DOMContentLoaded', () => {
+
+      /* ── Brand name ──────────────────────────────────────────────────── */
+      const _siteName = (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.name) || 'ShopBase';
+      document.getElementById('checkout-brand-name').textContent = _siteName;
+      const _logoLink = document.querySelector('a[aria-label="ShopBase — Inicio"]');
+      if (_logoLink) _logoLink.setAttribute('aria-label', `${_siteName} — Inicio`);
 
       /* ── Sidebar del resumen ─────────────────────────────────────────── */
       function renderCheckoutSidebar() {
@@ -471,7 +478,6 @@
         });
       }
 
-      document.getElementById('to-step-2')?.addEventListener('click', () => goToStep(2));
       document.getElementById('back-to-1')?.addEventListener('click', () => goToStep(1));
 
       /* ── Stripe Elements ─────────────────────────────────────────────── */
@@ -568,12 +574,59 @@
         });
       }
 
-      // Inicializar Stripe cuando el usuario avanza al paso 2
-      document.getElementById('to-step-2')?.addEventListener('click', () => {
-        goToStep(2);
-        // Montar solo una vez
-        if (!stripe) initStripe();
-      });
+      // Validar paso 1 y avanzar al paso 2
+      (function () {
+        const FIELDS = [
+          { id: 'first-name', type: 'text' },
+          { id: 'last-name',  type: 'text' },
+          { id: 'email',      type: 'email' },
+          { id: 'address',    type: 'text' },
+          { id: 'zip',        type: 'text' },
+          { id: 'city',       type: 'text' },
+        ];
+
+        const ERROR_RING   = ['ring-2', 'ring-rose-400'];
+        const FOCUSED_RING = ['ring-2', 'ring-brand-500'];
+
+        function markError(el) {
+          FOCUSED_RING.forEach(c => el.classList.remove(c));
+          ERROR_RING.forEach(c => el.classList.add(c));
+        }
+        function clearError(el) {
+          ERROR_RING.forEach(c => el.classList.remove(c));
+        }
+
+        FIELDS.forEach(({ id }) => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          el.addEventListener('input', () => clearError(el));
+        });
+
+        document.getElementById('to-step-2')?.addEventListener('click', () => {
+          const invalid = [];
+          FIELDS.forEach(({ id, type }) => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            const empty   = el.value.trim() === '';
+            const badEmail = type === 'email' && !empty && !el.validity.valid;
+            if (empty || badEmail) {
+              markError(el);
+              invalid.push(el);
+            } else {
+              clearError(el);
+            }
+          });
+
+          if (invalid.length > 0) {
+            invalid[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            invalid[0].focus();
+            return;
+          }
+
+          goToStep(2);
+          if (!stripe) initStripe();
+        });
+      })();
 
       /* ── Confirmar pago ──────────────────────────────────────────────── */
       document.getElementById('pay-btn')?.addEventListener('click', async () => {

@@ -24,7 +24,7 @@
     : [];
 
   /* ── 2. SEO — update head immediately ─────────────── */
-  const BASE  = 'https://shopbase.ejemplo.com';
+  const BASE  = (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.domain) || 'https://shopbase.ejemplo.com';
   const url   = `${BASE}/categoria?cat=${catId}`;
   const title = `${cat.name} — ShopBase`;
   const desc  = `${cat.description}. Compra ${cat.name.toLowerCase()} online con envío gratis y los mejores precios. ${catProducts.length} productos disponibles.`;

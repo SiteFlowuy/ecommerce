@@ -41,7 +41,7 @@
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": "https://shopbase.ejemplo.com/buscar?q={search_term_string}"
+        "urlTemplate": "https://shopbase.ejemplo.com/buscar.html?q={search_term_string}"
       },
       "query-input": "required name=search_term_string"
     }
@@ -247,10 +247,11 @@
         </ul>
 
         <div class="text-center mt-10">
-          <a href="/productos" class="inline-flex items-center gap-2 border-2 border-slate-200 text-slate-700 font-semibold px-6 py-3 rounded-xl hover:border-brand-600 hover:text-brand-600 transition-colors text-sm">
-            Cargar más productos
+          <button type="button" id="btn-load-more"
+            class="hidden inline-flex items-center gap-2 border-2 border-slate-200 text-slate-700 font-semibold px-6 py-3 rounded-xl hover:border-brand-600 hover:text-brand-600 transition-colors text-sm">
+            <span id="btn-load-more-label">Ver más productos</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          </a>
+          </button>
         </div>
 
       </div>
@@ -540,6 +541,7 @@
   </div>
 
   <script src="config.js" defer></script>
+  <script src="seo.js" defer></script>
   <script src="products.js" defer></script>
   <script src="categories.js" defer></script>
   <script src="components.js" defer></script>

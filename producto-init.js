@@ -16,7 +16,7 @@
   if (!p)  { window.location.replace('index.html'); return; }
 
   /* ── 2. SEO — update head immediately ─────────────── */
-  const BASE   = 'https://shopbase.ejemplo.com';
+  const BASE   = (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.domain) || 'https://shopbase.ejemplo.com';
   const url    = `${BASE}/producto/${p.id}`;
   const title  = `${p.name} — ${p.brand} | ShopBase`;
   const imgAbs = p.image.startsWith('http') ? p.image : `${BASE}/${p.image}`;
@@ -95,7 +95,10 @@
     return '★'.repeat(n) + '☆'.repeat(5 - n);
   }
 
-  function _fmt(n) { return '$' + n.toFixed(2); }
+  function _fmt(n) {
+    const sym = (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.currencySymbol) || '$';
+    return sym + n.toFixed(2);
+  }
 
   const BADGE_BG = {
     brand:  'bg-brand-600', rose: 'bg-rose-500',

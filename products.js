@@ -447,9 +447,15 @@ const _SVG = {
   info: `<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>`,
 };
 
+const PRODUCTS_PER_PAGE = 8;
+
 /* ════════════════════════════════════════════════════════
    CARD TEMPLATE
    ════════════════════════════════════════════════════════ */
+
+function _currency() {
+  return (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.currencySymbol) || '$';
+}
 
 function _cardHtml(p, index) {
   const savings     = p.originalPrice ? (p.originalPrice - p.price).toFixed(2) : null;
@@ -481,12 +487,12 @@ function _cardHtml(p, index) {
 
   /* Price row */
   const origHtml    = p.originalPrice
-    ? `<span class="text-sm text-slate-400 line-through">$${p.originalPrice.toFixed(2)}</span>`
+    ? `<span class="text-sm text-slate-400 line-through">${_currency()}${p.originalPrice.toFixed(2)}</span>`
     : '';
 
   /* Savings + shipping + feature pills */
   const savingsHtml = savings
-    ? `<span class="text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md">Ahorras $${savings}</span>`
+    ? `<span class="text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md">Ahorras ${_currency()}${savings}</span>`
     : '';
 
   const shippingHtml = p.freeShipping
@@ -557,7 +563,7 @@ function _cardHtml(p, index) {
 
                 <!-- Precio -->
                 <div class="flex items-baseline gap-2 mb-1">
-                  <span class="text-xl font-black text-slate-900">$${p.price.toFixed(2)}</span>
+                  <span class="text-xl font-black text-slate-900">${_currency()}${p.price.toFixed(2)}</span>
                   ${origHtml}
                 </div>
                 <div class="flex items-center gap-2 mb-3">
@@ -612,6 +618,6 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ── Product grid ───────────────────────────────────── */
   const grid = document.getElementById('products-grid');
   if (grid) {
-    grid.innerHTML = PRODUCTS.map((p, i) => _cardHtml(p, i)).join('');
+    grid.innerHTML = PRODUCTS.slice(0, PRODUCTS_PER_PAGE).map((p, i) => _cardHtml(p, i)).join('');
   }
 });
