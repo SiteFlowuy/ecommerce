@@ -129,6 +129,17 @@
     if (brandEl) brandEl.textContent = p.brand;
     if (skuEl)   skuEl.textContent   = 'SKU: ' + p.id.toUpperCase();
 
+    /* ── Partner badge ─────────────────────────────── */
+    const partnerBadge = $('product-partner-badge');
+    if (partnerBadge) {
+      if (p.owner === 'partner' && p.partnerName) {
+        $('product-partner-name').textContent = p.partnerName;
+        partnerBadge.classList.remove('hidden');
+      } else {
+        partnerBadge.classList.add('hidden');
+      }
+    }
+
     /* ── Title ──────────────────────────────────────── */
     const titleEl = $('product-title');
     if (titleEl) titleEl.textContent = p.name;

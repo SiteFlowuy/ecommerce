@@ -291,62 +291,7 @@
           </a>
         </div>
 
-        <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4" role="list">
-          <li>
-            <a href="/categoria/electronica" class="card-hover group flex flex-col items-center gap-3 bg-white rounded-2xl p-5 shadow-sm border border-slate-100 text-center block">
-              <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-2xl group-hover:bg-blue-100 transition-colors">📱</div>
-              <div>
-                <h3 class="text-sm font-semibold text-slate-800">Electrónica</h3>
-                <span class="text-xs text-slate-400">128 productos</span>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="/categoria/ropa" class="card-hover group flex flex-col items-center gap-3 bg-white rounded-2xl p-5 shadow-sm border border-slate-100 text-center block">
-              <div class="w-14 h-14 bg-pink-50 rounded-2xl flex items-center justify-center text-2xl group-hover:bg-pink-100 transition-colors">👗</div>
-              <div>
-                <h3 class="text-sm font-semibold text-slate-800">Ropa</h3>
-                <span class="text-xs text-slate-400">342 productos</span>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="/categoria/hogar" class="card-hover group flex flex-col items-center gap-3 bg-white rounded-2xl p-5 shadow-sm border border-slate-100 text-center block">
-              <div class="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center text-2xl group-hover:bg-amber-100 transition-colors">🏠</div>
-              <div>
-                <h3 class="text-sm font-semibold text-slate-800">Hogar</h3>
-                <span class="text-xs text-slate-400">215 productos</span>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="/categoria/deportes" class="card-hover group flex flex-col items-center gap-3 bg-white rounded-2xl p-5 shadow-sm border border-slate-100 text-center block">
-              <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-2xl group-hover:bg-emerald-100 transition-colors">⚽</div>
-              <div>
-                <h3 class="text-sm font-semibold text-slate-800">Deportes</h3>
-                <span class="text-xs text-slate-400">89 productos</span>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="/categoria/juguetes" class="card-hover group flex flex-col items-center gap-3 bg-white rounded-2xl p-5 shadow-sm border border-slate-100 text-center block">
-              <div class="w-14 h-14 bg-violet-50 rounded-2xl flex items-center justify-center text-2xl group-hover:bg-violet-100 transition-colors">🧸</div>
-              <div>
-                <h3 class="text-sm font-semibold text-slate-800">Juguetes</h3>
-                <span class="text-xs text-slate-400">174 productos</span>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="/categoria/libros" class="card-hover group flex flex-col items-center gap-3 bg-white rounded-2xl p-5 shadow-sm border border-slate-100 text-center block">
-              <div class="w-14 h-14 bg-orange-50 rounded-2xl flex items-center justify-center text-2xl group-hover:bg-orange-100 transition-colors">📚</div>
-              <div>
-                <h3 class="text-sm font-semibold text-slate-800">Libros</h3>
-                <span class="text-xs text-slate-400">560 productos</span>
-              </div>
-            </a>
-          </li>
-        </ul>
+        <ul id="categories-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4" role="list"></ul>
 
       </div>
     </section>
@@ -365,7 +310,10 @@
           </a>
         </div>
 
-        <!-- Filtros — generados dinámicamente desde PRODUCTS en products.js -->
+        <!-- Filtro por categoría — generado dinámicamente desde CATEGORIES en categories.js -->
+        <div id="category-filters-bar" class="flex flex-wrap gap-2 mb-3" role="group" aria-label="Filtrar por categoría"></div>
+
+        <!-- Filtros por tipo — generados dinámicamente desde PRODUCTS en products.js -->
         <div id="filters-bar" class="flex flex-wrap gap-2 mb-8" role="group" aria-label="Filtrar productos"></div>
 
         <ul id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" role="list">
@@ -730,6 +678,7 @@
   </div>
 
   <script src="products.js" defer></script>
+  <script src="categories.js" defer></script>
   <script src="app.js" defer></script>
 </body>
 </html>

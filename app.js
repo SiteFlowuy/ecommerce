@@ -263,8 +263,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ── Filtros + Búsqueda (estado combinado) ────────── */
-  let activeFilter = 'all';
-  let searchQuery  = '';
+  let activeFilter   = 'all';
+  let activeCategory = 'all';
+  let searchQuery    = '';
 
   // Lazy-create the empty-state node once, inserted after the product grid
   function _getEmptyState() {
@@ -287,9 +288,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let   visible = 0;
 
     cards.forEach(card => {
-      const matchesFilter = activeFilter === 'all' || card.dataset.filter === activeFilter;
-      const matchesSearch = !q || (card.querySelector('h3')?.textContent.toLowerCase().includes(q) ?? false);
-      const show = matchesFilter && matchesSearch;
+      const matchesFilter   = activeFilter   === 'all' || card.dataset.filter    === activeFilter;
+      const matchesCategory = activeCategory === 'all' || card.dataset.category  === activeCategory;
+      const matchesSearch   = !q || (card.querySelector('h3')?.textContent.toLowerCase().includes(q) ?? false);
+      const show = matchesFilter && matchesCategory && matchesSearch;
       card.style.display = show ? '' : 'none';
       if (show) visible++;
     });
@@ -310,6 +312,11 @@ document.addEventListener('DOMContentLoaded', () => {
       activeFilter = btn.dataset.filter;
       filterProducts();
     });
+  });
+
+  document.addEventListener('shopbase:category-filter', e => {
+    activeCategory = e.detail.category;
+    filterProducts();
   });
 
   const searchInput = document.getElementById('search');

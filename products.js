@@ -50,6 +50,10 @@ const PRODUCTS = [
     soldToday:    null,
     freeShipping: true,
     feature:      null,
+    owner:        'self',
+    partnerName:  '',
+    partnerHandle: '',
+    commission:   0,
   },
   {
     id:            'zapatillas-run',
@@ -90,6 +94,10 @@ const PRODUCTS = [
     soldToday:    230,
     freeShipping: true,
     feature:      null,
+    owner:        'partner',
+    partnerName:  'RunStore Oficial',
+    partnerHandle: '@runstore',
+    commission:   0.15,
   },
   {
     id:            'lampara-smart',
@@ -129,6 +137,10 @@ const PRODUCTS = [
     soldToday:    null,
     freeShipping: true,
     feature:      'Compatible Alexa',
+    owner:        'self',
+    partnerName:  '',
+    partnerHandle: '',
+    commission:   0,
   },
   {
     id:            'smartwatch-x1',
@@ -169,6 +181,10 @@ const PRODUCTS = [
     soldToday:    null,
     freeShipping: true,
     feature:      null,
+    owner:        'self',
+    partnerName:  '',
+    partnerHandle: '',
+    commission:   0,
   },
   {
     id:            'mochila-urban',
@@ -209,6 +225,10 @@ const PRODUCTS = [
     soldToday:    null,
     freeShipping: true,
     feature:      null,
+    owner:        'partner',
+    partnerName:  'UrbanBag Co.',
+    partnerHandle: '@urbanbag',
+    commission:   0.15,
   },
   {
     id:            'silla-gaming',
@@ -249,6 +269,10 @@ const PRODUCTS = [
     soldToday:    null,
     freeShipping: true,
     feature:      null,
+    owner:        'partner',
+    partnerName:  'GameZone Store',
+    partnerHandle: '@gamezone',
+    commission:   0.15,
   },
   {
     id:            'tablet-pro',
@@ -289,6 +313,10 @@ const PRODUCTS = [
     soldToday:    null,
     freeShipping: true,
     feature:      null,
+    owner:        'self',
+    partnerName:  '',
+    partnerHandle: '',
+    commission:   0,
   },
   {
     id:            'auriculares-nc',
@@ -329,6 +357,10 @@ const PRODUCTS = [
     soldToday:    180,
     freeShipping: true,
     feature:      null,
+    owner:        'self',
+    partnerName:  '',
+    partnerHandle: '',
+    commission:   0,
   },
 ];
 
@@ -393,6 +425,14 @@ function _cardHtml(p, index) {
   const savings     = p.originalPrice ? (p.originalPrice - p.price).toFixed(2) : null;
   const stars       = _stars(p.rating);
   const fallback    = `https://picsum.photos/300/300?random=${index + 2}`;
+
+  /* Partner badge */
+  const partnerHtml = p.owner === 'partner'
+    ? `<p class="text-[10px] text-slate-400 flex items-center gap-1 mb-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                  Vendido por <span class="font-semibold text-slate-500">${p.partnerName}</span>
+                </p>`
+    : '';
 
   /* Badges */
   const badgesHtml = p.badges.map(b =>
@@ -471,7 +511,7 @@ function _cardHtml(p, index) {
               <!-- Info -->
               <div class="p-4 flex flex-col flex-1">
                 <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">${p.brand}</p>
-                <h3 class="text-sm font-semibold text-slate-800 mb-2 leading-snug">
+                ${partnerHtml}<h3 class="text-sm font-semibold text-slate-800 mb-2 leading-snug">
                   <a href="producto.html?id=${p.id}" class="hover:text-brand-600 transition-colors">${p.name}</a>
                 </h3>
 
