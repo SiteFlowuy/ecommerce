@@ -568,21 +568,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Main product add-to-cart button
-    document.getElementById('product-add-cart')?.addEventListener('click', () => {
+    // id/name/price are set via data attributes by producto-init.js
+    const addCartBtn = document.getElementById('product-add-cart');
+    addCartBtn?.addEventListener('click', () => {
       addToCart({
-        id:    'auriculares-bt',
-        name:  'Auriculares Bluetooth Pro',
-        price: 89.99,
+        id:    addCartBtn.dataset.productId                        || 'unknown',
+        name:  addCartBtn.dataset.productName                      || 'Producto',
+        price: parseFloat(addCartBtn.dataset.productPrice || '0') || 0,
         image: mainProductImage.src,
         qty:   productQty,
       });
 
-      const btn  = document.getElementById('product-add-cart');
-      const orig = btn.innerHTML;
-      btn.disabled = true;
-      btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> ¡Añadido al carrito!`;
-      btn.style.background = '#059669';
-      setTimeout(() => { btn.innerHTML = orig; btn.style.background = ''; btn.disabled = false; }, 1800);
+      const orig = addCartBtn.innerHTML;
+      addCartBtn.disabled = true;
+      addCartBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> ¡Añadido al carrito!`;
+      addCartBtn.style.background = '#059669';
+      setTimeout(() => { addCartBtn.innerHTML = orig; addCartBtn.style.background = ''; addCartBtn.disabled = false; }, 1800);
       showToast();
     });
 
