@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ── SEO básico ─────────────────────────────────── -->
+  <title>Carrito de compras — ShopBase</title>
+  <meta name="description" content="Revisa los productos en tu carrito, ajusta cantidades y procede al pago de forma segura en ShopBase." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="canonical" href="https://shopbase.ejemplo.com/carrito" />
+
+  <!-- ── Open Graph ─────────────────────────────────── -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:site_name"   content="ShopBase" />
+  <meta property="og:locale"      content="es_ES" />
+  <meta property="og:url"         content="https://shopbase.ejemplo.com/carrito" />
+  <meta property="og:title"       content="Carrito de compras — ShopBase" />
+  <meta property="og:description" content="Revisa tu carrito y completa tu compra de forma segura con envío gratis en pedidos +$50." />
+  <meta property="og:image"       content="https://shopbase.ejemplo.com/assets/og-home.jpg" />
+  <meta property="og:image:width"  content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt"   content="ShopBase — Tu tienda online de confianza" />
+
+  <!-- ── Twitter Card ───────────────────────────────── -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:site"        content="@ShopBase" />
+  <meta name="twitter:title"       content="Carrito de compras — ShopBase" />
+  <meta name="twitter:description" content="Revisa tu carrito y completa tu compra de forma segura con envío gratis en pedidos +$50." />
+  <meta name="twitter:image"       content="https://shopbase.ejemplo.com/assets/og-home.jpg" />
+
+  <!-- ── Tailwind + config ───────────────────────────── -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          colors: {
+            brand: {
+              50:  '#f0f4ff',
+              100: '#e0eaff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+            },
+          },
+          animation: { 'fade-in': 'fadeIn .3s ease' },
+          keyframes: {
+            fadeIn: { from: { opacity: 0, transform: 'translateY(6px)' }, to: { opacity: 1, transform: 'translateY(0)' } },
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- ── Fuentes ────────────────────────────────────── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased">
+
+  <!-- ===================== ANNOUNCEMENT BAR ===================== -->
+  <div id="announcement-bar" class="bg-brand-600 text-white text-xs font-semibold text-center py-2.5 px-4 relative" role="banner">
+    <span>🎉 Usa el código <strong class="bg-white/20 px-1.5 py-0.5 rounded font-bold tracking-wider">BIENVENIDO10</strong> y obtén 10% de descuento en tu primera compra</span>
+    <button id="close-announcement" class="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-white/70 hover:text-white rounded transition-colors" aria-label="Cerrar anuncio">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-100 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 gap-4">
+
+        <a href="index.html" class="flex items-center gap-2 shrink-0" aria-label="ShopBase — Inicio">
+          <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center shadow-md">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          </div>
+          <span class="text-xl font-bold text-slate-900 tracking-tight">ShopBase</span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-1" aria-label="Navegación principal">
+          <a href="index.html#categories" class="px-4 py-2 text-sm font-medium text-slate-600 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors">Categorías</a>
+          <a href="index.html#products"   class="px-4 py-2 text-sm font-medium text-slate-600 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors">Productos</a>
+          <a href="index.html#offers"     class="px-4 py-2 text-sm font-medium text-slate-600 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors">Ofertas</a>
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <a href="/cuenta" class="w-9 h-9 flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors" aria-label="Mi cuenta">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </a>
+          <a href="carrito.html" class="relative w-9 h-9 flex items-center justify-center text-brand-600 bg-brand-50 rounded-lg" aria-label="Carrito de compras" aria-current="page">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            <span class="absolute -top-1 -right-1 bg-brand-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center" aria-live="polite">0</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Ruta de navegación" class="mb-8">
+      <ol class="flex items-center gap-1.5 text-xs text-slate-500">
+        <li><a href="index.html" class="hover:text-brand-600 transition-colors">Inicio</a></li>
+        <li aria-hidden="true" class="text-slate-300">›</li>
+        <li class="text-slate-800 font-medium" aria-current="page">Carrito</li>
+      </ol>
+    </nav>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+      <!-- ── Lista de productos ── -->
+      <div class="lg:col-span-2">
+        <h1 class="text-2xl font-extrabold text-slate-900 mb-6">Tu carrito</h1>
+        <div id="cart-container"></div>
+      </div>
+
+      <!-- ── Resumen lateral ── -->
+      <aside class="lg:col-span-1" aria-label="Resumen del pedido">
+        <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 sticky top-24">
+          <h2 class="text-base font-bold text-slate-900 mb-5">Resumen del pedido</h2>
+
+          <div class="space-y-3 text-sm mb-5">
+            <div class="flex justify-between text-slate-600">
+              <span>Subtotal</span>
+              <span id="summary-subtotal" class="font-semibold text-slate-900">$0.00</span>
+            </div>
+            <div class="flex justify-between text-slate-600">
+              <span>Envío</span>
+              <span class="font-semibold text-emerald-600">Gratis</span>
+            </div>
+            <div class="flex justify-between text-slate-600">
+              <span>Descuento</span>
+              <span class="font-semibold text-slate-900">—</span>
+            </div>
+          </div>
+
+          <!-- Cupón -->
+          <div class="flex gap-2 mb-5">
+            <label for="coupon-input" class="sr-only">Código de descuento</label>
+            <input id="coupon-input" type="text" placeholder="Código de descuento"
+              class="flex-1 border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition" />
+            <button id="coupon-apply"
+              class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-sm px-4 py-2.5 rounded-xl transition-colors whitespace-nowrap">
+              Aplicar
+            </button>
+          </div>
+          <p id="coupon-msg" class="hidden text-xs mb-4"></p>
+
+          <div class="border-t border-slate-100 pt-4 mb-5">
+            <div class="flex justify-between">
+              <span class="text-base font-bold text-slate-900">Total</span>
+              <span id="summary-total" class="text-2xl font-black text-slate-900">$0.00</span>
+            </div>
+          </div>
+
+          <a href="checkout.html"
+            class="w-full flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-bold py-4 rounded-xl transition-colors shadow-lg text-sm">
+            Proceder al pago
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+
+          <div class="flex items-center justify-center gap-2 mt-4 text-xs text-slate-400">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Pago 100% seguro con SSL
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- ===================== TRUST BAR ===================== -->
+  <div class="bg-slate-900 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 divide-x divide-white/5">
+        <div class="flex items-center gap-3 px-4 first:pl-0"><div class="text-slate-400 shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><p class="text-white text-xs font-semibold">Pago 100% seguro</p><p class="text-slate-500 text-[11px]">SSL 256-bit</p></div></div>
+        <div class="flex items-center gap-3 px-4"><div class="text-slate-400 shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div><p class="text-white text-xs font-semibold">Envío gratis +$50</p><p class="text-slate-500 text-[11px]">Express disponible</p></div></div>
+        <div class="flex items-center gap-3 px-4"><div class="text-slate-400 shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><div><p class="text-white text-xs font-semibold">Devolución 30 días</p><p class="text-slate-500 text-[11px]">Sin preguntas</p></div></div>
+        <div class="flex items-center gap-3 px-4"><div class="text-slate-400 shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.64 3.38 2 2 0 0 1 3.6 1.2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l1.06-1.06a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.7 16z"/></svg></div><div><p class="text-white text-xs font-semibold">Soporte 24/7</p><p class="text-slate-500 text-[11px]">Chat y teléfono</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="bg-slate-950 border-t border-white/5 text-slate-400" aria-label="Pie de página">
+    <div class="border-t border-white/5">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-xs text-slate-600">&copy; 2026 ShopBase. Todos los derechos reservados.</p>
+        <div class="flex items-center gap-2" aria-label="Métodos de pago aceptados">
+          <span class="bg-white/5 text-slate-400 text-xs font-medium px-3 py-1 rounded-lg border border-white/5">Visa</span>
+          <span class="bg-white/5 text-slate-400 text-xs font-medium px-3 py-1 rounded-lg border border-white/5">Mastercard</span>
+          <span class="bg-white/5 text-slate-400 text-xs font-medium px-3 py-1 rounded-lg border border-white/5">PayPal</span>
+          <span class="bg-white/5 text-slate-400 text-xs font-medium px-3 py-1 rounded-lg border border-white/5">Apple Pay</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js" defer></script>
+  <script>
+    // Sync summary sidebar with cart total
+    document.addEventListener('DOMContentLoaded', () => {
+      function updateSummary() {
+        const total = typeof getCartTotal === 'function' ? getCartTotal() : 0;
+        const fmt   = n => '$' + n.toFixed(2);
+        document.getElementById('summary-subtotal').textContent = fmt(total);
+        document.getElementById('summary-total').textContent    = fmt(total);
+      }
+      // Re-run after renderCart draws (it fires synchronously on DOMContentLoaded)
+      setTimeout(updateSummary, 0);
+
+      // Coupon demo
+      document.getElementById('coupon-apply')?.addEventListener('click', () => {
+        const code = document.getElementById('coupon-input').value.trim().toUpperCase();
+        const msg  = document.getElementById('coupon-msg');
+        msg.classList.remove('hidden', 'text-emerald-600', 'text-rose-500');
+        if (code === 'BIENVENIDO10') {
+          msg.textContent = '✓ Código aplicado: 10% de descuento';
+          msg.classList.add('text-emerald-600');
+        } else {
+          msg.textContent = '✗ Código inválido o expirado';
+          msg.classList.add('text-rose-500');
+        }
+        msg.classList.remove('hidden');
+      });
+    });
+  </script>
+</body>
+</html>

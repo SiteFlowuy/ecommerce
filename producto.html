@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ── SEO básico ─────────────────────────────────── -->
+  <title>Auriculares Bluetooth Pro — SoundTech | ShopBase</title>
+  <meta name="description" content="Auriculares Bluetooth Pro SoundTech: ANC activo, Bluetooth 5.3 multipoint, 30 h de batería y carga rápida. Ahora $89.99 — envío gratis. Solo 3 unidades." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://shopbase.ejemplo.com/producto/auriculares-bt" />
+
+  <!-- ── Open Graph ─────────────────────────────────── -->
+  <meta property="og:type"        content="product" />
+  <meta property="og:site_name"   content="ShopBase" />
+  <meta property="og:locale"      content="es_ES" />
+  <meta property="og:url"         content="https://shopbase.ejemplo.com/producto/auriculares-bt" />
+  <meta property="og:title"       content="Auriculares Bluetooth Pro — SoundTech | ShopBase" />
+  <meta property="og:description" content="ANC activo, Bluetooth 5.3 multipoint, 30 h de batería y carga rápida. $89.99 con envío gratis. ¡Solo quedan 3 unidades!" />
+  <meta property="og:image"       content="https://shopbase.ejemplo.com/assets/products/product-1.jpg" />
+  <meta property="og:image:width"  content="1200" />
+  <meta property="og:image:height" content="1200" />
+  <meta property="og:image:alt"   content="Auriculares Bluetooth Pro SoundTech en color negro" />
+  <meta property="product:price:amount"   content="89.99" />
+  <meta property="product:price:currency" content="USD" />
+
+  <!-- ── Twitter Card ───────────────────────────────── -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:site"        content="@ShopBase" />
+  <meta name="twitter:title"       content="Auriculares Bluetooth Pro — SoundTech | ShopBase" />
+  <meta name="twitter:description" content="ANC activo, Bluetooth 5.3 multipoint, 30 h de batería. $89.99 con envío gratis — ¡Solo quedan 3 unidades!" />
+  <meta name="twitter:image"       content="https://shopbase.ejemplo.com/assets/products/product-1.jpg" />
+
+  <!-- ── Schema.org: Product ───────────────────────── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Auriculares Bluetooth Pro",
+    "description": "Auriculares inalámbricos con cancelación activa de ruido, Bluetooth 5.3 multipoint, 30 horas de batería y carga rápida USB-C.",
+    "sku": "ST-BT-PRO-001",
+    "brand": {
+      "@type": "Brand",
+      "name": "SoundTech"
+    },
+    "image": [
+      "https://shopbase.ejemplo.com/assets/products/product-1.jpg"
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.5",
+      "reviewCount": "128",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": "https://shopbase.ejemplo.com/producto/auriculares-bt",
+      "priceCurrency": "USD",
+      "price": "89.99",
+      "priceValidUntil": "2026-12-31",
+      "itemCondition": "https://schema.org/NewCondition",
+      "availability": "https://schema.org/LimitedAvailability",
+      "seller": {
+        "@type": "Organization",
+        "name": "ShopBase"
+      }
+    }
+  }
+  </script>
+
+  <!-- ── Tailwind + config ───────────────────────────── -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          colors: {
+            brand: {
+              50:  '#f0f4ff',
+              100: '#e0eaff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+            },
+          },
+          animation: { 'fade-in': 'fadeIn .3s ease' },
+          keyframes: {
+            fadeIn: { from: { opacity: 0, transform: 'translateY(6px)' }, to: { opacity: 1, transform: 'translateY(0)' } },
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- ── Fuentes ────────────────────────────────────── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <!-- ── Recurso crítico: imagen principal ─────────── -->
+  <link rel="preload" as="image" href="assets/products/product-1.jpg" fetchpriority="high" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased">
+
+  <!-- ===================== ANNOUNCEMENT BAR ===================== -->
+  <div id="announcement-bar" class="bg-brand-600 text-white text-xs font-semibold text-center py-2.5 px-4 relative" role="banner">
+    <span>🎉 Usa el código <strong class="bg-white/20 px-1.5 py-0.5 rounded font-bold tracking-wider">BIENVENIDO10</strong> y obtén 10% de descuento en tu primera compra</span>
+    <button id="close-announcement" class="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-white/70 hover:text-white rounded transition-colors" aria-label="Cerrar anuncio">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-100 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 gap-4">
+
+        <a href="index.html" class="flex items-center gap-2 shrink-0" aria-label="ShopBase — Inicio">
+          <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center shadow-md">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          </div>
+          <span class="text-xl font-bold text-slate-900 tracking-tight">ShopBase</span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-1" aria-label="Navegación principal">
+          <a href="index.html#categories" class="px-4 py-2 text-sm font-medium text-slate-600 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors">Categorías</a>
+          <a href="index.html#products"   class="px-4 py-2 text-sm font-medium text-slate-600 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors">Productos</a>
+          <a href="index.html#offers"     class="px-4 py-2 text-sm font-medium text-slate-600 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors">Ofertas</a>
+          <a href="index.html#about"      class="px-4 py-2 text-sm font-medium text-slate-600 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-colors">Nosotros</a>
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <form class="hidden sm:flex items-center bg-slate-100 rounded-xl px-3 py-2 gap-2 focus-within:ring-2 focus-within:ring-brand-500 focus-within:bg-white transition-all" role="search" action="/buscar" method="get">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <label for="search" class="sr-only">Buscar productos</label>
+            <input type="search" id="search" name="q" placeholder="Buscar…" class="bg-transparent text-sm text-slate-700 placeholder-slate-400 outline-none w-36 lg:w-52" />
+          </form>
+
+          <a href="/cuenta" class="w-9 h-9 flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors" aria-label="Mi cuenta">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </a>
+
+          <button id="menu-toggle" class="md:hidden w-9 h-9 flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+            <svg id="menu-icon-open" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <svg id="menu-icon-close" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hidden"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+
+          <a href="carrito.html" class="relative w-9 h-9 flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors" aria-label="Carrito de compras">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            <span class="absolute -top-1 -right-1 bg-brand-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center" aria-live="polite">0</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== MOBILE MENU ===================== -->
+  <div id="mobile-menu" class="fixed inset-0 z-40 bg-white hidden flex-col" aria-label="Menú móvil">
+    <div class="flex-1 overflow-y-auto px-6 pt-8 pb-6">
+      <nav class="flex flex-col gap-1 mb-8">
+        <a href="index.html#categories" class="text-lg font-semibold text-slate-800 py-3 border-b border-slate-100 hover:text-brand-600 transition-colors">Categorías</a>
+        <a href="index.html#products"   class="text-lg font-semibold text-slate-800 py-3 border-b border-slate-100 hover:text-brand-600 transition-colors">Productos</a>
+        <a href="index.html#offers"     class="text-lg font-semibold text-slate-800 py-3 border-b border-slate-100 hover:text-brand-600 transition-colors">Ofertas</a>
+        <a href="index.html#about"      class="text-lg font-semibold text-slate-800 py-3 border-b border-slate-100 hover:text-brand-600 transition-colors">Nosotros</a>
+      </nav>
+      <div class="flex flex-col gap-3">
+        <a href="/registro" class="w-full bg-brand-600 text-white text-center font-bold py-3.5 rounded-xl hover:bg-brand-700 transition-colors">Crear cuenta</a>
+        <a href="/login"    class="w-full border-2 border-slate-200 text-slate-700 text-center font-semibold py-3.5 rounded-xl hover:border-brand-600 hover:text-brand-600 transition-colors">Iniciar sesión</a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ===================== BREADCRUMB ===================== -->
+    <div class="bg-white border-b border-slate-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+        <nav aria-label="Ruta de navegación">
+          <ol class="flex items-center gap-1.5 text-xs text-slate-500 flex-wrap">
+            <li><a href="index.html" class="hover:text-brand-600 transition-colors">Inicio</a></li>
+            <li aria-hidden="true" class="text-slate-300">›</li>
+            <li><a href="index.html#categories" class="hover:text-brand-600 transition-colors">Electrónica</a></li>
+            <li aria-hidden="true" class="text-slate-300">›</li>
+            <li class="text-slate-800 font-medium" aria-current="page">Auriculares Bluetooth Pro</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+
+    <!-- ===================== PRODUCTO ===================== -->
+    <section class="py-10 lg:py-14" aria-labelledby="product-title">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-16">
+
+          <!-- ── Galería ──────────────────────────────────── -->
+          <div>
+            <!-- Imagen principal -->
+            <div class="bg-slate-100 rounded-2xl overflow-hidden aspect-square mb-3 relative group">
+              <img id="main-product-image"
+                src="assets/products/product-1.jpg"
+                alt="Auriculares Bluetooth Pro"
+                class="w-full h-full object-cover transition-all duration-500"
+                width="600" height="600" loading="eager"
+                onerror="this.onerror=null;this.src='https://picsum.photos/600/600?random=20'" />
+              <span class="absolute top-4 left-4 bg-rose-500 text-white text-xs font-bold px-2.5 py-1 rounded-lg shadow">−25%</span>
+            </div>
+            <!-- Miniaturas -->
+            <div class="grid grid-cols-4 gap-2.5" role="list" aria-label="Galería del producto">
+              <button class="thumbnail-btn ring-2 ring-brand-600 ring-offset-2 rounded-xl overflow-hidden aspect-square bg-slate-100 transition-all"
+                data-full="assets/products/product-1.jpg" data-fallback="https://picsum.photos/600/600?random=20"
+                aria-label="Imagen 1" aria-pressed="true">
+                <img src="assets/products/product-1.jpg" alt="" class="w-full h-full object-cover"
+                  onerror="this.onerror=null;this.src='https://picsum.photos/150/150?random=20'" />
+              </button>
+              <button class="thumbnail-btn ring-1 ring-slate-200 hover:ring-brand-300 hover:ring-2 ring-offset-2 rounded-xl overflow-hidden aspect-square bg-slate-100 transition-all"
+                data-full="https://picsum.photos/600/600?random=21" data-fallback="https://picsum.photos/600/600?random=21"
+                aria-label="Imagen 2" aria-pressed="false">
+                <img src="https://picsum.photos/150/150?random=21" alt="" class="w-full h-full object-cover" />
+              </button>
+              <button class="thumbnail-btn ring-1 ring-slate-200 hover:ring-brand-300 hover:ring-2 ring-offset-2 rounded-xl overflow-hidden aspect-square bg-slate-100 transition-all"
+                data-full="https://picsum.photos/600/600?random=22" data-fallback="https://picsum.photos/600/600?random=22"
+                aria-label="Imagen 3" aria-pressed="false">
+                <img src="https://picsum.photos/150/150?random=22" alt="" class="w-full h-full object-cover" />
+              </button>
+              <button class="thumbnail-btn ring-1 ring-slate-200 hover:ring-brand-300 hover:ring-2 ring-offset-2 rounded-xl overflow-hidden aspect-square bg-slate-100 transition-all"
+                data-full="https://picsum.photos/600/600?random=23" data-fallback="https://picsum.photos/600/600?random=23"
+                aria-label="Imagen 4" aria-pressed="false">
+                <img src="https://picsum.photos/150/150?random=23" alt="" class="w-full h-full object-cover" />
+              </button>
+            </div>
+          </div>
+
+          <!-- ── Info del producto ────────────────────────── -->
+          <div class="flex flex-col">
+
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">SoundTech</span>
+              <span class="text-xs text-slate-400">SKU: ST-BT-PRO-001</span>
+            </div>
+
+            <h1 id="product-title" class="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight mb-3">
+              Auriculares Bluetooth Pro
+            </h1>
+
+            <!-- Rating -->
+            <div class="flex items-center gap-2 mb-4">
+              <span class="stars text-base" aria-hidden="true">★★★★☆</span>
+              <span class="text-sm font-semibold text-slate-700">4.5</span>
+              <a href="#tab-reviews" class="text-sm text-slate-400 hover:text-brand-600 transition-colors">(128 reseñas)</a>
+              <span class="text-slate-200 mx-1">|</span>
+              <span class="text-sm text-emerald-600 font-semibold flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                En stock
+              </span>
+            </div>
+
+            <hr class="border-slate-100 mb-5" />
+
+            <!-- Precio -->
+            <div class="flex items-baseline gap-3 mb-2">
+              <span class="text-4xl font-black text-slate-900">$89.99</span>
+              <span class="text-xl text-slate-400 line-through font-medium">$119.99</span>
+              <span class="bg-rose-100 text-rose-600 text-xs font-bold px-2.5 py-1 rounded-lg">−25%</span>
+            </div>
+            <div class="flex items-center gap-3 mb-5">
+              <span class="text-sm font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-lg">Ahorras $30.00</span>
+              <span class="text-sm text-slate-500 flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                Envío gratis
+              </span>
+            </div>
+
+            <!-- Urgencia -->
+            <div class="flex items-center gap-2 bg-orange-50 border border-orange-100 rounded-xl px-4 py-2.5 mb-6">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="#ea580c"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+              <p class="text-xs font-semibold text-orange-700">¡Solo quedan <strong>3 unidades</strong> disponibles!</p>
+            </div>
+
+            <!-- Color -->
+            <div class="mb-5">
+              <p class="text-sm font-semibold text-slate-700 mb-3">
+                Color: <span id="selected-color" class="text-brand-600 font-bold">Negro</span>
+              </p>
+              <div class="flex gap-3" role="group" aria-label="Seleccionar color">
+                <button class="color-swatch ring-2 ring-brand-600 ring-offset-2 w-9 h-9 rounded-full border-2 border-white shadow-md transition-all hover:scale-110"
+                  data-color="Negro" style="background:#1e293b" aria-label="Color Negro" aria-pressed="true"></button>
+                <button class="color-swatch ring-1 ring-slate-300 ring-offset-2 w-9 h-9 rounded-full border-2 border-white shadow-md transition-all hover:scale-110"
+                  data-color="Blanco" style="background:#f1f5f9" aria-label="Color Blanco" aria-pressed="false"></button>
+                <button class="color-swatch ring-1 ring-slate-300 ring-offset-2 w-9 h-9 rounded-full border-2 border-white shadow-md transition-all hover:scale-110"
+                  data-color="Azul Marino" style="background:#1d4ed8" aria-label="Color Azul Marino" aria-pressed="false"></button>
+                <button class="color-swatch ring-1 ring-slate-300 ring-offset-2 w-9 h-9 rounded-full border-2 border-white shadow-md transition-all hover:scale-110"
+                  data-color="Verde Bosque" style="background:#166534" aria-label="Color Verde Bosque" aria-pressed="false"></button>
+              </div>
+            </div>
+
+            <!-- Cantidad -->
+            <div class="mb-6">
+              <p class="text-sm font-semibold text-slate-700 mb-3">Cantidad</p>
+              <div class="flex items-center gap-4">
+                <div class="inline-flex items-center border border-slate-200 rounded-xl overflow-hidden">
+                  <button id="qty-dec" class="w-11 h-11 flex items-center justify-center text-slate-600 hover:bg-slate-100 transition-colors text-xl font-bold" aria-label="Reducir cantidad">−</button>
+                  <span id="qty-display" class="w-14 text-center text-sm font-bold text-slate-900 tabular-nums">1</span>
+                  <button id="qty-inc" class="w-11 h-11 flex items-center justify-center text-slate-600 hover:bg-slate-100 transition-colors text-xl font-bold" aria-label="Aumentar cantidad">+</button>
+                </div>
+                <span class="text-xs text-slate-400">máx. 10 por pedido</span>
+              </div>
+            </div>
+
+            <!-- CTAs -->
+            <div class="flex gap-3 mb-6">
+              <button id="product-add-cart"
+                class="flex-1 bg-brand-600 hover:bg-brand-700 active:scale-[0.98] text-white font-bold py-4 rounded-xl transition-all shadow-lg hover:shadow-brand-600/30 hover:shadow-xl flex items-center justify-center gap-2 text-sm"
+                type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                Agregar al carrito
+              </button>
+              <button id="product-wishlist"
+                class="wishlist-btn w-14 flex items-center justify-center border-2 border-slate-200 text-slate-400 rounded-xl hover:border-rose-300 hover:text-rose-500 transition-all"
+                aria-label="Agregar a favoritos" type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </button>
+            </div>
+
+            <!-- Trust grid -->
+            <div class="grid grid-cols-2 gap-2">
+              <div class="flex items-center gap-2.5 bg-slate-50 border border-slate-100 rounded-xl px-3 py-2.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                <div><p class="text-xs font-semibold text-slate-700">Envío express</p><p class="text-[10px] text-slate-400">Llega mañana</p></div>
+              </div>
+              <div class="flex items-center gap-2.5 bg-slate-50 border border-slate-100 rounded-xl px-3 py-2.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                <div><p class="text-xs font-semibold text-slate-700">Devolución gratis</p><p class="text-[10px] text-slate-400">30 días sin costo</p></div>
+              </div>
+              <div class="flex items-center gap-2.5 bg-slate-50 border border-slate-100 rounded-xl px-3 py-2.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <div><p class="text-xs font-semibold text-slate-700">Pago seguro</p><p class="text-[10px] text-slate-400">SSL 256-bit</p></div>
+              </div>
+              <div class="flex items-center gap-2.5 bg-slate-50 border border-slate-100 rounded-xl px-3 py-2.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                <div><p class="text-xs font-semibold text-slate-700">Garantía</p><p class="text-[10px] text-slate-400">12 meses oficial</p></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== TABS ===================== -->
+    <section class="bg-white border-t border-slate-100" aria-label="Detalles del producto">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="flex border-b border-slate-100 overflow-x-auto" role="tablist">
+          <button class="product-tab shrink-0 px-6 py-4 text-sm font-semibold text-brand-600 border-b-2 border-brand-600 transition-colors"
+            role="tab" data-tab="description" aria-selected="true" aria-controls="tab-description">
+            Descripción
+          </button>
+          <button class="product-tab shrink-0 px-6 py-4 text-sm font-medium text-slate-500 border-b-2 border-transparent hover:text-slate-700 transition-colors"
+            role="tab" data-tab="specs" aria-selected="false" aria-controls="tab-specs">
+            Especificaciones
+          </button>
+          <button class="product-tab shrink-0 px-6 py-4 text-sm font-medium text-slate-500 border-b-2 border-transparent hover:text-slate-700 transition-colors"
+            role="tab" data-tab="reviews" aria-selected="false" aria-controls="tab-reviews">
+            Reseñas <span class="ml-1.5 bg-slate-100 text-slate-600 text-xs font-bold px-1.5 py-0.5 rounded-md">128</span>
+          </button>
+        </div>
+
+        <div class="py-10">
+
+          <!-- DESCRIPCIÓN -->
+          <div id="tab-description" role="tabpanel">
+            <div class="max-w-3xl">
+              <h3 class="text-lg font-bold text-slate-900 mb-4">Sonido que te transporta</h3>
+              <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                Los Auriculares Bluetooth Pro de SoundTech combinan cancelación activa de ruido (ANC) de última generación con drivers de 40 mm que reproducen cada detalle musical con precisión. Desde los bajos profundos hasta los agudos más cristalinos.
+              </p>
+              <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                Con hasta <strong class="text-slate-800">30 horas de autonomía</strong> en modo ANC activo y 40 horas sin ANC, son el compañero ideal para largas jornadas. La carga rápida de 15 minutos te da 3 horas adicionales cuando más lo necesitas.
+              </p>
+              <ul class="space-y-3">
+                <li class="flex items-start gap-2.5 text-sm text-slate-700">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5" class="mt-0.5 shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                  Cancelación activa de ruido (ANC) con 3 micrófonos por copa
+                </li>
+                <li class="flex items-start gap-2.5 text-sm text-slate-700">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5" class="mt-0.5 shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                  Bluetooth 5.3 multipoint — conecta 2 dispositivos simultáneamente
+                </li>
+                <li class="flex items-start gap-2.5 text-sm text-slate-700">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5" class="mt-0.5 shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                  Diseño plegable con almohadillas de memoria viscoelástica
+                </li>
+                <li class="flex items-start gap-2.5 text-sm text-slate-700">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5" class="mt-0.5 shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                  Compatible con Google Assistant y Siri
+                </li>
+                <li class="flex items-start gap-2.5 text-sm text-slate-700">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5" class="mt-0.5 shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                  Cable de 3.5 mm incluido para uso en modo avión
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- ESPECIFICACIONES -->
+          <div id="tab-specs" role="tabpanel" class="hidden">
+            <div class="max-w-2xl">
+              <table class="w-full text-sm border-collapse">
+                <tbody>
+                  <tr class="border-b border-slate-100"><td class="py-3 pr-8 text-slate-500 font-medium w-52">Driver</td><td class="py-3 text-slate-800 font-semibold">40 mm Dynamic Driver</td></tr>
+                  <tr class="border-b border-slate-100"><td class="py-3 pr-8 text-slate-500 font-medium">Respuesta en frecuencia</td><td class="py-3 text-slate-800 font-semibold">20 Hz – 20 kHz</td></tr>
+                  <tr class="border-b border-slate-100"><td class="py-3 pr-8 text-slate-500 font-medium">Impedancia</td><td class="py-3 text-slate-800 font-semibold">32 Ω</td></tr>
+                  <tr class="border-b border-slate-100"><td class="py-3 pr-8 text-slate-500 font-medium">Bluetooth</td><td class="py-3 text-slate-800 font-semibold">5.3 (A2DP, AVRCP, HFP)</td></tr>
+                  <tr class="border-b border-slate-100"><td class="py-3 pr-8 text-slate-500 font-medium">Alcance</td><td class="py-3 text-slate-800 font-semibold">Hasta 10 metros</td></tr>
+                  <tr class="border-b border-slate-100"><td class="py-3 pr-8 text-slate-500 font-medium">Batería</td><td class="py-3 text-slate-800 font-semibold">700 mAh</td></tr>
+                  <tr class="border-b border-slate-100"><td class="py-3 pr-8 text-slate-500 font-medium">Autonomía (ANC activo)</td><td class="py-3 text-slate-800 font-semibold">30 horas</td></tr>
+                  <tr class="border-b border-slate-100"><td class="py-3 pr-8 text-slate-500 font-medium">Autonomía (ANC apagado)</td><td class="py-3 text-slate-800 font-semibold">40 horas</td></tr>
+                  <tr class="border-b border-slate-100"><td class="py-3 pr-8 text-slate-500 font-medium">Carga</td><td class="py-3 text-slate-800 font-semibold">USB-C, carga rápida (15 min = 3 h)</td></tr>
+                  <tr class="border-b border-slate-100"><td class="py-3 pr-8 text-slate-500 font-medium">Peso</td><td class="py-3 text-slate-800 font-semibold">250 g</td></tr>
+                  <tr class="border-b border-slate-100"><td class="py-3 pr-8 text-slate-500 font-medium">Colores disponibles</td><td class="py-3 text-slate-800 font-semibold">Negro, Blanco, Azul Marino, Verde Bosque</td></tr>
+                  <tr><td class="py-3 pr-8 text-slate-500 font-medium">Incluye</td><td class="py-3 text-slate-800 font-semibold">Auriculares, USB-C, cable 3.5 mm, estuche rígido, guía</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- RESEÑAS -->
+          <div id="tab-reviews" role="tabpanel" class="hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+
+              <!-- Resumen general -->
+              <div>
+                <div class="text-center bg-slate-50 rounded-2xl p-8 border border-slate-100">
+                  <p class="text-7xl font-black text-slate-900 leading-none mb-2">4.5</p>
+                  <div class="flex justify-center text-amber-400 text-xl mb-1">★★★★☆</div>
+                  <p class="text-sm text-slate-500 mb-6">128 reseñas verificadas</p>
+                  <div class="space-y-2 text-left">
+                    <div class="flex items-center gap-2 text-xs"><span class="w-3 text-slate-600 text-right">5</span><div class="flex-1 bg-slate-200 rounded-full h-1.5"><div class="bg-amber-400 h-1.5 rounded-full" style="width:68%"></div></div><span class="w-7 text-slate-400 text-right">68%</span></div>
+                    <div class="flex items-center gap-2 text-xs"><span class="w-3 text-slate-600 text-right">4</span><div class="flex-1 bg-slate-200 rounded-full h-1.5"><div class="bg-amber-400 h-1.5 rounded-full" style="width:20%"></div></div><span class="w-7 text-slate-400 text-right">20%</span></div>
+                    <div class="flex items-center gap-2 text-xs"><span class="w-3 text-slate-600 text-right">3</span><div class="flex-1 bg-slate-200 rounded-full h-1.5"><div class="bg-amber-400 h-1.5 rounded-full" style="width:7%"></div></div><span class="w-7 text-slate-400 text-right">7%</span></div>
+                    <div class="flex items-center gap-2 text-xs"><span class="w-3 text-slate-600 text-right">2</span><div class="flex-1 bg-slate-200 rounded-full h-1.5"><div class="bg-amber-400 h-1.5 rounded-full" style="width:3%"></div></div><span class="w-7 text-slate-400 text-right">3%</span></div>
+                    <div class="flex items-center gap-2 text-xs"><span class="w-3 text-slate-600 text-right">1</span><div class="flex-1 bg-slate-200 rounded-full h-1.5"><div class="bg-amber-400 h-1.5 rounded-full" style="width:2%"></div></div><span class="w-7 text-slate-400 text-right">2%</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tarjetas de reseña -->
+              <div class="lg:col-span-2 space-y-4">
+                <article class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+                  <header class="flex items-start justify-between mb-3">
+                    <div class="flex items-center gap-3">
+                      <div class="w-9 h-9 bg-brand-100 rounded-full flex items-center justify-center text-brand-600 font-bold text-sm shrink-0">A</div>
+                      <div><p class="text-sm font-semibold text-slate-800">Andrés P.</p><p class="text-xs text-slate-400">Madrid · hace 2 semanas</p></div>
+                    </div>
+                    <div class="text-amber-400 text-sm shrink-0">★★★★★</div>
+                  </header>
+                  <p class="text-sm text-slate-600 leading-relaxed mb-3">"La cancelación de ruido es increíble. Los uso en el metro y apenas escucho nada. Sonido muy equilibrado y la batería dura exactamente lo que prometen."</p>
+                  <p class="text-xs text-emerald-600 font-semibold flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Compra verificada</p>
+                </article>
+                <article class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+                  <header class="flex items-start justify-between mb-3">
+                    <div class="flex items-center gap-3">
+                      <div class="w-9 h-9 bg-rose-100 rounded-full flex items-center justify-center text-rose-600 font-bold text-sm shrink-0">S</div>
+                      <div><p class="text-sm font-semibold text-slate-800">Sofía R.</p><p class="text-xs text-slate-400">Barcelona · hace 1 mes</p></div>
+                    </div>
+                    <div class="text-amber-400 text-sm shrink-0">★★★★☆</div>
+                  </header>
+                  <p class="text-sm text-slate-600 leading-relaxed mb-3">"Muy cómodos todo el día. El multipoint es un plus enorme para pasar del ordenador al móvil. Le quito una estrella porque el estuche es un poco pequeño."</p>
+                  <p class="text-xs text-emerald-600 font-semibold flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Compra verificada</p>
+                </article>
+                <article class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+                  <header class="flex items-start justify-between mb-3">
+                    <div class="flex items-center gap-3">
+                      <div class="w-9 h-9 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 font-bold text-sm shrink-0">J</div>
+                      <div><p class="text-sm font-semibold text-slate-800">Javier M.</p><p class="text-xs text-slate-400">Valencia · hace 6 semanas</p></div>
+                    </div>
+                    <div class="text-amber-400 text-sm shrink-0">★★★★★</div>
+                  </header>
+                  <p class="text-sm text-slate-600 leading-relaxed mb-3">"Relación calidad-precio insuperable. Los tenía en lista de deseos y cuando los vi en oferta no lo dudé. Llegaron en menos de 24 horas y el embalaje impecable."</p>
+                  <p class="text-xs text-emerald-600 font-semibold flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Compra verificada</p>
+                </article>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PRODUCTOS RELACIONADOS ===================== -->
+    <section class="py-14 lg:py-20 bg-slate-50 border-t border-slate-100" aria-labelledby="related-title">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-end justify-between mb-8">
+          <div>
+            <p class="text-brand-600 text-sm font-semibold uppercase tracking-widest mb-2">Descubre más</p>
+            <h2 id="related-title" class="text-2xl font-extrabold text-slate-900">También te puede interesar</h2>
+          </div>
+          <a href="index.html#products" class="text-sm font-semibold text-brand-600 hover:text-brand-700 flex items-center gap-1 transition-colors">Ver todos →</a>
+        </div>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" role="list">
+
+          <li class="product-card" data-id="zapatillas-run" data-filter="sale">
+            <article class="group bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-brand-200">
+              <div class="relative bg-slate-50 aspect-square overflow-hidden">
+                <img src="assets/products/product-2.jpg" alt="Zapatillas Running Air" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" width="300" height="300" loading="lazy" onerror="this.onerror=null;this.src='https://picsum.photos/300/300?random=3'" />
+                <span class="absolute top-3 left-3 bg-rose-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-md">−25%</span>
+                <button class="wishlist-btn absolute top-3 right-3 w-8 h-8 bg-white/90 rounded-full shadow flex items-center justify-center text-slate-300 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+              </div>
+              <div class="p-4 flex flex-col flex-1">
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">RunFast</p>
+                <h3 class="text-sm font-semibold text-slate-800 mb-2 flex-1"><a href="producto.html" class="hover:text-brand-600 transition-colors">Zapatillas Running Air</a></h3>
+                <div class="flex items-baseline gap-2 mb-3"><span class="text-lg font-black text-slate-900">$74.99</span><span class="text-sm text-slate-400 line-through">$99.99</span></div>
+                <button class="btn-add-cart w-full bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5" type="button" aria-label="Agregar Zapatillas Running Air al carrito"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Agregar al carrito</button>
+              </div>
+            </article>
+          </li>
+
+          <li class="product-card" data-id="lampara-smart" data-filter="sale">
+            <article class="group bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-brand-200">
+              <div class="relative bg-slate-50 aspect-square overflow-hidden">
+                <img src="assets/products/product-3.jpg" alt="Lámpara Smart LED" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" width="300" height="300" loading="lazy" onerror="this.onerror=null;this.src='https://picsum.photos/300/300?random=4'" />
+                <span class="absolute top-3 left-3 bg-violet-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-md">SMART HOME</span>
+                <button class="wishlist-btn absolute top-3 right-3 w-8 h-8 bg-white/90 rounded-full shadow flex items-center justify-center text-slate-300 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+              </div>
+              <div class="p-4 flex flex-col flex-1">
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">HomeLux</p>
+                <h3 class="text-sm font-semibold text-slate-800 mb-2 flex-1"><a href="producto.html" class="hover:text-brand-600 transition-colors">Lámpara Smart LED</a></h3>
+                <div class="flex items-baseline gap-2 mb-3"><span class="text-lg font-black text-slate-900">$34.99</span></div>
+                <button class="btn-add-cart w-full bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5" type="button" aria-label="Agregar Lámpara Smart LED al carrito"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Agregar al carrito</button>
+              </div>
+            </article>
+          </li>
+
+          <li class="product-card" data-id="smartwatch-x1" data-filter="top">
+            <article class="group bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-brand-200">
+              <div class="relative bg-slate-50 aspect-square overflow-hidden">
+                <img src="assets/products/product-4.jpg" alt="Smartwatch X1 Series" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" width="300" height="300" loading="lazy" onerror="this.onerror=null;this.src='https://picsum.photos/300/300?random=5'" />
+                <span class="absolute top-3 left-3 bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-md">⭐ TOP</span>
+                <button class="wishlist-btn absolute top-3 right-3 w-8 h-8 bg-white/90 rounded-full shadow flex items-center justify-center text-slate-300 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+              </div>
+              <div class="p-4 flex flex-col flex-1">
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">TechWear</p>
+                <h3 class="text-sm font-semibold text-slate-800 mb-2 flex-1"><a href="producto.html" class="hover:text-brand-600 transition-colors">Smartwatch X1 Series</a></h3>
+                <div class="flex items-baseline gap-2 mb-3"><span class="text-lg font-black text-slate-900">$149.99</span><span class="text-sm text-slate-400 line-through">$199.99</span></div>
+                <button class="btn-add-cart w-full bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5" type="button" aria-label="Agregar Smartwatch X1 Series al carrito"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Agregar al carrito</button>
+              </div>
+            </article>
+          </li>
+
+          <li class="product-card" data-id="teclado-mecanico" data-filter="new">
+            <article class="group bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-brand-200">
+              <div class="relative bg-slate-50 aspect-square overflow-hidden">
+                <img src="https://picsum.photos/300/300?random=30" alt="Teclado Mecánico RGB Pro" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" width="300" height="300" loading="lazy" />
+                <span class="absolute top-3 left-3 bg-brand-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-md">NUEVO</span>
+                <button class="wishlist-btn absolute top-3 right-3 w-8 h-8 bg-white/90 rounded-full shadow flex items-center justify-center text-slate-300 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+              </div>
+              <div class="p-4 flex flex-col flex-1">
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">KeyMaster</p>
+                <h3 class="text-sm font-semibold text-slate-800 mb-2 flex-1"><a href="producto.html" class="hover:text-brand-600 transition-colors">Teclado Mecánico RGB Pro</a></h3>
+                <div class="flex items-baseline gap-2 mb-3"><span class="text-lg font-black text-slate-900">$129.99</span></div>
+                <button class="btn-add-cart w-full bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5" type="button" aria-label="Agregar Teclado Mecánico RGB Pro al carrito"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Agregar al carrito</button>
+              </div>
+            </article>
+          </li>
+
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== TRUST BAR ===================== -->
+  <div class="bg-slate-900 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 divide-x divide-white/5">
+        <div class="flex items-center gap-3 px-4 first:pl-0"><div class="text-slate-400 shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><p class="text-white text-xs font-semibold">Pago 100% seguro</p><p class="text-slate-500 text-[11px]">SSL 256-bit</p></div></div>
+        <div class="flex items-center gap-3 px-4"><div class="text-slate-400 shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div><p class="text-white text-xs font-semibold">Envío gratis +$50</p><p class="text-slate-500 text-[11px]">Express disponible</p></div></div>
+        <div class="flex items-center gap-3 px-4"><div class="text-slate-400 shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><div><p class="text-white text-xs font-semibold">Devolución 30 días</p><p class="text-slate-500 text-[11px]">Sin preguntas</p></div></div>
+        <div class="flex items-center gap-3 px-4"><div class="text-slate-400 shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.64 3.38 2 2 0 0 1 3.6 1.2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l1.06-1.06a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.7 16z"/></svg></div><div><p class="text-white text-xs font-semibold">Soporte 24/7</p><p class="text-slate-500 text-[11px]">Chat y teléfono</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="bg-slate-950 border-t border-white/5 text-slate-400" aria-label="Pie de página">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div>
+          <a href="index.html" class="flex items-center gap-2 mb-4" aria-label="ShopBase — Inicio">
+            <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center shadow-md"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
+            <span class="text-lg font-bold text-white tracking-tight">ShopBase</span>
+          </a>
+          <p class="text-sm leading-relaxed mb-5">Tu tienda online de confianza con los mejores precios y atención al cliente.</p>
+          <div class="flex gap-3" aria-label="Redes sociales">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="w-9 h-9 bg-white/5 hover:bg-white/10 rounded-lg flex items-center justify-center transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter" class="w-9 h-9 bg-white/5 hover:bg-white/10 rounded-lg flex items-center justify-center transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="w-9 h-9 bg-white/5 hover:bg-white/10 rounded-lg flex items-center justify-center transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          </div>
+        </div>
+        <nav aria-label="Tienda"><h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-wider">Tienda</h3><ul class="space-y-2.5 text-sm"><li><a href="/productos" class="hover:text-white transition-colors">Todos los productos</a></li><li><a href="/categorias" class="hover:text-white transition-colors">Categorías</a></li><li><a href="/ofertas" class="hover:text-white transition-colors">Ofertas</a></li><li><a href="/nuevos" class="hover:text-white transition-colors">Novedades</a></li><li><a href="/mas-vendidos" class="hover:text-white transition-colors">Más vendidos</a></li></ul></nav>
+        <nav aria-label="Mi cuenta"><h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-wider">Mi cuenta</h3><ul class="space-y-2.5 text-sm"><li><a href="/cuenta" class="hover:text-white transition-colors">Perfil</a></li><li><a href="/pedidos" class="hover:text-white transition-colors">Mis pedidos</a></li><li><a href="/favoritos" class="hover:text-white transition-colors">Favoritos</a></li><li><a href="/direcciones" class="hover:text-white transition-colors">Mis direcciones</a></li><li><a href="/devoluciones" class="hover:text-white transition-colors">Devoluciones</a></li></ul></nav>
+        <nav aria-label="Ayuda"><h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-wider">Ayuda</h3><ul class="space-y-2.5 text-sm"><li><a href="/faq" class="hover:text-white transition-colors">Preguntas frecuentes</a></li><li><a href="/envios" class="hover:text-white transition-colors">Información de envíos</a></li><li><a href="/contacto" class="hover:text-white transition-colors">Contacto</a></li><li><a href="/privacidad" class="hover:text-white transition-colors">Privacidad</a></li><li><a href="/terminos" class="hover:text-white transition-colors">Términos y condiciones</a></li></ul></nav>
+      </div>
+    </div>
+    <div class="border-t border-white/5">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-xs text-slate-600">&copy; 2026 ShopBase. Todos los derechos reservados.</p>
+        <div class="flex items-center gap-2" aria-label="Métodos de pago aceptados">
+          <span class="bg-white/5 text-slate-400 text-xs font-medium px-3 py-1 rounded-lg border border-white/5">Visa</span>
+          <span class="bg-white/5 text-slate-400 text-xs font-medium px-3 py-1 rounded-lg border border-white/5">Mastercard</span>
+          <span class="bg-white/5 text-slate-400 text-xs font-medium px-3 py-1 rounded-lg border border-white/5">PayPal</span>
+          <span class="bg-white/5 text-slate-400 text-xs font-medium px-3 py-1 rounded-lg border border-white/5">Apple Pay</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
