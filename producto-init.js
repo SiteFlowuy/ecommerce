@@ -284,54 +284,7 @@
       const others  = PRODUCTS.filter(x => x.id !== p.id && x.category !== p.category);
       const related = [...sameCat, ...others].slice(0, 4);
 
-      relatedUl.innerHTML = related.map(rp => {
-        const b = rp.badges[0];
-        const badgeHtml = b
-          ? `<span class="absolute top-3 left-3 ${BADGE_BG[b.color] || 'bg-slate-500'} text-white text-[10px] font-bold px-2 py-0.5 rounded-md">${b.text}</span>`
-          : '';
-        const origHtml = rp.originalPrice
-          ? `<span class="text-sm text-slate-400 line-through">${_fmt(rp.originalPrice)}</span>`
-          : '';
-
-        return `
-          <li class="product-card" data-id="${rp.id}" data-filter="${rp.filter}">
-            <article class="group bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-brand-200">
-              <div class="relative bg-slate-50 aspect-square overflow-hidden">
-                <a href="producto.html?id=${rp.id}" tabindex="-1">
-                  <img src="${rp.image}" alt="${rp.name}"
-                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    width="300" height="300" loading="lazy"
-                    onerror="this.onerror=null;this.src='https://picsum.photos/300/300?random=${rp.id.length + 10}'" />
-                </a>
-                ${badgeHtml}
-                <button class="wishlist-btn absolute top-3 right-3 w-8 h-8 bg-white/90 rounded-full shadow flex items-center justify-center text-slate-300 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100"
-                  aria-label="Agregar a favoritos">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                  </svg>
-                </button>
-              </div>
-              <div class="p-4 flex flex-col flex-1">
-                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">${rp.brand}</p>
-                <h3 class="text-sm font-semibold text-slate-800 mb-2 flex-1">
-                  <a href="producto.html?id=${rp.id}" class="hover:text-brand-600 transition-colors">${rp.name}</a>
-                </h3>
-                <div class="flex items-baseline gap-2 mb-3">
-                  <span class="text-lg font-black text-slate-900">${_fmt(rp.price)}</span>
-                  ${origHtml}
-                </div>
-                <button class="btn-add-cart w-full bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5"
-                  type="button" aria-label="Agregar ${rp.name} al carrito">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-                  </svg>
-                  Agregar al carrito
-                </button>
-              </div>
-            </article>
-          </li>`;
-      }).join('');
+      relatedUl.innerHTML = related.map((rp, i) => _cardHtml(rp, i)).join('');
     }
   }
 

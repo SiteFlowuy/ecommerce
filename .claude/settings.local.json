@@ -4,7 +4,10 @@
       "Bash(node -e \":*)",
       "Bash(where node:*)",
       "Bash(where.exe node:*)",
-      "Bash(powershell.exe -Command \":*)"
+      "Bash(powershell.exe -Command \":*)",
+      "Bash(grep -n \"^  </div>$\\\\|^  <main\\\\|<!-- TRUST\\\\|<!-- trust\\\\|bg-slate-900 border-t\\\\|</main>\\\\|</footer>\" \"c:/Users/toble/OneDrive/Desktop/Web2026/ecommerce/index.html\")",
+      "Bash(grep -n \"^  </div>$\\\\|^  <main\\\\|bg-slate-900 border-t\\\\|</main>\\\\|</footer>\" \"c:/Users/toble/OneDrive/Desktop/Web2026/ecommerce/producto.html\")",
+      "Read(//c/Users/toble/OneDrive/Desktop/Web2026/ecommerce/^  </div>$/|^  <main/|bg-slate-900 border-t/|</main>/|</**)"
     ]
   }
 }

@@ -193,6 +193,10 @@ function renderCart(containerSelector) {
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  // Inject shared header/footer before any DOM queries that depend on them
+  if (typeof injectHeader === 'function') injectHeader();
+  if (typeof injectFooter === 'function') injectFooter();
+
   // Sync badge on every page load from localStorage
   _syncCartBadge();
 
@@ -221,16 +225,17 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ── Botones "Agregar al carrito" ─────────────────── */
   document.querySelectorAll('.btn-add-cart').forEach(btn => {
     btn.addEventListener('click', () => {
-      // Walk up to the .product-card li to read data
       const card = btn.closest('.product-card');
+      const id   = card?.dataset.id;
+      const p    = (typeof PRODUCTS !== 'undefined' && id)
+                     ? PRODUCTS.find(x => x.id === id) : null;
 
-      const id    = card?.dataset.id || crypto.randomUUID();
-      const name  = card?.querySelector('h3')?.textContent.trim() || 'Producto';
-      const image = card?.querySelector('img')?.src || '';
-      const priceText = card?.querySelector('.text-xl.font-black')?.textContent || '0';
-      const price = parseFloat(priceText.replace(/[^0-9.]/g, '')) || 0;
-
-      addToCart({ id, name, price, image });
+      addToCart({
+        id:    p?.id    ?? id ?? crypto.randomUUID(),
+        name:  p?.name  ?? 'Producto',
+        price: p?.price ?? 0,
+        image: p?.image ?? '',
+      });
 
       // Button feedback
       const original = btn.innerHTML;
@@ -476,12 +481,17 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('qv-add-cart')?.addEventListener('click', () => {
     if (!_qvCard) return;
 
-    const id    = _qvCard.dataset.id || crypto.randomUUID();
-    const name  = document.getElementById('qv-name').textContent;
-    const image = document.getElementById('qv-image').src;
-    const price = parseFloat(document.getElementById('qv-price').textContent.replace(/[^0-9.]/g, '')) || 0;
+    const id = _qvCard.dataset.id;
+    const p  = (typeof PRODUCTS !== 'undefined' && id)
+                 ? PRODUCTS.find(x => x.id === id) : null;
 
-    addToCart({ id, name, price, image, qty: _qvQty });
+    addToCart({
+      id:    p?.id    ?? id ?? crypto.randomUUID(),
+      name:  p?.name  ?? 'Producto',
+      price: p?.price ?? 0,
+      image: p?.image ?? '',
+      qty:   _qvQty,
+    });
 
     const btn  = document.getElementById('qv-add-cart');
     const orig = btn.innerHTML;

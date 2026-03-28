@@ -71,10 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     sectGrid.querySelectorAll('.category-card-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        _dispatchCategoryFilter(btn.dataset.category);
-        // Sync the filter bar active state
-        _setActiveCategoryBtn(btn.dataset.category);
-        document.getElementById('products')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.location.href = `categoria.html?cat=${btn.dataset.category}`;
       });
     });
   }

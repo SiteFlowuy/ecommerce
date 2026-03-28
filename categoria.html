@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ── SEO básico — actualizado por categoria-init.js ── -->
+  <title>Categoría — ShopBase</title>
+  <meta name="description" content="" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://shopbase.ejemplo.com/categoria" />
+
+  <!-- ── Open Graph ─────────────────────────────────── -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:site_name"   content="ShopBase" />
+  <meta property="og:locale"      content="es_ES" />
+  <meta property="og:url"         content="https://shopbase.ejemplo.com/categoria" />
+  <meta property="og:title"       content="Categoría — ShopBase" />
+  <meta property="og:description" content="" />
+  <meta property="og:image"       content="https://shopbase.ejemplo.com/assets/og-home.jpg" />
+
+  <!-- ── Twitter Card ───────────────────────────────── -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:site"        content="@ShopBase" />
+  <meta name="twitter:title"       content="Categoría — ShopBase" />
+  <meta name="twitter:description" content="" />
+  <meta name="twitter:image"       content="https://shopbase.ejemplo.com/assets/og-home.jpg" />
+
+  <!-- ── Schema.org: ItemList — actualizado por categoria-init.js ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Categoría",
+    "numberOfItems": 0
+  }
+  </script>
+
+  <!-- ── Tailwind + config ───────────────────────────── -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          colors: {
+            brand: {
+              50:  '#f0f4ff',
+              100: '#e0eaff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+            },
+          },
+          animation: { 'fade-in': 'fadeIn .3s ease' },
+          keyframes: {
+            fadeIn: { from: { opacity: 0, transform: 'translateY(6px)' }, to: { opacity: 1, transform: 'translateY(0)' } },
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- ── Fuentes ────────────────────────────────────── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased">
+
+  <!-- ===================== ANNOUNCEMENT BAR ===================== -->
+  <div id="site-header"></div>
+
+  <main>
+
+    <!-- ===================== BREADCRUMB + HEADER ===================== -->
+    <div class="bg-white border-b border-slate-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+
+        <!-- Breadcrumb -->
+        <nav aria-label="Ruta de navegación">
+          <ol class="flex items-center gap-1.5 text-xs text-slate-400 flex-wrap">
+            <li>
+              <a href="index.html" class="hover:text-brand-600 transition-colors font-medium">Inicio</a>
+            </li>
+            <li aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </li>
+            <li>
+              <a href="index.html#categories" class="hover:text-brand-600 transition-colors">Categorías</a>
+            </li>
+            <li aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </li>
+            <li>
+              <span id="breadcrumb-cat" class="text-slate-600 font-medium" aria-current="page">Categoría</span>
+            </li>
+          </ol>
+        </nav>
+
+      </div>
+    </div>
+
+    <!-- ===================== CATEGORY HERO ===================== -->
+    <section class="bg-white pb-8 pt-10" aria-labelledby="cat-name">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-5">
+
+          <!-- Icon -->
+          <div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center text-3xl shrink-0">
+            <span id="cat-emoji" aria-hidden="true">🛍️</span>
+          </div>
+
+          <!-- Text -->
+          <div class="flex-1">
+            <h1 id="cat-name" class="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight">
+              Categoría
+            </h1>
+            <p id="cat-description" class="text-slate-500 text-sm mt-1"></p>
+          </div>
+
+          <!-- Count badge -->
+          <div class="shrink-0">
+            <span id="cat-count" class="inline-flex items-center bg-brand-50 text-brand-700 text-sm font-semibold px-4 py-2 rounded-full border border-brand-100">
+              — productos
+            </span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PRODUCTOS ===================== -->
+    <section class="py-10 lg:py-14" aria-label="Productos de la categoría">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Filtros por tipo — generados por categoria-init.js -->
+        <div id="filters-bar" class="flex flex-wrap gap-2 mb-8" role="group" aria-label="Filtrar productos"></div>
+
+        <!-- Grilla de productos -->
+        <ul id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" role="list"></ul>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== TRUST BAR ===================== -->
+  <div id="site-footer"></div>
+
+  <!-- ===================== QUICK VIEW MODAL ===================== -->
+  <div id="quick-view-modal"
+    class="hidden fixed inset-0 z-[60] flex items-end sm:items-center justify-center p-0 sm:p-4"
+    role="dialog" aria-modal="true" aria-labelledby="qv-name">
+
+    <!-- Backdrop -->
+    <div id="qv-backdrop" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+
+    <!-- Panel -->
+    <div id="qv-panel"
+      class="relative z-10 bg-white w-full rounded-t-2xl sm:rounded-2xl shadow-2xl sm:max-w-3xl overflow-hidden flex flex-col sm:grid sm:grid-cols-2 max-h-[92vh] sm:max-h-[85vh]">
+
+      <!-- Close button -->
+      <button id="qv-close"
+        class="absolute top-3 right-3 z-20 w-9 h-9 bg-white/95 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center text-slate-400 hover:text-slate-900 hover:bg-white transition-all"
+        aria-label="Cerrar vista rápida">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+
+      <!-- Image -->
+      <div class="bg-slate-50 overflow-hidden aspect-square sm:aspect-auto shrink-0">
+        <img id="qv-image" src="" alt="" class="w-full h-full object-cover" />
+      </div>
+
+      <!-- Info -->
+      <div class="overflow-y-auto p-6 flex flex-col gap-0">
+
+        <p id="qv-brand" class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1"></p>
+        <h2 id="qv-name" class="text-xl font-extrabold text-slate-900 leading-snug mb-2"></h2>
+
+        <!-- Rating -->
+        <div class="flex items-center gap-1.5 mb-4">
+          <span id="qv-stars" class="stars text-sm" aria-hidden="true"></span>
+          <span id="qv-rating" class="text-sm font-semibold text-slate-700"></span>
+          <span id="qv-reviews" class="text-sm text-slate-400"></span>
+        </div>
+
+        <!-- Price -->
+        <div class="flex items-baseline gap-2.5 mb-1.5">
+          <span id="qv-price" class="text-3xl font-black text-slate-900"></span>
+          <span id="qv-original" class="text-base text-slate-400 line-through font-medium"></span>
+        </div>
+        <p id="qv-savings-wrap" class="mb-5 hidden">
+          <span id="qv-savings" class="text-sm font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-lg"></span>
+        </p>
+
+        <!-- Quantity -->
+        <div class="mb-5">
+          <p class="text-sm font-semibold text-slate-700 mb-2.5">Cantidad</p>
+          <div class="inline-flex items-center border border-slate-200 rounded-xl overflow-hidden">
+            <button id="qv-qty-dec" class="w-10 h-10 flex items-center justify-center text-slate-600 hover:bg-slate-100 transition-colors font-bold text-lg" aria-label="Reducir cantidad">−</button>
+            <span id="qv-qty-display" class="w-12 text-center text-sm font-bold text-slate-900 tabular-nums">1</span>
+            <button id="qv-qty-inc" class="w-10 h-10 flex items-center justify-center text-slate-600 hover:bg-slate-100 transition-colors font-bold text-lg" aria-label="Aumentar cantidad">+</button>
+          </div>
+        </div>
+
+        <!-- CTAs -->
+        <div class="flex flex-col gap-2.5 mt-auto pt-2">
+          <button id="qv-add-cart" type="button"
+            class="w-full bg-brand-600 hover:bg-brand-700 active:scale-[0.98] text-white font-bold py-3.5 rounded-xl transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+            Agregar al carrito
+          </button>
+          <a id="qv-detail-link" href="producto.html"
+            class="text-center text-sm font-semibold text-brand-600 hover:text-brand-700 transition-colors py-1">
+            Ver página completa →
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Script order: products.js → categories.js → categoria-init.js → app.js -->
+  <script src="products.js" defer></script>
+  <script src="categories.js" defer></script>
+  <script src="categoria-init.js" defer></script>
+  <script src="components.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
