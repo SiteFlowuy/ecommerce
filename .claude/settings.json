@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cmd /c \"cd /d C:\\\\Users\\\\toble\\\\OneDrive\\\\Desktop\\\\Web2026\\\\ecommerce && node scripts/download-placeholders.js\")",
+      "Bash(cmd /c \"where node 2>&1\")"
+    ]
+  }
+}

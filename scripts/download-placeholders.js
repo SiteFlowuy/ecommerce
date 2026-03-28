@@ -13,8 +13,9 @@ const ROOT      = path.resolve(__dirname, '..');
 
 const images = [
   // Hero & banners
-  { dest: 'assets/hero.jpg',          url: 'https://picsum.photos/560/420?random=1'  },
-  { dest: 'assets/offer-banner.jpg',  url: 'https://picsum.photos/480/320?random=10' },
+  { dest: 'assets/hero.jpg',          url: 'https://picsum.photos/560/420?random=1'   },
+  { dest: 'assets/offer-banner.jpg',  url: 'https://picsum.photos/480/320?random=10'  },
+  { dest: 'assets/og-home.jpg',       url: 'https://picsum.photos/1200/630?random=99' },
   // Product cards (1–8)
   { dest: 'assets/products/product-1.jpg', url: 'https://picsum.photos/300/300?random=2' },
   { dest: 'assets/products/product-2.jpg', url: 'https://picsum.photos/300/300?random=3' },

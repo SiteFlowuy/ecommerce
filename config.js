@@ -10,6 +10,7 @@ const SITE_CONFIG = {
   tagline:     'Tu tienda de confianza',
   description: 'Los mejores precios y envío gratis.',
   domain:      'https://shopbase.ejemplo.com',
+  ogImage:     '/assets/og-home.jpg',
 
   currency:       'USD',
   currencySymbol: '$',
@@ -32,6 +33,30 @@ const SITE_CONFIG = {
 
   commission: {
     default: 0.15,
+  },
+
+  productsPerPage: 8,
+
+  filterLabels: {
+    all:  'Todos',
+    new:  'Nuevos',
+    sale: 'Oferta',
+    top:  'Más vendidos',
+  },
+
+  badgeColors: {
+    brand:   'bg-brand-600',
+    rose:    'bg-rose-500',
+    amber:   'bg-amber-500',
+    violet:  'bg-violet-600',
+    emerald: 'bg-emerald-500',
+    slate:   'bg-slate-500',
+  },
+
+  urgencyColors: {
+    orange: 'text-orange-600',
+    rose:   'text-rose-600',
+    slate:  'text-slate-500',
   },
 
   about: {
@@ -61,6 +86,14 @@ const SITE_CONFIG = {
       emailSubject: 'Quiero ser partner en ShopBase',
     },
   },
+};
+
+const PAGE_DESCRIPTIONS = {
+  home:         `${SITE_CONFIG.name} — Los mejores precios, envío gratis y devolución en 30 días.`,
+  cart:         `Tu carrito de compras en ${SITE_CONFIG.name}. Revisá tus productos y completá tu pedido.`,
+  favorites:    `Tus productos guardados en ${SITE_CONFIG.name}.`,
+  checkout:     `Completá tu compra de forma segura en ${SITE_CONFIG.name}. Ingresá tus datos de envío en pocos pasos.`,
+  confirmation: `Tu pedido en ${SITE_CONFIG.name} fue confirmado. Revisá el resumen y los detalles de entrega.`,
 };
 
 const COUPONS = [

@@ -64,15 +64,10 @@
 
   <link rel="stylesheet" href="style.css" />
 
-  <!--
-    ── Stripe clave pública ──────────────────────────────────────────────────
-    Reemplaza el content con tu clave pública de Stripe (pk_test_... o pk_live_...).
-    Nunca pongas aquí la clave SECRETA (sk_...).
-  -->
+  <!-- REACTIVAR cuando se configure el backend de pagos
   <meta name="stripe-pk" content="pk_test_REEMPLAZA_CON_TU_CLAVE_PUBLICA" />
-
-  <!-- Stripe.js — cargado antes del body para que esté disponible al montar el CardElement -->
   <script src="https://js.stripe.com/v3/"></script>
+  -->
 </head>
 <body class="bg-slate-50 text-slate-900 antialiased">
 
@@ -217,65 +212,52 @@
             <h2 class="text-xl font-extrabold text-slate-900">Método de pago</h2>
           </div>
 
-          <!-- Opciones de pago -->
-          <div class="space-y-3 mb-6">
-            <label class="flex items-center gap-4 border-2 border-brand-600 bg-brand-50 rounded-xl p-4 cursor-pointer">
-              <input type="radio" name="payment" value="card" checked class="accent-brand-600" />
-              <div class="flex-1">
-                <p class="text-sm font-semibold text-slate-800">Tarjeta de crédito / débito</p>
-                <p class="text-xs text-slate-500">Visa, Mastercard, American Express</p>
-              </div>
-              <div class="flex gap-1.5">
-                <span class="bg-white border border-slate-200 text-slate-500 text-[10px] font-bold px-2 py-0.5 rounded">Visa</span>
-                <span class="bg-white border border-slate-200 text-slate-500 text-[10px] font-bold px-2 py-0.5 rounded">MC</span>
-              </div>
-            </label>
-            <label class="flex items-center gap-4 border border-slate-200 rounded-xl p-4 cursor-pointer hover:border-slate-300 transition-colors">
-              <input type="radio" name="payment" value="paypal" class="accent-brand-600" />
-              <div class="flex-1">
-                <p class="text-sm font-semibold text-slate-800">PayPal</p>
-                <p class="text-xs text-slate-500">Serás redirigido a PayPal</p>
-              </div>
-            </label>
+          <!-- Métodos de pago próximamente -->
+          <div class="rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 px-8 py-10 text-center mb-6">
+            <div class="w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="1.75"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <h3 class="text-base font-extrabold text-slate-900 mb-2">Métodos de pago disponibles próximamente</h3>
+            <p class="text-sm text-slate-500 leading-relaxed max-w-xs mx-auto">
+              Estamos configurando los métodos de pago. Por ahora podés reservar tu pedido y nos contactamos con vos.
+            </p>
           </div>
 
-          <!-- Campos de tarjeta — gestionados por Stripe Elements -->
-          <form id="payment-form" novalidate class="space-y-4 mb-6">
+          <button type="button" id="btn-reservar"
+            class="w-full bg-brand-600 hover:bg-brand-700 active:scale-[0.98] text-white font-bold py-4 rounded-xl transition-all shadow-lg text-sm flex items-center justify-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Reservar pedido
+          </button>
 
-            <!-- CardElement se montará aquí -->
+          <p class="text-center text-xs text-slate-400 mt-3">
+            Te contactaremos al email ingresado para coordinar el pago.
+          </p>
+
+          <!-- REACTIVAR cuando se configure el backend de pagos
+          <form id="payment-form" novalidate class="space-y-4 mb-6">
             <div>
               <label class="block text-sm font-semibold text-slate-700 mb-1.5">
                 Datos de tarjeta <span class="text-rose-500">*</span>
               </label>
               <div id="card-element"
                 class="w-full border border-slate-200 rounded-xl px-4 py-3.5 bg-white focus-within:ring-2 focus-within:ring-brand-500 transition">
-                <!-- Stripe inyecta el iframe aquí -->
               </div>
-              <!-- Mensajes de error de Stripe -->
-              <p id="card-errors" role="alert"
-                class="mt-2 text-sm text-rose-600 hidden"></p>
+              <p id="card-errors" role="alert" class="mt-2 text-sm text-rose-600 hidden"></p>
             </div>
-
             <div>
               <label for="card-name" class="block text-sm font-semibold text-slate-700 mb-1.5">Nombre en la tarjeta <span class="text-rose-500">*</span></label>
               <input type="text" id="card-name" autocomplete="cc-name" required
                 placeholder="MARÍA GARCÍA"
                 class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm uppercase font-mono focus:outline-none focus:ring-2 focus:ring-brand-500 transition placeholder-slate-400 tracking-wider" />
             </div>
-
           </form>
-
           <button type="button" id="pay-btn"
             class="w-full bg-brand-600 hover:bg-brand-700 active:scale-[0.98] text-white font-bold py-4 rounded-xl transition-all shadow-lg text-sm flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
             <svg id="pay-btn-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             <svg id="pay-btn-spinner" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="hidden animate-spin"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
             <span id="pay-btn-text">Confirmar pedido</span>
           </button>
-
-          <p class="text-center text-xs text-slate-400 mt-3 flex items-center justify-center gap-1">
-            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            Tus datos están cifrados con SSL 256-bit · Pagos gestionados por Stripe
-          </p>
+          -->
         </div>
 
         <!-- PASO 3: Confirmación -->
@@ -377,11 +359,12 @@
     /* ── Stripe public key — leer de meta tag para no hardcodear en el JS ── */
     // Agrega <meta name="stripe-pk" content="pk_test_..."> en el <head>
     // o cambia STRIPE_PUBLIC_KEY por tu clave pública real (pk_test_... / pk_live_...)
-    const STRIPE_PUBLIC_KEY = document
-      .querySelector('meta[name="stripe-pk"]')
-      ?.getAttribute('content') || 'pk_test_REEMPLAZA_CON_TU_CLAVE_PUBLICA';
+    // REACTIVAR cuando se configure el backend de pagos
+    // const STRIPE_PUBLIC_KEY = document
+    //   .querySelector('meta[name="stripe-pk"]')
+    //   ?.getAttribute('content') || 'pk_test_REEMPLAZA_CON_TU_CLAVE_PUBLICA';
 
-    const BACKEND_URL = 'http://localhost:3001';
+    // const BACKEND_URL = 'http://localhost:3001';
 
     document.addEventListener('DOMContentLoaded', () => {
 
@@ -480,7 +463,7 @@
 
       document.getElementById('back-to-1')?.addEventListener('click', () => goToStep(1));
 
-      /* ── Stripe Elements ─────────────────────────────────────────────── */
+      /* ── REACTIVAR cuando se configure el backend de pagos ──────────────
       let stripe      = null;
       let cardElement = null;
       let clientSecret = null;
@@ -505,15 +488,11 @@
       }
 
       async function initStripe() {
-        // Stripe.js global está disponible porque se cargó en el <head>
         if (typeof Stripe === 'undefined') {
           _showCardError('No se pudo cargar Stripe.js. Verifica tu conexión a internet.');
           return;
         }
-
         stripe = Stripe(STRIPE_PUBLIC_KEY);
-
-        // Solicitar PaymentIntent al backend
         const subtotal = typeof getCartTotal === 'function' ? getCartTotal() : 0;
         const coupon   = typeof getCoupon    === 'function' ? getCoupon()    : null;
         let discountAmount = 0;
@@ -523,12 +502,10 @@
         }
         const total = Math.max(0, subtotal - discountAmount);
         const amountCents = Math.round(total * 100);
-
         if (amountCents < 50) {
           _showCardError('El carrito está vacío o el importe es demasiado bajo.');
           return;
         }
-
         try {
           const res = await fetch(`${BACKEND_URL}/create-payment-intent`, {
             method:  'POST',
@@ -539,23 +516,18 @@
               coupon:   coupon ? coupon.code : null,
             }),
           });
-
           const data = await res.json();
-
           if (!res.ok || data.error) {
             _showCardError(data.error || 'Error al iniciar el pago. Inténtalo de nuevo.');
             return;
           }
-
           clientSecret = data.clientSecret;
         } catch (err) {
           _showCardError('No se pudo conectar con el servidor de pagos. ¿Está corriendo el backend?');
           console.error('[Stripe init]', err);
           return;
         }
-
-        // Montar CardElement
-        const elements   = stripe.elements();
+        const elements = stripe.elements();
         cardElement = elements.create('card', {
           style: {
             base: {
@@ -568,11 +540,11 @@
           },
         });
         cardElement.mount('#card-element');
-
         cardElement.on('change', ({ error }) => {
           _showCardError(error ? error.message : '');
         });
       }
+      ── fin bloque Stripe ─────────────────────────────────────────────── */
 
       // Validar paso 1 y avanzar al paso 2
       (function () {
@@ -624,54 +596,60 @@
           }
 
           goToStep(2);
-          if (!stripe) initStripe();
+          // if (!stripe) initStripe(); // REACTIVAR cuando se configure el backend de pagos
         });
       })();
 
-      /* ── Confirmar pago ──────────────────────────────────────────────── */
-      document.getElementById('pay-btn')?.addEventListener('click', async () => {
-        if (!stripe || !cardElement || !clientSecret) {
-          _showCardError('El sistema de pago aún no está listo. Espera un momento y vuelve a intentarlo.');
-          return;
-        }
-
-        _setPayBtnLoading(true);
-        _showCardError('');
-
-        const cardName = document.getElementById('card-name')?.value.trim();
-
-        const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-          payment_method: {
-            card:            cardElement,
-            billing_details: { name: cardName || undefined },
-          },
-        });
-
-        _setPayBtnLoading(false);
-
-        if (error) {
-          // Mostrar el mensaje de error de Stripe tal cual
-          _showCardError(error.message);
-          return;
-        }
-
-        if (paymentIntent.status === 'succeeded') {
-          // Pago exitoso: persistir orden, limpiar carrito y cupón, avanzar
-          const shipping = {
-            nombre:   (document.getElementById('first-name')?.value.trim() + ' ' + document.getElementById('last-name')?.value.trim()).trim(),
-            email:    document.getElementById('email')?.value.trim(),
-            address:  document.getElementById('address')?.value.trim(),
-            city:     document.getElementById('city')?.value.trim(),
-            zip:      document.getElementById('zip')?.value.trim(),
-            country:  document.getElementById('country')?.value.trim(),
-          };
-          if (typeof saveOrder  === 'function') saveOrder({ shipping });
-          if (typeof clearCart  === 'function') clearCart();
-          if (typeof clearCoupon === 'function') clearCoupon();
-          renderStep3();
-          goToStep(3);
-        }
+      /* ── Reservar pedido (sin Stripe) ───────────────────────────────── */
+      document.getElementById('btn-reservar')?.addEventListener('click', () => {
+        const shipping = {
+          nombre:  (document.getElementById('first-name')?.value.trim() + ' ' + document.getElementById('last-name')?.value.trim()).trim(),
+          email:   document.getElementById('email')?.value.trim(),
+          address: document.getElementById('address')?.value.trim(),
+          city:    document.getElementById('city')?.value.trim(),
+          zip:     document.getElementById('zip')?.value.trim(),
+          country: document.getElementById('country')?.value.trim(),
+        };
+        if (typeof saveOrder   === 'function') saveOrder({ shipping });
+        if (typeof clearCart   === 'function') clearCart();
+        if (typeof clearCoupon === 'function') clearCoupon();
+        renderStep3();
+        goToStep(3);
       });
+
+      /* ── REACTIVAR cuando se configure el backend de pagos ──────────── */
+      // document.getElementById('pay-btn')?.addEventListener('click', async () => {
+      //   if (!stripe || !cardElement || !clientSecret) {
+      //     _showCardError('El sistema de pago aún no está listo. Espera un momento y vuelve a intentarlo.');
+      //     return;
+      //   }
+      //   _setPayBtnLoading(true);
+      //   _showCardError('');
+      //   const cardName = document.getElementById('card-name')?.value.trim();
+      //   const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+      //     payment_method: {
+      //       card:            cardElement,
+      //       billing_details: { name: cardName || undefined },
+      //     },
+      //   });
+      //   _setPayBtnLoading(false);
+      //   if (error) { _showCardError(error.message); return; }
+      //   if (paymentIntent.status === 'succeeded') {
+      //     const shipping = {
+      //       nombre:  (document.getElementById('first-name')?.value.trim() + ' ' + document.getElementById('last-name')?.value.trim()).trim(),
+      //       email:   document.getElementById('email')?.value.trim(),
+      //       address: document.getElementById('address')?.value.trim(),
+      //       city:    document.getElementById('city')?.value.trim(),
+      //       zip:     document.getElementById('zip')?.value.trim(),
+      //       country: document.getElementById('country')?.value.trim(),
+      //     };
+      //     if (typeof saveOrder  === 'function') saveOrder({ shipping });
+      //     if (typeof clearCart  === 'function') clearCart();
+      //     if (typeof clearCoupon === 'function') clearCoupon();
+      //     renderStep3();
+      //     goToStep(3);
+      //   }
+      // });
 
       /* ── Step 3 renderer ─────────────────────────────────────────────── */
       function renderStep3() {
@@ -744,7 +722,10 @@
         const order = typeof getLastOrder === 'function' ? getLastOrder() : null;
         // Only restore if the cart is already empty (order was saved + cart cleared)
         const cartEmpty = typeof getCart === 'function' ? getCart().length === 0 : true;
-        if (order && cartEmpty && (Date.now() - new Date(order.date).getTime()) < 30 * 60 * 1000) {
+        const isValid = order && (order.expiresAt
+          ? new Date(order.expiresAt) > new Date()
+          : (Date.now() - new Date(order.date).getTime()) < 24 * 60 * 60 * 1000);
+        if (isValid && cartEmpty) {
           renderStep3();
           goToStep(3);
         }

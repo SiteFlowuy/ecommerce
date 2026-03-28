@@ -140,7 +140,10 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <!-- Filtros por tipo — generados por categoria-init.js -->
-        <div id="filters-bar" class="flex flex-wrap gap-2 mb-8" role="group" aria-label="Filtrar productos"></div>
+        <div id="filters-bar" class="flex flex-wrap gap-2 mb-3" role="group" aria-label="Filtrar por tipo"></div>
+
+        <!-- Filtros por vendedor — generados por categoria-init.js (solo si hay partners) -->
+        <div id="partner-filters-bar" class="hidden flex flex-wrap gap-2 mb-8" role="group" aria-label="Filtrar por vendedor"></div>
 
         <!-- Grilla de productos -->
         <ul id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" role="list"></ul>

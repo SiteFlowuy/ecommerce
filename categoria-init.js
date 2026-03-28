@@ -76,7 +76,33 @@
     if (countEl) countEl.textContent =
       catProducts.length === 1 ? '1 producto' : `${catProducts.length} productos`;
 
-    /* ── Type filter bar — only filters present in this category ── */
+    /* ── Shared filter state ────────────────────────────────────── */
+    let activeTypeFilter    = 'all';
+    let activePartnerFilter = 'all';
+
+    function _renderGrid() {
+      const grid = document.getElementById('products-grid');
+      if (!grid) return;
+
+      const visible = catProducts.filter(p => {
+        const matchType    = activeTypeFilter    === 'all' || p.filter      === activeTypeFilter;
+        const matchPartner = activePartnerFilter === 'all'
+          || (activePartnerFilter === '__self__' ? p.owner !== 'partner' : p.partnerName === activePartnerFilter);
+        return matchType && matchPartner;
+      });
+
+      if (visible.length === 0) {
+        grid.innerHTML = `
+          <li class="col-span-full text-center py-24 flex flex-col items-center gap-3">
+            <span class="text-5xl">🔍</span>
+            <p class="text-lg font-semibold text-slate-700">No hay productos con estos filtros</p>
+          </li>`;
+      } else if (typeof _cardHtml === 'function') {
+        grid.innerHTML = visible.map((p, i) => _cardHtml(p, i)).join('');
+      }
+    }
+
+    /* ── Type filter bar ────────────────────────────────────────── */
     const filtersBar = document.getElementById('filters-bar');
     if (filtersBar) {
       const seen    = new Set();
@@ -94,23 +120,70 @@
         const inactCs  = 'bg-slate-100 text-slate-600 hover:bg-slate-200 font-medium';
         return `<button class="${baseCs} ${active ? activeCs : inactCs}" data-filter="${f}">${label}</button>`;
       }).join('');
+
+      filtersBar.addEventListener('click', e => {
+        const btn = e.target.closest('.filter-btn');
+        if (!btn) return;
+        filtersBar.querySelectorAll('.filter-btn').forEach(b => {
+          b.className = 'filter-btn px-4 py-2 rounded-xl text-sm transition-colors bg-slate-100 text-slate-600 hover:bg-slate-200 font-medium';
+        });
+        btn.className = 'filter-btn px-4 py-2 rounded-xl text-sm transition-colors bg-brand-600 text-white shadow-sm font-semibold';
+        activeTypeFilter = btn.dataset.filter;
+        _renderGrid();
+      });
     }
 
-    /* ── Products grid — only this category's products ──────────── */
-    const grid = document.getElementById('products-grid');
-    if (grid) {
-      if (catProducts.length === 0) {
-        grid.innerHTML = `
-          <li class="col-span-full text-center py-24 flex flex-col items-center gap-3">
-            <span class="text-5xl">🔍</span>
-            <p class="text-lg font-semibold text-slate-700">No hay productos en esta categoría todavía</p>
-            <a href="index.html" class="mt-2 text-sm font-semibold text-brand-600 hover:text-brand-700 transition-colors">
-              ← Volver a la tienda
-            </a>
-          </li>`;
-      } else if (typeof _cardHtml === 'function') {
-        grid.innerHTML = catProducts.map((p, i) => _cardHtml(p, i)).join('');
+    /* ── Partner filter bar (only if multiple vendors) ──────────── */
+    const partnerBar = document.getElementById('partner-filters-bar');
+    if (partnerBar) {
+      const partnerNames = [...new Set(
+        catProducts
+          .filter(p => p.owner === 'partner' && p.partnerName)
+          .map(p => p.partnerName)
+      )];
+      const hasSelfProducts = catProducts.some(p => p.owner !== 'partner');
+
+      if (partnerNames.length > 0) {
+        partnerBar.classList.remove('hidden');
+
+        const vendors = [{ key: 'all', label: 'Todos los vendedores' }];
+        if (hasSelfProducts) vendors.push({ key: '__self__', label: 'Tienda oficial' });
+        partnerNames.forEach(n => vendors.push({ key: n, label: n }));
+
+        const baseCs   = 'partner-btn px-3 py-1.5 rounded-lg text-xs transition-colors';
+        const activeCs = 'bg-slate-700 text-white font-semibold shadow-sm';
+        const inactCs  = 'bg-slate-100 text-slate-600 hover:bg-slate-200 font-medium';
+
+        partnerBar.innerHTML = vendors.map((v, i) =>
+          `<button class="${baseCs} ${i === 0 ? activeCs : inactCs}" data-partner="${v.key}">${v.label}</button>`
+        ).join('');
+
+        partnerBar.addEventListener('click', e => {
+          const btn = e.target.closest('.partner-btn');
+          if (!btn) return;
+          partnerBar.querySelectorAll('.partner-btn').forEach(b => {
+            b.className = `${baseCs} ${inactCs}`;
+          });
+          btn.className = `${baseCs} ${activeCs}`;
+          activePartnerFilter = btn.dataset.partner;
+          _renderGrid();
+        });
       }
+    }
+
+    /* ── Initial products grid render ───────────────────────────── */
+    if (catProducts.length === 0) {
+      const grid = document.getElementById('products-grid');
+      if (grid) grid.innerHTML = `
+        <li class="col-span-full text-center py-24 flex flex-col items-center gap-3">
+          <span class="text-5xl">🔍</span>
+          <p class="text-lg font-semibold text-slate-700">No hay productos en esta categoría todavía</p>
+          <a href="index.html" class="mt-2 text-sm font-semibold text-brand-600 hover:text-brand-700 transition-colors">
+            ← Volver a la tienda
+          </a>
+        </li>`;
+    } else {
+      _renderGrid();
     }
   });
 

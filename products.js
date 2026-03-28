@@ -398,8 +398,10 @@ const PRODUCTS = [
    CONFIG
    ════════════════════════════════════════════════════════ */
 
+const _cfg = (typeof SITE_CONFIG !== 'undefined') ? SITE_CONFIG : {};
+
 /** Human-readable labels for each filter value. */
-const FILTER_LABELS = {
+const FILTER_LABELS = _cfg.filterLabels || {
   all:  'Todos',
   new:  'Nuevos',
   sale: 'Oferta',
@@ -407,7 +409,7 @@ const FILTER_LABELS = {
 };
 
 /** Tailwind bg-color classes per badge color key. */
-const _BADGE_BG = {
+const _BADGE_BG = _cfg.badgeColors || {
   brand:   'bg-brand-600',
   rose:    'bg-rose-500',
   amber:   'bg-amber-500',
@@ -417,7 +419,7 @@ const _BADGE_BG = {
 };
 
 /** Tailwind text-color classes per urgency color key. */
-const _URGENCY_TEXT = {
+const _URGENCY_TEXT = _cfg.urgencyColors || {
   orange: 'text-orange-600',
   rose:   'text-rose-600',
   slate:  'text-slate-500',
@@ -447,7 +449,7 @@ const _SVG = {
   info: `<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>`,
 };
 
-const PRODUCTS_PER_PAGE = 8;
+const PRODUCTS_PER_PAGE = _cfg.productsPerPage || 8;
 
 /* ════════════════════════════════════════════════════════
    CARD TEMPLATE

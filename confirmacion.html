@@ -154,7 +154,11 @@
 
       const order = typeof getLastOrder === 'function' ? getLastOrder() : null;
 
-      if (!order) {
+      const isValid = order && (order.expiresAt
+        ? new Date(order.expiresAt) > new Date()
+        : (Date.now() - new Date(order.date).getTime()) < 24 * 60 * 60 * 1000);
+
+      if (!isValid) {
         document.getElementById('no-order').classList.remove('hidden');
         return;
       }

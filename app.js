@@ -249,13 +249,14 @@ function saveOrder(orderData) {
     else if (coupon.type === 'fixed') discountAmount = Math.min(coupon.discount, subtotal);
   }
   localStorage.setItem(ORDER_KEY, JSON.stringify({
-    id:       generateOrderId(),
-    items:    getCart(),
+    id:        generateOrderId(),
+    items:     getCart(),
     subtotal,
-    discount: discountAmount,
-    total:    Math.max(0, subtotal - discountAmount),
-    coupon:   coupon ? coupon.code : null,
-    date:     new Date().toISOString(),
+    discount:  discountAmount,
+    total:     Math.max(0, subtotal - discountAmount),
+    coupon:    coupon ? coupon.code : null,
+    date:      new Date().toISOString(),
+    expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
     ...orderData,
   }));
 }
@@ -413,6 +414,29 @@ document.addEventListener('DOMContentLoaded', () => {
     cartToast._timer = setTimeout(() => cartToast.classList.remove('show'), 2200);
   }
 
+  /* ── Toast "Próximamente" ─────────────────────────── */
+  const _comingSoonToast = (() => {
+    const el = document.createElement('div');
+    el.id = 'coming-soon-toast';
+    el.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+        fill="none" stroke="#93c5fd" stroke-width="2.5">
+        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+      </svg>
+      <span>Próximamente disponible</span>`;
+    document.body.appendChild(el);
+    return el;
+  })();
+
+  document.addEventListener('click', e => {
+    const target = e.target.closest('[data-coming-soon="true"]');
+    if (!target) return;
+    e.preventDefault();
+    _comingSoonToast.classList.add('show');
+    clearTimeout(_comingSoonToast._timer);
+    _comingSoonToast._timer = setTimeout(() => _comingSoonToast.classList.remove('show'), 2000);
+  });
+
   /* ── Botones "Agregar al carrito" ─────────────────── */
   document.querySelectorAll('.btn-add-cart').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -464,19 +488,14 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ── Filtros + Búsqueda + Carga progresiva ────────── */
   let activeFilter   = 'all';
   let activeCategory = 'all';
-  let searchQuery    = '';
   const _perPage     = (typeof PRODUCTS_PER_PAGE !== 'undefined') ? PRODUCTS_PER_PAGE : 8;
   let   _visibleCount = _perPage;
 
   function _getFilteredProducts() {
-    const q = searchQuery.toLowerCase();
     return (typeof PRODUCTS !== 'undefined' ? PRODUCTS : []).filter(p => {
       const matchesFilter   = activeFilter   === 'all' || p.filter   === activeFilter;
       const matchesCategory = activeCategory === 'all' || p.category === activeCategory;
-      const matchesSearch   = !q ||
-        (p.name + ' ' + p.brand + ' ' + (p.description || '') + ' ' + (p.tags || []).join(' '))
-          .toLowerCase().includes(q);
-      return matchesFilter && matchesCategory && matchesSearch;
+      return matchesFilter && matchesCategory;
     });
   }
 
@@ -545,14 +564,8 @@ document.addEventListener('DOMContentLoaded', () => {
     filterProducts();
   });
 
-  const searchInput = document.getElementById('search');
-  if (searchInput) {
-    searchInput.addEventListener('input', () => {
-      searchQuery = searchInput.value.trim();
-      _visibleCount = _perPage;
-      filterProducts();
-    });
-  }
+  // El input de búsqueda vive dentro de un <form action="buscar.html">
+  // — el navegador gestiona la navegación; no interceptamos nada aquí.
 
   const loadMoreBtn = document.getElementById('btn-load-more');
   if (loadMoreBtn) {

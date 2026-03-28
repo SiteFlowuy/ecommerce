@@ -10,12 +10,12 @@
    ════════════════════════════════════════════════════════ */
 
 const CATEGORIES = [
-  { id: 'electronics', name: 'Electrónica',    emoji: '📱', description: 'Gadgets, audio, wearables y más',           color: 'blue'    },
-  { id: 'clothing',    name: 'Ropa y Calzado', emoji: '👗', description: 'Moda, calzado deportivo y accesorios',      color: 'pink'    },
-  { id: 'home',        name: 'Hogar',          emoji: '🏠', description: 'Decoración, iluminación y muebles',         color: 'amber'   },
-  { id: 'sports',      name: 'Deportes',       emoji: '⚽', description: 'Equipamiento y ropa deportiva',             color: 'emerald' },
-  { id: 'toys',        name: 'Juguetes',       emoji: '🧸', description: 'Juguetes educativos y de entretenimiento',  color: 'violet'  },
-  { id: 'books',       name: 'Libros',         emoji: '📚', description: 'Libros, ebooks y material educativo',       color: 'orange'  },
+  { id: 'electronics',   name: 'Electrónica',    emoji: '📱', description: 'Gadgets, audio, wearables y accesorios tech',         color: 'blue'    },
+  { id: 'clothing',      name: 'Ropa y Calzado', emoji: '👗', description: 'Moda, calzado deportivo y accesorios de vestir',       color: 'pink'    },
+  { id: 'home',          name: 'Hogar',          emoji: '🏠', description: 'Decoración, iluminación, muebles y smart home',        color: 'amber'   },
+  { id: 'sports',        name: 'Deportes',       emoji: '⚽', description: 'Equipamiento deportivo y ropa de entrenamiento',       color: 'emerald' },
+  { id: 'construction',  name: 'Construcción',   emoji: '🔨', description: 'Herramientas, materiales y equipos de obra',           color: 'orange'  },
+  { id: 'toys',          name: 'Juguetes',       emoji: '🧸', description: 'Juguetes educativos y de entretenimiento',             color: 'violet'  },
 ];
 
 /* ════════════════════════════════════════════════════════

@@ -107,9 +107,12 @@
   };
 
   const CATEGORY_LABEL = {
-    electronics: 'Electrónica',
-    clothing:    'Ropa y Calzado',
-    home:        'Hogar',
+    electronics:  'Electrónica',
+    clothing:     'Ropa y Calzado',
+    home:         'Hogar',
+    sports:       'Deportes',
+    construction: 'Construcción',
+    toys:         'Juguetes',
   };
 
   /* ════════════════════════════════════════════════════
@@ -123,7 +126,10 @@
     /* ── Breadcrumb ─────────────────────────────────── */
     const bcCat  = $('breadcrumb-category');
     const bcProd = $('breadcrumb-product');
-    if (bcCat)  bcCat.textContent  = CATEGORY_LABEL[p.category] || p.category;
+    if (bcCat) {
+      bcCat.textContent = CATEGORY_LABEL[p.category] || p.category;
+      bcCat.href = 'categoria.html?cat=' + p.category;
+    }
     if (bcProd) bcProd.textContent = p.name;
 
     /* ── Brand / SKU ────────────────────────────────── */

@@ -66,7 +66,7 @@ function injectHeader() {
           </form>
 
           <!-- Account -->
-          <a href="/cuenta" class="w-9 h-9 flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors" aria-label="Mi cuenta">
+          <a href="#" data-coming-soon="true" class="w-9 h-9 flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors" aria-label="Mi cuenta">
             <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           </a>
 
@@ -103,8 +103,8 @@ function injectHeader() {
         <a href="index.html#about"      class="text-lg font-semibold text-slate-800 py-3 border-b border-slate-100 hover:text-brand-600 transition-colors">Nosotros</a>
       </nav>
       <div class="flex flex-col gap-3">
-        <a href="/registro" class="w-full bg-brand-600 text-white text-center font-bold py-3.5 rounded-xl hover:bg-brand-700 transition-colors">Crear cuenta</a>
-        <a href="/login"    class="w-full border-2 border-slate-200 text-slate-700 text-center font-semibold py-3.5 rounded-xl hover:border-brand-600 hover:text-brand-600 transition-colors">Iniciar sesión</a>
+        <a href="#" data-coming-soon="true" class="w-full bg-brand-600 text-white text-center font-bold py-3.5 rounded-xl hover:bg-brand-700 transition-colors">Crear cuenta</a>
+        <a href="#" data-coming-soon="true" class="w-full border-2 border-slate-200 text-slate-700 text-center font-semibold py-3.5 rounded-xl hover:border-brand-600 hover:text-brand-600 transition-colors">Iniciar sesión</a>
       </div>
     </div>
   </div>`;
@@ -207,11 +207,11 @@ function injectFooter() {
         <nav aria-label="Mi cuenta">
           <h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-wider">Mi cuenta</h3>
           <ul class="space-y-2.5 text-sm">
-            <li><a href="/cuenta"       class="hover:text-white transition-colors">Perfil</a></li>
-            <li><a href="/pedidos"      class="hover:text-white transition-colors">Mis pedidos</a></li>
-            <li><a href="/favoritos"    class="hover:text-white transition-colors">Favoritos</a></li>
-            <li><a href="/direcciones"  class="hover:text-white transition-colors">Mis direcciones</a></li>
-            <li><a href="/devoluciones" class="hover:text-white transition-colors">Devoluciones</a></li>
+            <li><a href="#"             data-coming-soon="true" class="hover:text-white transition-colors">Perfil</a></li>
+            <li><a href="#"             data-coming-soon="true" class="hover:text-white transition-colors">Mis pedidos</a></li>
+            <li><a href="favoritos.html"                        class="hover:text-white transition-colors">Favoritos</a></li>
+            <li><a href="#"             data-coming-soon="true" class="hover:text-white transition-colors">Mis direcciones</a></li>
+            <li><a href="#"             data-coming-soon="true" class="hover:text-white transition-colors">Devoluciones</a></li>
           </ul>
         </nav>
 
@@ -219,11 +219,11 @@ function injectFooter() {
         <nav aria-label="Ayuda">
           <h3 class="text-white font-semibold text-sm mb-4 uppercase tracking-wider">Ayuda</h3>
           <ul class="space-y-2.5 text-sm">
-            <li><a href="/faq"        class="hover:text-white transition-colors">Preguntas frecuentes</a></li>
-            <li><a href="/envios"     class="hover:text-white transition-colors">Información de envíos</a></li>
-            <li><a href="/contacto"   class="hover:text-white transition-colors">Contacto</a></li>
-            <li><a href="/privacidad" class="hover:text-white transition-colors">Privacidad</a></li>
-            <li><a href="/terminos"   class="hover:text-white transition-colors">Términos y condiciones</a></li>
+            <li><a href="#" data-coming-soon="true" class="hover:text-white transition-colors">Preguntas frecuentes</a></li>
+            <li><a href="#" data-coming-soon="true" class="hover:text-white transition-colors">Información de envíos</a></li>
+            <li><a href="#" data-coming-soon="true" class="hover:text-white transition-colors">Contacto</a></li>
+            <li><a href="#" data-coming-soon="true" class="hover:text-white transition-colors">Privacidad</a></li>
+            <li><a href="#" data-coming-soon="true" class="hover:text-white transition-colors">Términos y condiciones</a></li>
           </ul>
         </nav>
 

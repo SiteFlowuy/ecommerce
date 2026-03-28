@@ -109,6 +109,8 @@
 
     _populateSpecRows(p.specs || {});
     _populateBadgeRows(p.badges || []);
+    _populateColorRows(p.colors || []);
+    _populateTestimonialRows(p.testimonials || []);
 
     // Basic fields
     _val('f-name',           p.name          || '');
@@ -205,6 +207,56 @@
     badges.forEach(b => _addBadgeRow(b.text, b.color));
   }
 
+  function _addColorRow(name, hex) {
+    const container = document.getElementById('colors-container');
+    const row = document.createElement('div');
+    row.className = 'flex gap-2 items-center color-row';
+    row.innerHTML = `
+      <input type="text" placeholder="Nombre (ej: Negro)" value="${_esc(name)}"
+        class="color-name flex-1 border border-slate-200 rounded-xl px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-brand-500 transition" />
+      <input type="color" value="${hex || '#000000'}"
+        class="color-hex w-10 h-8 rounded-lg border border-slate-200 cursor-pointer p-0.5 shrink-0" />
+      <button type="button" class="remove-row w-6 h-6 flex items-center justify-center text-slate-300 hover:text-rose-500 transition-colors shrink-0" aria-label="Eliminar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>`;
+    row.querySelector('.remove-row').addEventListener('click', () => row.remove());
+    container.appendChild(row);
+  }
+
+  function _populateColorRows(colors) {
+    document.getElementById('colors-container').innerHTML = '';
+    (colors || []).forEach(c => _addColorRow(c.name, c.hex));
+  }
+
+  function _addTestimonialRow(name, location, rating, text) {
+    const container = document.getElementById('testimonials-container');
+    const row = document.createElement('div');
+    row.className = 'testimonial-row border border-slate-100 rounded-xl p-3 space-y-2 bg-slate-50';
+    row.innerHTML = `
+      <div class="grid grid-cols-3 gap-2">
+        <input type="text" placeholder="Nombre" value="${_esc(name)}"
+          class="t-name col-span-1 border border-slate-200 rounded-xl px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-brand-500 transition bg-white" />
+        <input type="text" placeholder="Ubicación" value="${_esc(location)}"
+          class="t-location col-span-1 border border-slate-200 rounded-xl px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-brand-500 transition bg-white" />
+        <div class="flex gap-2 items-center">
+          <input type="number" placeholder="★" min="1" max="5" value="${rating || 5}"
+            class="t-rating w-full border border-slate-200 rounded-xl px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-brand-500 transition bg-white" />
+          <button type="button" class="remove-row w-6 h-6 flex items-center justify-center text-slate-300 hover:text-rose-500 transition-colors shrink-0" aria-label="Eliminar">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+      <textarea rows="2" placeholder="Texto del testimonio"
+        class="t-text w-full border border-slate-200 rounded-xl px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-brand-500 transition bg-white resize-none">${_esc(text)}</textarea>`;
+    row.querySelector('.remove-row').addEventListener('click', () => row.remove());
+    container.appendChild(row);
+  }
+
+  function _populateTestimonialRows(testimonials) {
+    document.getElementById('testimonials-container').innerHTML = '';
+    (testimonials || []).forEach(t => _addTestimonialRow(t.name, t.location, t.rating, t.text));
+  }
+
   /* ════════════════════════════════════════════════════
      FORM — READ VALUES
      ════════════════════════════════════════════════════ */
@@ -275,8 +327,26 @@
       partnerName:   owner === 'partner' ? _get('f-partner-name').trim()   : '',
       partnerHandle: owner === 'partner' ? _get('f-partner-handle').trim() : '',
       commission:    owner === 'partner' ? parseFloat(_get('f-commission')) || 0.15 : 0,
-      colors:        existing.colors       || [],
-      testimonials:  existing.testimonials || [],
+      colors: (() => {
+        const colors = [];
+        document.querySelectorAll('.color-row').forEach(row => {
+          const name = row.querySelector('.color-name').value.trim();
+          const hex  = row.querySelector('.color-hex').value;
+          if (name) colors.push({ name, hex });
+        });
+        return colors;
+      })(),
+      testimonials: (() => {
+        const testimonials = [];
+        document.querySelectorAll('.testimonial-row').forEach(row => {
+          const name     = row.querySelector('.t-name').value.trim();
+          const location = row.querySelector('.t-location').value.trim();
+          const rating   = parseInt(row.querySelector('.t-rating').value) || 5;
+          const text     = row.querySelector('.t-text').value.trim();
+          if (name && text) testimonials.push({ name, location, rating, text });
+        });
+        return testimonials;
+      })(),
     };
   }
 
@@ -346,6 +416,8 @@
     // Add spec / badge rows
     document.getElementById('btn-add-spec').addEventListener('click', () => _addSpecRow('', ''));
     document.getElementById('btn-add-badge').addEventListener('click', () => _addBadgeRow('', 'rose'));
+    document.getElementById('btn-add-color').addEventListener('click', () => _addColorRow('', '#000000'));
+    document.getElementById('btn-add-testimonial').addEventListener('click', () => _addTestimonialRow('', '', 5, ''));
 
     // Auto-generate slug from name
     document.getElementById('f-name').addEventListener('input', e => {
