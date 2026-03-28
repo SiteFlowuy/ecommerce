@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Confirmación de pedido — ShopBase</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          colors: {
+            brand: { 50:'#f0f4ff', 100:'#e0eaff', 500:'#6366f1', 600:'#4f46e5', 700:'#4338ca' },
+          },
+          animation: { 'fade-in': 'fadeIn .4s ease' },
+          keyframes: { fadeIn: { from: { opacity: 0, transform: 'translateY(8px)' }, to: { opacity: 1, transform: 'translateY(0)' } } },
+        },
+      },
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased">
+
+  <!-- ── Header minimalista ── -->
+  <header class="bg-white border-b border-slate-100 shadow-sm">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="index.html" id="header-logo" class="flex items-center gap-2" aria-label="Inicio">
+        <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center shadow-md">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        </div>
+        <span id="header-name" class="text-xl font-bold text-slate-900 tracking-tight">ShopBase</span>
+      </a>
+      <div class="flex items-center gap-1.5 text-xs text-slate-500">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span class="font-semibold text-brand-600">Pedido verificado</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Sin orden ── -->
+  <div id="no-order" class="hidden max-w-md mx-auto px-4 py-24 text-center">
+    <div class="text-5xl mb-4">📦</div>
+    <h1 class="text-xl font-extrabold text-slate-900 mb-2">No hay pedido reciente</h1>
+    <p class="text-slate-500 text-sm mb-6">No encontramos ningún pedido guardado. El historial de pedidos se conserva 30 minutos después de completar la compra.</p>
+    <a href="index.html" class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-bold px-6 py-3 rounded-xl transition-colors text-sm">
+      Ir al inicio
+    </a>
+  </div>
+
+  <!-- ── Confirmación ── -->
+  <main id="order-content" class="hidden max-w-2xl mx-auto px-4 sm:px-6 py-10 animate-fade-in">
+
+    <!-- Hero -->
+    <div class="text-center mb-8">
+      <div class="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-5 shadow-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h1 class="text-3xl font-extrabold text-slate-900 mb-1">¡Gracias por tu compra!</h1>
+      <p class="text-slate-500 text-sm">
+        Pedido <strong id="conf-id" class="text-slate-800 font-bold"></strong>
+        <span class="text-slate-300 mx-1.5">·</span>
+        <span id="conf-date" class="text-slate-500"></span>
+      </p>
+    </div>
+
+    <!-- Email notice -->
+    <div id="conf-email-box" class="hidden bg-brand-50 border border-brand-100 rounded-2xl px-5 py-4 flex items-start gap-3 mb-5">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2" class="shrink-0 mt-0.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <div class="text-sm">
+        <p class="font-semibold text-brand-700">Email de confirmación</p>
+        <p class="text-brand-600 text-xs mt-0.5">Hemos enviado los detalles a <strong id="conf-email"></strong></p>
+      </div>
+    </div>
+
+    <!-- Delivery banner -->
+    <div class="bg-emerald-50 border border-emerald-100 rounded-2xl px-5 py-4 flex items-start gap-3 mb-5">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" class="shrink-0 mt-0.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      <div class="text-sm">
+        <p class="font-semibold text-emerald-800">Entrega estimada</p>
+        <p id="conf-delivery" class="text-emerald-700 mt-0.5"></p>
+      </div>
+    </div>
+
+    <!-- Shipping address -->
+    <div id="conf-shipping-box" class="hidden bg-white rounded-2xl border border-slate-100 shadow-sm p-5 mb-5">
+      <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Dirección de envío</h2>
+      <div id="conf-shipping" class="text-sm text-slate-700 leading-relaxed space-y-0.5"></div>
+    </div>
+
+    <!-- Items -->
+    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 mb-5">
+      <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Artículos</h2>
+      <ul id="conf-items" class="space-y-4 divide-y divide-slate-50"></ul>
+    </div>
+
+    <!-- Totals -->
+    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 mb-8 text-sm space-y-2.5">
+      <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Resumen del pago</h2>
+      <div class="flex justify-between text-slate-600">
+        <span>Subtotal</span>
+        <span id="conf-subtotal" class="font-semibold text-slate-900"></span>
+      </div>
+      <div id="conf-discount-row" class="hidden flex justify-between text-slate-600">
+        <span id="conf-discount-label">Descuento</span>
+        <span id="conf-discount" class="font-semibold text-emerald-600"></span>
+      </div>
+      <div class="flex justify-between text-slate-600">
+        <span>Envío</span>
+        <span class="font-semibold text-emerald-600">Gratis</span>
+      </div>
+      <div class="flex justify-between pt-2.5 border-t border-slate-100">
+        <span class="font-bold text-slate-900 text-base">Total pagado</span>
+        <span id="conf-total" class="text-xl font-black text-slate-900"></span>
+      </div>
+    </div>
+
+    <!-- CTAs -->
+    <div class="flex flex-col sm:flex-row gap-3">
+      <button onclick="window.print()"
+        class="flex-1 flex items-center justify-center gap-2 border-2 border-slate-200 text-slate-600 hover:border-slate-300 font-semibold px-6 py-3.5 rounded-xl transition-colors text-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        Imprimir
+      </button>
+      <a href="index.html"
+        class="flex-1 inline-flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-bold px-6 py-3.5 rounded-xl transition-colors shadow-lg text-sm">
+        Seguir comprando
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+
+  </main>
+
+  <script src="config.js" defer></script>
+  <script src="app.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Brand name from config
+      const siteName = (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.name) || 'ShopBase';
+      const sym      = (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.currencySymbol) || '$';
+      document.title = `Confirmación de pedido — ${siteName}`;
+      document.getElementById('header-name').textContent = siteName;
+      document.getElementById('header-logo').setAttribute('aria-label', `${siteName} — Inicio`);
+
+      const fmt = n => sym + Number(n).toFixed(2);
+
+      const order = typeof getLastOrder === 'function' ? getLastOrder() : null;
+
+      if (!order) {
+        document.getElementById('no-order').classList.remove('hidden');
+        return;
+      }
+
+      document.getElementById('order-content').classList.remove('hidden');
+
+      // ID + date
+      document.getElementById('conf-id').textContent = '#' + order.id;
+      const orderDate = new Date(order.date);
+      document.getElementById('conf-date').textContent = orderDate.toLocaleDateString('es-ES', {
+        day: 'numeric', month: 'long', year: 'numeric',
+      });
+
+      // Email
+      if (order.shipping?.email) {
+        document.getElementById('conf-email').textContent = order.shipping.email;
+        document.getElementById('conf-email-box').classList.remove('hidden');
+      }
+
+      // Estimated delivery (+5 business days)
+      const d = new Date(order.date);
+      let added = 0;
+      while (added < 5) {
+        d.setDate(d.getDate() + 1);
+        if (d.getDay() !== 0 && d.getDay() !== 6) added++;
+      }
+      document.getElementById('conf-delivery').textContent =
+        d.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+
+      // Shipping address
+      const ship = order.shipping;
+      if (ship && (ship.nombre || ship.address)) {
+        const lines = [
+          ship.nombre,
+          ship.address,
+          [ship.zip, ship.city].filter(Boolean).join(' '),
+          ship.country,
+        ].filter(Boolean);
+        document.getElementById('conf-shipping').innerHTML =
+          lines.map(l => `<p>${l}</p>`).join('');
+        document.getElementById('conf-shipping-box').classList.remove('hidden');
+      }
+
+      // Items
+      const itemsEl = document.getElementById('conf-items');
+      if (order.items?.length) {
+        itemsEl.innerHTML = order.items.map(item => `
+          <li class="flex items-center gap-4 pt-4 first:pt-0">
+            <div class="relative shrink-0">
+              <img src="${item.image}" alt="${item.name}"
+                class="w-16 h-16 rounded-xl object-cover bg-slate-100"
+                onerror="this.onerror=null;this.src='https://picsum.photos/64/64?random=99'" />
+              <span class="absolute -top-1.5 -right-1.5 bg-slate-600 text-white text-[9px] font-bold w-5 h-5 rounded-full flex items-center justify-center">${item.quantity}</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-semibold text-slate-800">${item.name}</p>
+              <p class="text-xs text-slate-400 mt-0.5">${fmt(item.price)} por unidad</p>
+            </div>
+            <p class="text-sm font-bold text-slate-900 shrink-0">${fmt(item.price * item.quantity)}</p>
+          </li>`).join('');
+      }
+
+      // Totals
+      document.getElementById('conf-subtotal').textContent = fmt(order.subtotal ?? order.total);
+      document.getElementById('conf-total').textContent    = fmt(order.total);
+
+      if (order.discount > 0) {
+        document.getElementById('conf-discount-row').classList.remove('hidden');
+        const lbl = document.getElementById('conf-discount-label');
+        const val = document.getElementById('conf-discount');
+        if (lbl) lbl.textContent = order.coupon ? `Descuento (${order.coupon})` : 'Descuento';
+        if (val) val.textContent = `−${fmt(order.discount)}`;
+      }
+    });
+  </script>
+</body>
+</html>

@@ -202,20 +202,11 @@
             </div>
 
             <!-- Color -->
-            <div class="mb-5">
+            <div id="product-colors-section" class="mb-5">
               <p class="text-sm font-semibold text-slate-700 mb-3">
-                Color: <span id="selected-color" class="text-brand-600 font-bold">Negro</span>
+                Color: <span id="selected-color" class="text-brand-600 font-bold"></span>
               </p>
-              <div class="flex gap-3" role="group" aria-label="Seleccionar color">
-                <button class="color-swatch ring-2 ring-brand-600 ring-offset-2 w-9 h-9 rounded-full border-2 border-white shadow-md transition-all hover:scale-110"
-                  data-color="Negro" style="background:#1e293b" aria-label="Color Negro" aria-pressed="true"></button>
-                <button class="color-swatch ring-1 ring-slate-300 ring-offset-2 w-9 h-9 rounded-full border-2 border-white shadow-md transition-all hover:scale-110"
-                  data-color="Blanco" style="background:#f1f5f9" aria-label="Color Blanco" aria-pressed="false"></button>
-                <button class="color-swatch ring-1 ring-slate-300 ring-offset-2 w-9 h-9 rounded-full border-2 border-white shadow-md transition-all hover:scale-110"
-                  data-color="Azul Marino" style="background:#1d4ed8" aria-label="Color Azul Marino" aria-pressed="false"></button>
-                <button class="color-swatch ring-1 ring-slate-300 ring-offset-2 w-9 h-9 rounded-full border-2 border-white shadow-md transition-all hover:scale-110"
-                  data-color="Verde Bosque" style="background:#166534" aria-label="Color Verde Bosque" aria-pressed="false"></button>
-              </div>
+              <div id="product-color-swatches" class="flex gap-3" role="group" aria-label="Seleccionar color"></div>
             </div>
 
             <!-- Cantidad -->
@@ -370,41 +361,7 @@
               </div>
 
               <!-- Tarjetas de reseña -->
-              <div class="lg:col-span-2 space-y-4">
-                <article class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
-                  <header class="flex items-start justify-between mb-3">
-                    <div class="flex items-center gap-3">
-                      <div class="w-9 h-9 bg-brand-100 rounded-full flex items-center justify-center text-brand-600 font-bold text-sm shrink-0">A</div>
-                      <div><p class="text-sm font-semibold text-slate-800">Andrés P.</p><p class="text-xs text-slate-400">Madrid · hace 2 semanas</p></div>
-                    </div>
-                    <div class="text-amber-400 text-sm shrink-0">★★★★★</div>
-                  </header>
-                  <p class="text-sm text-slate-600 leading-relaxed mb-3">"La cancelación de ruido es increíble. Los uso en el metro y apenas escucho nada. Sonido muy equilibrado y la batería dura exactamente lo que prometen."</p>
-                  <p class="text-xs text-emerald-600 font-semibold flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Compra verificada</p>
-                </article>
-                <article class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
-                  <header class="flex items-start justify-between mb-3">
-                    <div class="flex items-center gap-3">
-                      <div class="w-9 h-9 bg-rose-100 rounded-full flex items-center justify-center text-rose-600 font-bold text-sm shrink-0">S</div>
-                      <div><p class="text-sm font-semibold text-slate-800">Sofía R.</p><p class="text-xs text-slate-400">Barcelona · hace 1 mes</p></div>
-                    </div>
-                    <div class="text-amber-400 text-sm shrink-0">★★★★☆</div>
-                  </header>
-                  <p class="text-sm text-slate-600 leading-relaxed mb-3">"Muy cómodos todo el día. El multipoint es un plus enorme para pasar del ordenador al móvil. Le quito una estrella porque el estuche es un poco pequeño."</p>
-                  <p class="text-xs text-emerald-600 font-semibold flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Compra verificada</p>
-                </article>
-                <article class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
-                  <header class="flex items-start justify-between mb-3">
-                    <div class="flex items-center gap-3">
-                      <div class="w-9 h-9 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 font-bold text-sm shrink-0">J</div>
-                      <div><p class="text-sm font-semibold text-slate-800">Javier M.</p><p class="text-xs text-slate-400">Valencia · hace 6 semanas</p></div>
-                    </div>
-                    <div class="text-amber-400 text-sm shrink-0">★★★★★</div>
-                  </header>
-                  <p class="text-sm text-slate-600 leading-relaxed mb-3">"Relación calidad-precio insuperable. Los tenía en lista de deseos y cuando los vi en oferta no lo dudé. Llegaron en menos de 24 horas y el embalaje impecable."</p>
-                  <p class="text-xs text-emerald-600 font-semibold flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Compra verificada</p>
-                </article>
-              </div>
+              <div id="product-reviews-list" class="lg:col-span-2 space-y-4"></div>
 
             </div>
           </div>
@@ -423,73 +380,7 @@
           </div>
           <a href="index.html#products" class="text-sm font-semibold text-brand-600 hover:text-brand-700 flex items-center gap-1 transition-colors">Ver todos →</a>
         </div>
-        <ul id="related-products" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" role="list">
-
-          <li class="product-card" data-id="zapatillas-run" data-filter="sale">
-            <article class="group bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-brand-200">
-              <div class="relative bg-slate-50 aspect-square overflow-hidden">
-                <img src="assets/products/product-2.jpg" alt="Zapatillas Running Air" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" width="300" height="300" loading="lazy" onerror="this.onerror=null;this.src='https://picsum.photos/300/300?random=3'" />
-                <span class="absolute top-3 left-3 bg-rose-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-md">−25%</span>
-                <button class="wishlist-btn absolute top-3 right-3 w-8 h-8 bg-white/90 rounded-full shadow flex items-center justify-center text-slate-300 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-              </div>
-              <div class="p-4 flex flex-col flex-1">
-                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">RunFast</p>
-                <h3 class="text-sm font-semibold text-slate-800 mb-2 flex-1"><a href="producto.html" class="hover:text-brand-600 transition-colors">Zapatillas Running Air</a></h3>
-                <div class="flex items-baseline gap-2 mb-3"><span class="text-lg font-black text-slate-900">$74.99</span><span class="text-sm text-slate-400 line-through">$99.99</span></div>
-                <button class="btn-add-cart w-full bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5" type="button" aria-label="Agregar Zapatillas Running Air al carrito"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Agregar al carrito</button>
-              </div>
-            </article>
-          </li>
-
-          <li class="product-card" data-id="lampara-smart" data-filter="sale">
-            <article class="group bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-brand-200">
-              <div class="relative bg-slate-50 aspect-square overflow-hidden">
-                <img src="assets/products/product-3.jpg" alt="Lámpara Smart LED" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" width="300" height="300" loading="lazy" onerror="this.onerror=null;this.src='https://picsum.photos/300/300?random=4'" />
-                <span class="absolute top-3 left-3 bg-violet-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-md">SMART HOME</span>
-                <button class="wishlist-btn absolute top-3 right-3 w-8 h-8 bg-white/90 rounded-full shadow flex items-center justify-center text-slate-300 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-              </div>
-              <div class="p-4 flex flex-col flex-1">
-                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">HomeLux</p>
-                <h3 class="text-sm font-semibold text-slate-800 mb-2 flex-1"><a href="producto.html" class="hover:text-brand-600 transition-colors">Lámpara Smart LED</a></h3>
-                <div class="flex items-baseline gap-2 mb-3"><span class="text-lg font-black text-slate-900">$34.99</span></div>
-                <button class="btn-add-cart w-full bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5" type="button" aria-label="Agregar Lámpara Smart LED al carrito"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Agregar al carrito</button>
-              </div>
-            </article>
-          </li>
-
-          <li class="product-card" data-id="smartwatch-x1" data-filter="top">
-            <article class="group bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-brand-200">
-              <div class="relative bg-slate-50 aspect-square overflow-hidden">
-                <img src="assets/products/product-4.jpg" alt="Smartwatch X1 Series" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" width="300" height="300" loading="lazy" onerror="this.onerror=null;this.src='https://picsum.photos/300/300?random=5'" />
-                <span class="absolute top-3 left-3 bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-md">⭐ TOP</span>
-                <button class="wishlist-btn absolute top-3 right-3 w-8 h-8 bg-white/90 rounded-full shadow flex items-center justify-center text-slate-300 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-              </div>
-              <div class="p-4 flex flex-col flex-1">
-                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">TechWear</p>
-                <h3 class="text-sm font-semibold text-slate-800 mb-2 flex-1"><a href="producto.html" class="hover:text-brand-600 transition-colors">Smartwatch X1 Series</a></h3>
-                <div class="flex items-baseline gap-2 mb-3"><span class="text-lg font-black text-slate-900">$149.99</span><span class="text-sm text-slate-400 line-through">$199.99</span></div>
-                <button class="btn-add-cart w-full bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5" type="button" aria-label="Agregar Smartwatch X1 Series al carrito"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Agregar al carrito</button>
-              </div>
-            </article>
-          </li>
-
-          <li class="product-card" data-id="teclado-mecanico" data-filter="new">
-            <article class="group bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-brand-200">
-              <div class="relative bg-slate-50 aspect-square overflow-hidden">
-                <img src="https://picsum.photos/300/300?random=30" alt="Teclado Mecánico RGB Pro" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" width="300" height="300" loading="lazy" />
-                <span class="absolute top-3 left-3 bg-brand-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-md">NUEVO</span>
-                <button class="wishlist-btn absolute top-3 right-3 w-8 h-8 bg-white/90 rounded-full shadow flex items-center justify-center text-slate-300 hover:text-rose-500 transition-all opacity-0 group-hover:opacity-100" aria-label="Agregar a favoritos"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-              </div>
-              <div class="p-4 flex flex-col flex-1">
-                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">KeyMaster</p>
-                <h3 class="text-sm font-semibold text-slate-800 mb-2 flex-1"><a href="producto.html" class="hover:text-brand-600 transition-colors">Teclado Mecánico RGB Pro</a></h3>
-                <div class="flex items-baseline gap-2 mb-3"><span class="text-lg font-black text-slate-900">$129.99</span></div>
-                <button class="btn-add-cart w-full bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5" type="button" aria-label="Agregar Teclado Mecánico RGB Pro al carrito"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Agregar al carrito</button>
-              </div>
-            </article>
-          </li>
-
-        </ul>
+        <ul id="related-products" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" role="list"></ul>
       </div>
     </section>
 
@@ -498,6 +389,7 @@
   <!-- ===================== TRUST BAR ===================== -->
   <div id="site-footer"></div>
 
+  <script src="config.js" defer></script>
   <script src="products.js" defer></script>
   <script src="producto-init.js" defer></script>
   <script src="components.js" defer></script>

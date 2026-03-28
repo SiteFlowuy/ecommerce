@@ -265,6 +265,22 @@
         </tr>`).join('');
     }
 
+    /* ── Color swatches ─────────────────────────────── */
+    const colorsSection = $('product-colors-section');
+    const swatchesEl    = $('product-color-swatches');
+    const selectedColor = $('selected-color');
+    if (colorsSection) {
+      if (p.colors && p.colors.length > 0) {
+        swatchesEl.innerHTML = p.colors.map((c, i) => `
+          <button class="color-swatch ${i === 0 ? 'ring-2 ring-brand-600' : 'ring-1 ring-slate-300'} ring-offset-2 w-9 h-9 rounded-full border-2 border-white shadow-md transition-all hover:scale-110"
+            data-color="${c.name}" style="background:${c.hex}" aria-label="Color ${c.name}" aria-pressed="${i === 0}"></button>`
+        ).join('');
+        if (selectedColor) selectedColor.textContent = p.colors[0].name;
+      } else {
+        colorsSection.classList.add('hidden');
+      }
+    }
+
     /* ── Reviews tab chip ───────────────────────────── */
     const reviewsChip = $('product-reviews-count-chip');
     if (reviewsChip) reviewsChip.textContent = p.reviews;
@@ -276,6 +292,42 @@
     if (sumRating) sumRating.textContent = p.rating.toFixed(1);
     if (sumStars)  sumStars.textContent  = _stars(p.rating);
     if (sumCount)  sumCount.textContent  = `${p.reviews} reseñas verificadas`;
+
+    /* ── Review cards ───────────────────────────────── */
+    const reviewsList = $('product-reviews-list');
+    if (reviewsList) {
+      const AVATAR_COLORS = [
+        ['bg-brand-100',   'text-brand-600'],
+        ['bg-rose-100',    'text-rose-600'],
+        ['bg-emerald-100', 'text-emerald-600'],
+        ['bg-amber-100',   'text-amber-600'],
+        ['bg-violet-100',  'text-violet-600'],
+      ];
+      if (p.testimonials && p.testimonials.length > 0) {
+        const VERIFIED_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>`;
+        reviewsList.innerHTML = p.testimonials.map((t, i) => {
+          const [bg, txt] = AVATAR_COLORS[i % AVATAR_COLORS.length];
+          const stars = '★'.repeat(t.rating) + '☆'.repeat(5 - t.rating);
+          return `
+            <article class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+              <header class="flex items-start justify-between mb-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 ${bg} rounded-full flex items-center justify-center ${txt} font-bold text-sm shrink-0">${t.name.charAt(0)}</div>
+                  <div><p class="text-sm font-semibold text-slate-800">${t.name}</p><p class="text-xs text-slate-400">${t.location} · Comprador verificado</p></div>
+                </div>
+                <div class="text-amber-400 text-sm shrink-0">${stars}</div>
+              </header>
+              <p class="text-sm text-slate-600 leading-relaxed mb-3">"${t.text}"</p>
+              <p class="text-xs text-emerald-600 font-semibold flex items-center gap-1">${VERIFIED_SVG}Compra verificada</p>
+            </article>`;
+        }).join('');
+      } else {
+        reviewsList.innerHTML = `
+          <div class="bg-slate-50 border border-slate-100 rounded-2xl p-8 text-center">
+            <p class="text-slate-400 text-sm">Sé el primero en reseñar este producto.</p>
+          </div>`;
+      }
+    }
 
     /* ── Wire up #product-add-cart data attributes ───── */
     const addCartBtn = $('product-add-cart');

@@ -14,10 +14,22 @@
 function injectHeader() {
   const el = document.getElementById('site-header');
   if (!el) return;
+  const _c = typeof SITE_CONFIG !== 'undefined' ? SITE_CONFIG : {};
+  const _name    = _c.name    || 'ShopBase';
+  const _coupon  = _c.couponCode    || 'BIENVENIDO10';
+  const _pct     = _c.couponDiscount != null ? Math.round(_c.couponDiscount * 100) : 10;
+  const _thresh  = _c.freeShippingThreshold != null ? _c.freeShippingThreshold : 50;
+  const _sym     = _c.currencySymbol || '$';
+  const _tag     = _c.tagline     || '';
+  const _desc    = _c.description || '';
+  const _ig      = (_c.social || {}).instagram || 'https://instagram.com';
+  const _tw      = (_c.social || {}).twitter   || 'https://twitter.com';
+  const _fb      = (_c.social || {}).facebook  || 'https://facebook.com';
+
   el.innerHTML = `
   <!-- ===================== ANNOUNCEMENT BAR ===================== -->
   <div id="announcement-bar" class="bg-brand-600 text-white text-xs font-semibold text-center py-2.5 px-4 relative" role="banner">
-    <span>🎉 Usa el código <strong class="bg-white/20 px-1.5 py-0.5 rounded font-bold tracking-wider">BIENVENIDO10</strong> y obtén 10% de descuento en tu primera compra</span>
+    <span>🎉 Usa el código <strong class="bg-white/20 px-1.5 py-0.5 rounded font-bold tracking-wider">${_coupon}</strong> y obtén ${_pct}% de descuento en tu primera compra</span>
     <button id="close-announcement" class="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-white/70 hover:text-white rounded transition-colors" aria-label="Cerrar anuncio">
       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
@@ -29,11 +41,11 @@ function injectHeader() {
       <div class="flex items-center justify-between h-16 gap-4">
 
         <!-- Logo -->
-        <a href="index.html" class="flex items-center gap-2 shrink-0" aria-label="ShopBase — Inicio">
+        <a href="index.html" class="flex items-center gap-2 shrink-0" aria-label="${_name} — Inicio">
           <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center shadow-md">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
           </div>
-          <span class="text-xl font-bold text-slate-900 tracking-tight">ShopBase</span>
+          <span class="text-xl font-bold text-slate-900 tracking-tight">${_name}</span>
         </a>
 
         <!-- Nav desktop -->
@@ -63,6 +75,12 @@ function injectHeader() {
             <svg id="menu-icon-open" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
             <svg id="menu-icon-close" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hidden"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
+
+          <!-- Wishlist -->
+          <a href="favoritos.html" class="relative w-9 h-9 flex items-center justify-center text-slate-500 hover:text-rose-500 hover:bg-slate-100 rounded-lg transition-colors" aria-label="Mis favoritos">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <span class="hidden absolute -top-1 -right-1 bg-rose-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center" data-wishlist-badge>0</span>
+          </a>
 
           <!-- Cart -->
           <a href="carrito.html" class="relative w-9 h-9 flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors" aria-label="Carrito de compras">
@@ -118,7 +136,7 @@ function injectFooter() {
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
           </div>
           <div>
-            <p class="text-white text-xs font-semibold">Envío gratis +$50</p>
+            <p class="text-white text-xs font-semibold">Envío gratis +${_sym}${_thresh}</p>
             <p class="text-slate-500 text-[11px]">Express disponible</p>
           </div>
         </div>
@@ -151,23 +169,23 @@ function injectFooter() {
 
         <!-- Brand -->
         <div>
-          <a href="index.html" class="flex items-center gap-2 mb-4" aria-label="ShopBase — Inicio">
+          <a href="index.html" class="flex items-center gap-2 mb-4" aria-label="${_name} — Inicio">
             <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center shadow-md">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
             </div>
-            <span class="text-lg font-bold text-white tracking-tight">ShopBase</span>
+            <span class="text-lg font-bold text-white tracking-tight">${_name}</span>
           </a>
-          <p class="text-sm leading-relaxed mb-5">Tu tienda online de confianza con los mejores precios y atención al cliente.</p>
+          <p class="text-sm leading-relaxed mb-5">${_tag}. ${_desc}</p>
           <div class="flex gap-3" aria-label="Redes sociales">
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+            <a href="${_ig}" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
               class="w-9 h-9 bg-white/5 hover:bg-white/10 rounded-lg flex items-center justify-center transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter"
+            <a href="${_tw}" target="_blank" rel="noopener noreferrer" aria-label="Twitter"
               class="w-9 h-9 bg-white/5 hover:bg-white/10 rounded-lg flex items-center justify-center transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
             </a>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
+            <a href="${_fb}" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
               class="w-9 h-9 bg-white/5 hover:bg-white/10 rounded-lg flex items-center justify-center transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
             </a>
@@ -215,7 +233,7 @@ function injectFooter() {
     <!-- Bottom bar -->
     <div class="border-t border-white/5">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p class="text-xs text-slate-600">&copy; 2026 ShopBase. Todos los derechos reservados.</p>
+        <p class="text-xs text-slate-600">&copy; ${new Date().getFullYear()} ${_name}. Todos los derechos reservados.</p>
         <div class="flex items-center gap-2" aria-label="Métodos de pago aceptados">
           <span class="bg-white/5 text-slate-400 text-xs font-medium px-3 py-1 rounded-lg border border-white/5">Visa</span>
           <span class="bg-white/5 text-slate-400 text-xs font-medium px-3 py-1 rounded-lg border border-white/5">Mastercard</span>

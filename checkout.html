@@ -279,18 +279,67 @@
         </div>
 
         <!-- PASO 3: Confirmación -->
-        <div id="step-3" class="hidden animate-fade-in text-center py-10">
-          <div class="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        <div id="step-3" class="hidden animate-fade-in">
+          <!-- Success icon + heading -->
+          <div class="text-center mb-8 pt-6">
+            <div class="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h2 class="text-2xl font-extrabold text-slate-900 mb-1">¡Pedido confirmado!</h2>
+            <p class="text-slate-500 text-sm">
+              Tu número de pedido es <strong id="conf-order-id" class="text-slate-800"></strong>
+            </p>
+            <p id="conf-email-line" class="text-slate-400 text-xs mt-1 hidden">
+              Confirmación enviada a <strong id="conf-email" class="text-slate-600"></strong>
+            </p>
           </div>
-          <h2 class="text-2xl font-extrabold text-slate-900 mb-2">¡Pedido confirmado!</h2>
-          <p class="text-slate-500 text-sm mb-2">Tu número de pedido es <strong class="text-slate-800">#SB-2026-0042</strong></p>
-          <p class="text-slate-500 text-sm mb-8">Recibirás un email de confirmación en breve con los detalles de tu envío.</p>
-          <a href="index.html"
-            class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-bold px-8 py-3.5 rounded-xl transition-colors shadow-lg text-sm">
-            Seguir comprando
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
+
+          <!-- Items comprados -->
+          <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 mb-4">
+            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Artículos comprados</h3>
+            <ul id="conf-items" class="space-y-3"></ul>
+          </div>
+
+          <!-- Totales -->
+          <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 mb-4 text-sm space-y-2">
+            <div class="flex justify-between text-slate-600">
+              <span>Subtotal</span>
+              <span id="conf-subtotal" class="font-semibold text-slate-900"></span>
+            </div>
+            <div id="conf-discount-row" class="hidden flex justify-between text-slate-600">
+              <span id="conf-discount-label">Descuento</span>
+              <span id="conf-discount" class="font-semibold text-emerald-600"></span>
+            </div>
+            <div class="flex justify-between text-slate-600">
+              <span>Envío</span>
+              <span class="font-semibold text-emerald-600">Gratis</span>
+            </div>
+            <div class="flex justify-between pt-2 border-t border-slate-100 mt-1">
+              <span class="font-bold text-slate-900">Total pagado</span>
+              <span id="conf-total" class="text-lg font-black text-slate-900"></span>
+            </div>
+          </div>
+
+          <!-- Entrega estimada -->
+          <div class="bg-emerald-50 border border-emerald-100 rounded-2xl p-4 mb-6 flex items-start gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" class="shrink-0 mt-0.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            <div>
+              <p class="text-sm font-semibold text-emerald-800">Entrega estimada</p>
+              <p id="conf-delivery" class="text-sm text-emerald-700"></p>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a href="confirmacion.html"
+              class="flex-1 text-center border-2 border-brand-600 text-brand-600 hover:bg-brand-50 font-bold px-6 py-3.5 rounded-xl transition-colors text-sm">
+              Ver confirmación completa
+            </a>
+            <a href="index.html"
+              class="flex-1 inline-flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-bold px-6 py-3.5 rounded-xl transition-colors shadow-lg text-sm">
+              Seguir comprando
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
         </div>
 
       </div>
@@ -306,6 +355,10 @@
           <div class="border-t border-slate-100 pt-4 space-y-2 text-sm">
             <div class="flex justify-between text-slate-600"><span>Subtotal</span><span id="ck-subtotal" class="font-semibold text-slate-900">$0.00</span></div>
             <div class="flex justify-between text-slate-600"><span>Envío</span><span class="font-semibold text-emerald-600">Gratis</span></div>
+            <div id="ck-discount-row" class="flex justify-between text-slate-600 hidden">
+              <span id="ck-discount-label">Descuento</span>
+              <span id="ck-discount" class="font-semibold text-emerald-600">—</span>
+            </div>
             <div class="flex justify-between pt-2 border-t border-slate-100 mt-2">
               <span class="font-bold text-slate-900">Total</span>
               <span id="ck-total" class="text-xl font-black text-slate-900">$0.00</span>
@@ -317,6 +370,7 @@
     </div>
   </main>
 
+  <script src="config.js" defer></script>
   <script src="app.js" defer></script>
   <script>
     /* ── Stripe public key — leer de meta tag para no hardcodear en el JS ── */
@@ -332,12 +386,14 @@
 
       /* ── Sidebar del resumen ─────────────────────────────────────────── */
       function renderCheckoutSidebar() {
-        const cart  = typeof getCart === 'function' ? getCart() : [];
-        const total = typeof getCartTotal === 'function' ? getCartTotal() : 0;
-        const fmt   = n => '$' + n.toFixed(2);
-        const items = document.getElementById('checkout-items');
-        const sub   = document.getElementById('ck-subtotal');
-        const tot   = document.getElementById('ck-total');
+        const cart     = typeof getCart === 'function' ? getCart() : [];
+        const subtotal = typeof getCartTotal === 'function' ? getCartTotal() : 0;
+        const coupon   = typeof getCoupon    === 'function' ? getCoupon()    : null;
+        const sym      = (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.currencySymbol) || '$';
+        const fmt      = n => sym + n.toFixed(2);
+        const items    = document.getElementById('checkout-items');
+        const sub      = document.getElementById('ck-subtotal');
+        const tot      = document.getElementById('ck-total');
 
         if (items) {
           items.innerHTML = cart.length
@@ -356,7 +412,35 @@
                 </div>`).join('')
             : '<p class="text-xs text-slate-400 text-center py-4">Tu carrito está vacío</p>';
         }
-        if (sub) sub.textContent = fmt(total);
+
+        if (sub) sub.textContent = fmt(subtotal);
+
+        let discountAmount = 0;
+        const discountRow = document.getElementById('ck-discount-row');
+        const discountEl  = document.getElementById('ck-discount');
+        const discountLbl = document.getElementById('ck-discount-label');
+
+        if (coupon) {
+          if (coupon.type === 'percent') {
+            discountAmount = subtotal * coupon.discount;
+            if (discountLbl) discountLbl.textContent = `Descuento (${coupon.code})`;
+            if (discountEl)  discountEl.textContent  = `−${fmt(discountAmount)}`;
+            discountRow?.classList.remove('hidden');
+          } else if (coupon.type === 'fixed') {
+            discountAmount = Math.min(coupon.discount, subtotal);
+            if (discountLbl) discountLbl.textContent = `Descuento (${coupon.code})`;
+            if (discountEl)  discountEl.textContent  = `−${fmt(discountAmount)}`;
+            discountRow?.classList.remove('hidden');
+          } else if (coupon.type === 'shipping') {
+            if (discountLbl) discountLbl.textContent = `Cupón (${coupon.code})`;
+            if (discountEl)  discountEl.textContent  = 'Envío gratis';
+            discountRow?.classList.remove('hidden');
+          }
+        } else {
+          discountRow?.classList.add('hidden');
+        }
+
+        const total = Math.max(0, subtotal - discountAmount);
         if (tot) tot.textContent = fmt(total);
       }
       renderCheckoutSidebar();
@@ -424,7 +508,14 @@
         stripe = Stripe(STRIPE_PUBLIC_KEY);
 
         // Solicitar PaymentIntent al backend
-        const total = typeof getCartTotal === 'function' ? getCartTotal() : 0;
+        const subtotal = typeof getCartTotal === 'function' ? getCartTotal() : 0;
+        const coupon   = typeof getCoupon    === 'function' ? getCoupon()    : null;
+        let discountAmount = 0;
+        if (coupon) {
+          if (coupon.type === 'percent') discountAmount = subtotal * coupon.discount;
+          else if (coupon.type === 'fixed') discountAmount = Math.min(coupon.discount, subtotal);
+        }
+        const total = Math.max(0, subtotal - discountAmount);
         const amountCents = Math.round(total * 100);
 
         if (amountCents < 50) {
@@ -436,7 +527,11 @@
           const res = await fetch(`${BACKEND_URL}/create-payment-intent`, {
             method:  'POST',
             headers: { 'Content-Type': 'application/json' },
-            body:    JSON.stringify({ amount: amountCents, currency: 'usd' }),
+            body:    JSON.stringify({
+              amount:   amountCents,
+              currency: (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.currency) || 'usd',
+              coupon:   coupon ? coupon.code : null,
+            }),
           });
 
           const data = await res.json();
@@ -508,11 +603,99 @@
         }
 
         if (paymentIntent.status === 'succeeded') {
-          // Pago exitoso → paso 3
-          if (typeof clearCart === 'function') clearCart();
+          // Pago exitoso: persistir orden, limpiar carrito y cupón, avanzar
+          const shipping = {
+            nombre:   (document.getElementById('first-name')?.value.trim() + ' ' + document.getElementById('last-name')?.value.trim()).trim(),
+            email:    document.getElementById('email')?.value.trim(),
+            address:  document.getElementById('address')?.value.trim(),
+            city:     document.getElementById('city')?.value.trim(),
+            zip:      document.getElementById('zip')?.value.trim(),
+            country:  document.getElementById('country')?.value.trim(),
+          };
+          if (typeof saveOrder  === 'function') saveOrder({ shipping });
+          if (typeof clearCart  === 'function') clearCart();
+          if (typeof clearCoupon === 'function') clearCoupon();
+          renderStep3();
           goToStep(3);
         }
       });
+
+      /* ── Step 3 renderer ─────────────────────────────────────────────── */
+      function renderStep3() {
+        const order = typeof getLastOrder === 'function' ? getLastOrder() : null;
+        if (!order) return;
+
+        const sym = (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.currencySymbol) || '$';
+        const fmt = n => sym + Number(n).toFixed(2);
+
+        // Order ID
+        const idEl = document.getElementById('conf-order-id');
+        if (idEl) idEl.textContent = '#' + order.id;
+
+        // Email
+        if (order.shipping?.email) {
+          document.getElementById('conf-email').textContent = order.shipping.email;
+          document.getElementById('conf-email-line')?.classList.remove('hidden');
+        }
+
+        // Items
+        const itemsEl = document.getElementById('conf-items');
+        if (itemsEl && order.items?.length) {
+          itemsEl.innerHTML = order.items.map(item => `
+            <li class="flex items-center gap-3">
+              <div class="relative shrink-0">
+                <img src="${item.image}" alt="${item.name}"
+                  class="w-12 h-12 rounded-xl object-cover bg-slate-100"
+                  onerror="this.onerror=null;this.src='https://picsum.photos/48/48?random=99'" />
+                <span class="absolute -top-1.5 -right-1.5 bg-slate-600 text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">${item.quantity}</span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-semibold text-slate-800 truncate">${item.name}</p>
+                <p class="text-xs text-slate-400">${fmt(item.price)} × ${item.quantity}</p>
+              </div>
+              <p class="text-sm font-bold text-slate-900 shrink-0">${fmt(item.price * item.quantity)}</p>
+            </li>`).join('');
+        }
+
+        // Totals
+        const subEl = document.getElementById('conf-subtotal');
+        if (subEl) subEl.textContent = fmt(order.subtotal ?? order.total);
+
+        if (order.discount > 0) {
+          document.getElementById('conf-discount-row')?.classList.remove('hidden');
+          const lbl = document.getElementById('conf-discount-label');
+          const val = document.getElementById('conf-discount');
+          if (lbl) lbl.textContent = order.coupon ? `Descuento (${order.coupon})` : 'Descuento';
+          if (val) val.textContent = `−${fmt(order.discount)}`;
+        }
+
+        const totEl = document.getElementById('conf-total');
+        if (totEl) totEl.textContent = fmt(order.total);
+
+        // Estimated delivery: +5 business days
+        const delivery = document.getElementById('conf-delivery');
+        if (delivery) {
+          const d = new Date(order.date);
+          let added = 0;
+          while (added < 5) {
+            d.setDate(d.getDate() + 1);
+            const dow = d.getDay();
+            if (dow !== 0 && dow !== 6) added++;
+          }
+          delivery.textContent = d.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+        }
+      }
+
+      // Restore step 3 if user reloads after a completed order
+      (function restoreOnReload() {
+        const order = typeof getLastOrder === 'function' ? getLastOrder() : null;
+        // Only restore if the cart is already empty (order was saved + cart cleared)
+        const cartEmpty = typeof getCart === 'function' ? getCart().length === 0 : true;
+        if (order && cartEmpty && (Date.now() - new Date(order.date).getTime()) < 30 * 60 * 1000) {
+          renderStep3();
+          goToStep(3);
+        }
+      })();
 
     });
   </script>

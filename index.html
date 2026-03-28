@@ -367,6 +367,64 @@
       </div>
     </section>
 
+    <!-- ===================== ABOUT ===================== -->
+    <section id="about" class="py-16 lg:py-24 bg-white" aria-labelledby="about-title">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Headline -->
+        <div class="max-w-3xl mx-auto text-center mb-14">
+          <p class="text-xs font-bold text-brand-600 uppercase tracking-widest mb-3">Nuestra propuesta</p>
+          <h2 id="about-title" class="text-3xl sm:text-4xl font-extrabold text-slate-900 leading-tight mb-4">
+            <!-- filled by JS -->
+          </h2>
+          <p id="about-subtitle" class="text-slate-500 text-base leading-relaxed">
+            <!-- filled by JS -->
+          </p>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl mx-auto mb-16">
+          <div class="text-center">
+            <p id="stat-products" class="text-4xl font-black text-brand-600 tabular-nums">—</p>
+            <p class="text-xs font-semibold text-slate-500 mt-1 uppercase tracking-wide">Productos</p>
+          </div>
+          <div class="text-center border-x border-slate-100">
+            <p id="stat-categories" class="text-4xl font-black text-brand-600 tabular-nums">—</p>
+            <p class="text-xs font-semibold text-slate-500 mt-1 uppercase tracking-wide">Categorías</p>
+          </div>
+          <div class="text-center">
+            <p id="stat-partners" class="text-4xl font-black text-brand-600 tabular-nums">—</p>
+            <p class="text-xs font-semibold text-slate-500 mt-1 uppercase tracking-wide">Partners activos</p>
+          </div>
+        </div>
+
+        <!-- Value columns -->
+        <div id="about-values" class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16">
+          <!-- filled by JS -->
+        </div>
+
+        <!-- Partner CTA -->
+        <div class="bg-slate-900 rounded-3xl p-8 sm:p-10 flex flex-col sm:flex-row items-center gap-8">
+          <div class="flex-1 text-center sm:text-left">
+            <h3 id="partner-cta-heading" class="text-xl font-extrabold text-white mb-2">
+              <!-- filled by JS -->
+            </h3>
+            <p id="partner-cta-desc" class="text-slate-400 text-sm leading-relaxed">
+              <!-- filled by JS -->
+            </p>
+          </div>
+          <div class="shrink-0">
+            <a id="partner-cta-btn" href="#"
+              class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-bold px-7 py-3.5 rounded-xl transition-colors shadow-lg text-sm whitespace-nowrap">
+              <!-- filled by JS -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <!-- ===================== NEWSLETTER ===================== -->
     <section class="py-16 lg:py-20 bg-slate-900" aria-labelledby="newsletter-title">
       <div class="max-w-2xl mx-auto px-4 sm:px-6 text-center">
@@ -481,9 +539,68 @@
     </div>
   </div>
 
+  <script src="config.js" defer></script>
   <script src="products.js" defer></script>
   <script src="categories.js" defer></script>
   <script src="components.js" defer></script>
   <script src="app.js" defer></script>
+  <script>
+    /* ── About section — populated from SITE_CONFIG + live data ── */
+    document.addEventListener('DOMContentLoaded', () => {
+      const about = (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.about) || {};
+      const cta   = about.partnerCTA || {};
+
+      /* Headline + subtitle */
+      const titleEl = document.getElementById('about-title');
+      const subEl   = document.getElementById('about-subtitle');
+      if (titleEl) titleEl.textContent = about.headline || '';
+      if (subEl)   subEl.textContent   = about.subtitle  || '';
+
+      /* Stats — computed from live data */
+      const products   = typeof PRODUCTS   !== 'undefined' ? PRODUCTS   : [];
+      const categories = typeof CATEGORIES !== 'undefined' ? CATEGORIES : [];
+      const uniquePartners = new Set(
+        products.filter(p => p.owner === 'partner' && p.partnerName).map(p => p.partnerName)
+      );
+      const statEl = id => document.getElementById(id);
+      if (statEl('stat-products'))   statEl('stat-products').textContent   = products.length;
+      if (statEl('stat-categories')) statEl('stat-categories').textContent = categories.length;
+      if (statEl('stat-partners'))   statEl('stat-partners').textContent   = uniquePartners.size;
+
+      /* Value columns */
+      const ICONS = {
+        check: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
+        partners: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+        price: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`,
+      };
+      const valuesEl = document.getElementById('about-values');
+      if (valuesEl && Array.isArray(about.values)) {
+        valuesEl.innerHTML = about.values.map(v => `
+          <div class="bg-slate-50 rounded-2xl border border-slate-100 p-6 flex flex-col gap-4">
+            <div class="w-11 h-11 bg-brand-100 rounded-xl flex items-center justify-center text-brand-600 shrink-0">
+              ${ICONS[v.icon] || ICONS.check}
+            </div>
+            <div>
+              <h3 class="text-base font-bold text-slate-900 mb-1.5">${v.title}</h3>
+              <p class="text-sm text-slate-500 leading-relaxed">${v.description}</p>
+            </div>
+          </div>`).join('');
+      }
+
+      /* Partner CTA */
+      const headEl = document.getElementById('partner-cta-heading');
+      const descEl = document.getElementById('partner-cta-desc');
+      const btnEl  = document.getElementById('partner-cta-btn');
+      if (headEl) headEl.textContent = cta.heading     || '';
+      if (descEl) descEl.textContent = cta.description || '';
+      if (btnEl) {
+        const email   = (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.contact && SITE_CONFIG.contact.email) || '';
+        const subject = encodeURIComponent(cta.emailSubject || 'Quiero ser partner');
+        btnEl.href = email ? `mailto:${email}?subject=${subject}` : '#';
+        // Insert text node before the arrow SVG
+        btnEl.firstChild.textContent = (cta.buttonText || 'Quiero ser partner') + ' ';
+      }
+    });
+  </script>
 </body>
 </html>

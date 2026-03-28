@@ -54,6 +54,17 @@ const PRODUCTS = [
     partnerName:  '',
     partnerHandle: '',
     commission:   0,
+    colors: [
+      { name: 'Negro',       hex: '#1e293b' },
+      { name: 'Blanco',      hex: '#f1f5f9' },
+      { name: 'Azul Marino', hex: '#1d4ed8' },
+      { name: 'Verde Bosque',hex: '#166534' },
+    ],
+    testimonials: [
+      { name: 'Andrés P.',  location: 'Madrid',    rating: 5, text: 'La cancelación de ruido es increíble. Los uso en el metro y apenas escucho nada. Sonido muy equilibrado y la batería dura exactamente lo que prometen.' },
+      { name: 'Sofía R.',   location: 'Barcelona', rating: 4, text: 'Muy cómodos todo el día. El multipoint es un plus enorme para pasar del ordenador al móvil. Le quito una estrella porque el estuche es un poco pequeño.' },
+      { name: 'Javier M.',  location: 'Valencia',  rating: 5, text: 'Relación calidad-precio insuperable. Los tenía en lista de deseos y cuando los vi en oferta no lo dudé. Llegaron en menos de 24 horas y el embalaje impecable.' },
+    ],
   },
   {
     id:            'zapatillas-run',
@@ -98,6 +109,11 @@ const PRODUCTS = [
     partnerName:  'RunStore Oficial',
     partnerHandle: '@runstore',
     commission:   0.15,
+    colors: [],
+    testimonials: [
+      { name: 'Carlos V.',  location: 'Sevilla',   rating: 5, text: 'Las mejores zapatillas que he tenido. Amortiguación perfecta para mis tiradas largas y no me han dado ni una rozadura.' },
+      { name: 'Lucía M.',   location: 'Bilbao',    rating: 5, text: 'Talla bien, son muy ligeras y transpiran genial. Las uso tanto para correr como para el día a día.' },
+    ],
   },
   {
     id:            'lampara-smart',
@@ -141,6 +157,8 @@ const PRODUCTS = [
     partnerName:  '',
     partnerHandle: '',
     commission:   0,
+    colors: [],
+    testimonials: [],
   },
   {
     id:            'smartwatch-x1',
@@ -185,6 +203,10 @@ const PRODUCTS = [
     partnerName:  '',
     partnerHandle: '',
     commission:   0,
+    colors: [],
+    testimonials: [
+      { name: 'Roberto F.',  location: 'Madrid',   rating: 5, text: 'El GPS es muy preciso y la pantalla AMOLED se ve perfecta incluso bajo el sol directo. La batería aguanta de sobra toda la semana.' },
+    ],
   },
   {
     id:            'mochila-urban',
@@ -229,6 +251,8 @@ const PRODUCTS = [
     partnerName:  'UrbanBag Co.',
     partnerHandle: '@urbanbag',
     commission:   0.15,
+    colors: [],
+    testimonials: [],
   },
   {
     id:            'silla-gaming',
@@ -273,6 +297,8 @@ const PRODUCTS = [
     partnerName:  'GameZone Store',
     partnerHandle: '@gamezone',
     commission:   0.15,
+    colors: [],
+    testimonials: [],
   },
   {
     id:            'tablet-pro',
@@ -317,6 +343,8 @@ const PRODUCTS = [
     partnerName:  '',
     partnerHandle: '',
     commission:   0,
+    colors: [],
+    testimonials: [],
   },
   {
     id:            'auriculares-nc',
@@ -361,6 +389,8 @@ const PRODUCTS = [
     partnerName:  '',
     partnerHandle: '',
     commission:   0,
+    colors: [],
+    testimonials: [],
   },
 ];
 

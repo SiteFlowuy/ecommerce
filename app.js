@@ -90,6 +90,182 @@ function _syncCartBadge() {
 }
 
 /* ════════════════════════════════════════════════════
+   WISHLIST MODULE
+   Persists to localStorage under "shopbase_wishlist".
+   Stores an array of product IDs.
+   ════════════════════════════════════════════════════ */
+
+const WISHLIST_KEY = 'shopbase_wishlist';
+
+/** @returns {string[]} Array of product IDs in the wishlist. */
+function getWishlist() {
+  try { return JSON.parse(localStorage.getItem(WISHLIST_KEY)) || []; } catch { return []; }
+}
+
+function _saveWishlist(ids) {
+  localStorage.setItem(WISHLIST_KEY, JSON.stringify(ids));
+  _syncWishlistBadge();
+}
+
+/**
+ * Add the id if absent, remove it if present.
+ * @param {string} id
+ * @returns {boolean} true if now in wishlist, false if removed.
+ */
+function toggleWishlist(id) {
+  const ids = getWishlist();
+  const idx = ids.indexOf(id);
+  if (idx === -1) { ids.push(id); } else { ids.splice(idx, 1); }
+  _saveWishlist(ids);
+  return idx === -1;
+}
+
+/** @param {string} id @returns {boolean} */
+function isInWishlist(id) {
+  return getWishlist().includes(id);
+}
+
+/**
+ * Returns full product objects for all wishlisted IDs.
+ * Requires PRODUCTS global to be loaded.
+ * @returns {Array}
+ */
+function getWishlistProducts() {
+  const ids = getWishlist();
+  if (!ids.length) return [];
+  const products = typeof PRODUCTS !== 'undefined' ? PRODUCTS : [];
+  return ids.map(id => products.find(p => p.id === id)).filter(Boolean);
+}
+
+/** Keep every [data-wishlist-badge] element in sync. */
+function _syncWishlistBadge() {
+  const count = getWishlist().length;
+  document.querySelectorAll('[data-wishlist-badge]').forEach(badge => {
+    badge.textContent = count;
+    badge.classList.toggle('hidden', count === 0);
+  });
+}
+
+/* ════════════════════════════════════════════════════
+   COUPON MODULE
+   Persists active coupon to sessionStorage under
+   "shopbase_coupon" so it survives navigation to
+   checkout within the same tab.
+   ════════════════════════════════════════════════════ */
+
+const COUPON_KEY = 'shopbase_coupon';
+
+/**
+ * Validate and apply a coupon code.
+ * @param {string} code
+ * @returns {{ valid: boolean, discount: number, type: string, message: string }}
+ */
+function applyCoupon(code) {
+  const coupons = typeof COUPONS !== 'undefined' ? COUPONS : [];
+  const subtotal = getCartTotal();
+  const normalized = (code || '').trim().toUpperCase();
+
+  if (!normalized) {
+    return { valid: false, discount: 0, type: '', message: 'Ingresa un código de descuento.' };
+  }
+
+  const coupon = coupons.find(c => c.code === normalized && c.active);
+
+  if (!coupon) {
+    return { valid: false, discount: 0, type: '', message: '✗ Código inválido o expirado.' };
+  }
+
+  if (subtotal < coupon.minOrder) {
+    const sym = (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.currencySymbol) || '$';
+    return {
+      valid: false, discount: 0, type: coupon.type,
+      message: `✗ Este cupón requiere un pedido mínimo de ${sym}${coupon.minOrder.toFixed(2)}.`,
+    };
+  }
+
+  let discountAmount = 0;
+  let label = '';
+
+  if (coupon.type === 'percent') {
+    discountAmount = subtotal * coupon.discount;
+    label = `−${Math.round(coupon.discount * 100)}%`;
+  } else if (coupon.type === 'fixed') {
+    discountAmount = Math.min(coupon.discount, subtotal);
+    const sym = (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.currencySymbol) || '$';
+    label = `−${sym}${coupon.discount.toFixed(2)}`;
+  } else if (coupon.type === 'shipping') {
+    discountAmount = 0; // shipping is already free; label communicates the benefit
+    label = 'Envío gratis';
+  }
+
+  const payload = { code: coupon.code, type: coupon.type, discount: coupon.discount, discountAmount, label };
+  sessionStorage.setItem(COUPON_KEY, JSON.stringify(payload));
+
+  return {
+    valid: true,
+    discount: discountAmount,
+    type: coupon.type,
+    message: `✓ Código aplicado: ${label}.`,
+  };
+}
+
+/** @returns {object|null} Active coupon payload from sessionStorage. */
+function getCoupon() {
+  try {
+    return JSON.parse(sessionStorage.getItem(COUPON_KEY)) || null;
+  } catch {
+    return null;
+  }
+}
+
+/** Remove the active coupon from sessionStorage. */
+function clearCoupon() {
+  sessionStorage.removeItem(COUPON_KEY);
+}
+
+/* ════════════════════════════════════════════════════
+   ORDER MODULE
+   ════════════════════════════════════════════════════ */
+
+const ORDER_KEY = 'shopbase_last_order';
+
+function generateOrderId() {
+  const date = new Date();
+  const y    = date.getFullYear();
+  const rand = Math.floor(Math.random() * 9000) + 1000;
+  return `SB-${y}-${rand}`;
+}
+
+/**
+ * Persist order to localStorage. Call BEFORE clearCart().
+ * @param {object} orderData  Extra fields to merge (e.g. shipping, coupon).
+ */
+function saveOrder(orderData) {
+  const coupon = typeof getCoupon === 'function' ? getCoupon() : null;
+  const subtotal = getCartTotal();
+  let discountAmount = 0;
+  if (coupon) {
+    if (coupon.type === 'percent') discountAmount = subtotal * coupon.discount;
+    else if (coupon.type === 'fixed') discountAmount = Math.min(coupon.discount, subtotal);
+  }
+  localStorage.setItem(ORDER_KEY, JSON.stringify({
+    id:       generateOrderId(),
+    items:    getCart(),
+    subtotal,
+    discount: discountAmount,
+    total:    Math.max(0, subtotal - discountAmount),
+    coupon:   coupon ? coupon.code : null,
+    date:     new Date().toISOString(),
+    ...orderData,
+  }));
+}
+
+/** @returns {object|null} Last saved order from localStorage. */
+function getLastOrder() {
+  try { return JSON.parse(localStorage.getItem(ORDER_KEY)); } catch { return null; }
+}
+
+/* ════════════════════════════════════════════════════
    RENDER CART  (call from carrito.html)
    Usage: renderCart('#cart-container')
    ════════════════════════════════════════════════════ */
@@ -197,8 +373,22 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof injectHeader === 'function') injectHeader();
   if (typeof injectFooter === 'function') injectFooter();
 
-  // Sync badge on every page load from localStorage
+  // Sync badges on every page load from localStorage
   _syncCartBadge();
+  _syncWishlistBadge();
+
+  // Restore wishlist active state on all .wishlist-btn cards already in DOM
+  function _restoreWishlistButtons() {
+    document.querySelectorAll('.product-card').forEach(card => {
+      const id  = card.dataset.id;
+      const btn = card.querySelector('.wishlist-btn');
+      if (!btn || !id) return;
+      const active = isInWishlist(id);
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-label', active ? 'Quitar de favoritos' : 'Agregar a favoritos');
+    });
+  }
+  _restoreWishlistButtons();
 
   /* ── Toast de carrito ─────────────────────────────── */
   const cartToast = _createToast();
@@ -258,13 +448,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ── Wishlist (toggle) ────────────────────────────── */
-  document.querySelectorAll('.wishlist-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      btn.classList.toggle('active');
-      const isActive = btn.classList.contains('active');
-      btn.setAttribute('aria-label', isActive ? 'Quitar de favoritos' : 'Agregar a favoritos');
-    });
+  /* ── Wishlist (toggle + persist) ─────────────────── */
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('.wishlist-btn');
+    if (!btn) return;
+    const card = btn.closest('.product-card');
+    const id   = card?.dataset.id;
+    if (!id) return;
+    const nowActive = toggleWishlist(id);
+    btn.classList.toggle('active', nowActive);
+    btn.setAttribute('aria-label', nowActive ? 'Quitar de favoritos' : 'Agregar a favoritos');
   });
 
   /* ── Filtros + Búsqueda (estado combinado) ────────── */

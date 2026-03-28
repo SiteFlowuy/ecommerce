@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Catálogo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { 50:'#f0f4ff', 100:'#e0eaff', 500:'#6366f1', 600:'#4f46e5', 700:'#4338ca' }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-100 text-slate-900 antialiased">
+
+  <!-- ══ TOP BAR ══ -->
+  <header class="bg-white border-b border-slate-200 px-6 py-3.5 flex items-center justify-between sticky top-0 z-20 shadow-sm h-[57px]">
+    <div class="flex items-center gap-3">
+      <div class="w-7 h-7 bg-brand-600 rounded-lg flex items-center justify-center shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+          <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+        </svg>
+      </div>
+      <div class="leading-tight">
+        <span id="admin-title" class="text-sm font-bold text-slate-900">Admin — Catálogo</span>
+        <span class="text-slate-300 mx-2 text-xs">|</span>
+        <span id="admin-subtitle" class="text-xs text-slate-400">0 productos</span>
+      </div>
+    </div>
+    <button id="btn-new"
+      class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors flex items-center gap-1.5">
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Nuevo producto
+    </button>
+  </header>
+
+  <!-- ══ MAIN AREA ══ -->
+  <div class="flex" style="height: calc(100vh - 57px)">
+
+    <!-- LEFT: Product list -->
+    <div id="panel-list" class="flex-1 overflow-auto p-5 min-w-0">
+      <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+        <table class="w-full text-sm" id="products-table">
+          <thead class="bg-slate-50 border-b border-slate-200">
+            <tr>
+              <th class="text-left py-3 px-4 text-[11px] font-semibold text-slate-400 uppercase tracking-wide w-12">Img</th>
+              <th class="text-left py-3 px-4 text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Nombre / ID</th>
+              <th class="text-left py-3 px-4 text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Precio</th>
+              <th class="text-left py-3 px-4 text-[11px] font-semibold text-slate-400 uppercase tracking-wide hidden lg:table-cell">Categoría</th>
+              <th class="text-left py-3 px-4 text-[11px] font-semibold text-slate-400 uppercase tracking-wide hidden md:table-cell">Stock</th>
+              <th class="text-left py-3 px-4 text-[11px] font-semibold text-slate-400 uppercase tracking-wide hidden xl:table-cell">Owner</th>
+              <th class="py-3 px-4 w-32"></th>
+            </tr>
+          </thead>
+          <tbody id="products-tbody">
+            <tr><td colspan="7" class="text-center py-12 text-slate-400 text-sm">Cargando productos…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- RIGHT: Form panel (hidden by default) -->
+    <div id="panel-form" class="hidden w-[500px] shrink-0 border-l border-slate-200 bg-white overflow-auto flex flex-col">
+
+      <!-- Form header -->
+      <div class="flex items-center justify-between px-5 py-3.5 border-b border-slate-100 bg-white sticky top-0 z-10">
+        <h2 id="form-title" class="text-sm font-bold text-slate-900">Nuevo producto</h2>
+        <button id="btn-close-form" class="w-7 h-7 flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors" aria-label="Cerrar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <!-- Form -->
+      <form id="product-form" class="flex-1 overflow-auto px-5 py-4 space-y-5" novalidate>
+
+        <!-- BÁSICO -->
+        <fieldset>
+          <legend class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 block">Básico</legend>
+          <div class="space-y-2.5">
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1" for="f-name">Nombre *</label>
+              <input id="f-name" type="text" required placeholder="Ej: Auriculares Bluetooth Pro"
+                class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1" for="f-id">
+                ID <span class="text-slate-400 font-normal">(slug, auto-generado)</span>
+              </label>
+              <input id="f-id" type="text" placeholder="auriculares-bluetooth-pro"
+                class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-brand-500 transition" />
+            </div>
+            <div class="grid grid-cols-2 gap-2.5">
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1" for="f-brand">Marca *</label>
+                <input id="f-brand" type="text" required placeholder="SoundTech"
+                  class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1" for="f-unit">Unidad</label>
+                <input id="f-unit" type="text" placeholder="unidad"
+                  class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition" />
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-2.5">
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1" for="f-category">Categoría *</label>
+                <select id="f-category" required
+                  class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition bg-white">
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1" for="f-filter">Filtro</label>
+                <select id="f-filter"
+                  class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition bg-white">
+                  <option value="new">Nuevo</option>
+                  <option value="sale">Oferta</option>
+                  <option value="top">Más vendido</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- PRECIOS Y STOCK -->
+        <fieldset>
+          <legend class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 block">Precios y stock</legend>
+          <div class="space-y-2.5">
+            <div class="grid grid-cols-2 gap-2.5">
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1" for="f-price">Precio * ($)</label>
+                <input id="f-price" type="number" step="0.01" min="0" required placeholder="89.99"
+                  class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1" for="f-original-price">Precio original ($)</label>
+                <input id="f-original-price" type="number" step="0.01" min="0" placeholder="119.99 (opcional)"
+                  class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition" />
+              </div>
+            </div>
+            <div class="grid grid-cols-3 gap-2.5">
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1" for="f-stock">Stock *</label>
+                <input id="f-stock" type="number" min="0" required placeholder="10"
+                  class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1" for="f-rating">Rating</label>
+                <input id="f-rating" type="number" step="0.1" min="0" max="5" placeholder="4.5"
+                  class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1" for="f-reviews">Reseñas</label>
+                <input id="f-reviews" type="number" min="0" placeholder="128"
+                  class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition" />
+              </div>
+            </div>
+            <div class="flex gap-5 pt-1">
+              <label class="flex items-center gap-2 text-sm text-slate-700 cursor-pointer select-none">
+                <input id="f-featured" type="checkbox" class="w-4 h-4 rounded accent-brand-600" />
+                Destacado
+              </label>
+              <label class="flex items-center gap-2 text-sm text-slate-700 cursor-pointer select-none">
+                <input id="f-free-shipping" type="checkbox" class="w-4 h-4 rounded accent-brand-600" checked />
+                Envío gratis
+              </label>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- IMAGEN -->
+        <fieldset>
+          <legend class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 block">Imagen</legend>
+          <div class="space-y-2.5">
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1" for="f-image">Ruta imagen principal</label>
+              <input id="f-image" type="text" placeholder="assets/products/product-1.jpg"
+                class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-brand-500 transition" />
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="flex-1">
+                <label for="f-image-file"
+                  class="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-600 border border-brand-200 bg-brand-50 hover:bg-brand-100 px-3 py-1.5 rounded-xl cursor-pointer transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  Seleccionar imagen
+                </label>
+                <input id="f-image-file" type="file" accept="image/*" class="hidden" />
+                <p id="f-image-filename" class="mt-1.5 text-[11px] text-slate-500 font-mono leading-relaxed hidden"></p>
+              </div>
+              <div id="f-image-preview-wrap" class="hidden w-14 h-14 rounded-xl overflow-hidden border border-slate-200 bg-slate-50 shrink-0">
+                <img id="f-image-preview" src="" alt="" class="w-full h-full object-cover" />
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1" for="f-images">
+                Galería <span class="text-slate-400 font-normal">(una ruta por línea)</span>
+              </label>
+              <textarea id="f-images" rows="3" placeholder="assets/products/product-1.jpg&#10;assets/products/product-2.jpg"
+                class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-brand-500 transition resize-none"></textarea>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- DESCRIPCIÓN -->
+        <fieldset>
+          <legend class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 block">Descripción</legend>
+          <textarea id="f-description" rows="4" placeholder="Descripción del producto…"
+            class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition resize-none"></textarea>
+        </fieldset>
+
+        <!-- ESPECIFICACIONES -->
+        <fieldset>
+          <div class="flex items-center justify-between mb-3">
+            <legend class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Especificaciones</legend>
+            <button type="button" id="btn-add-spec"
+              class="text-xs font-bold text-brand-600 hover:bg-brand-50 px-2.5 py-1 rounded-lg transition-colors flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Agregar fila
+            </button>
+          </div>
+          <div id="specs-container" class="space-y-2"></div>
+          <p class="text-xs text-slate-400 mt-2">Las filas vacías se ignorarán.</p>
+        </fieldset>
+
+        <!-- BADGES -->
+        <fieldset>
+          <div class="flex items-center justify-between mb-3">
+            <legend class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Badges</legend>
+            <button type="button" id="btn-add-badge"
+              class="text-xs font-bold text-brand-600 hover:bg-brand-50 px-2.5 py-1 rounded-lg transition-colors flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Agregar badge
+            </button>
+          </div>
+          <div id="badges-container" class="space-y-2"></div>
+        </fieldset>
+
+        <!-- URGENCIA -->
+        <fieldset>
+          <legend class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 block">Urgencia</legend>
+          <div class="grid grid-cols-3 gap-2.5">
+            <div class="col-span-2">
+              <label class="block text-xs font-semibold text-slate-600 mb-1" for="f-urgency-text">Texto</label>
+              <input id="f-urgency-text" type="text" placeholder="¡Solo quedan 3 unidades!"
+                class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1" for="f-urgency-color">Color</label>
+              <select id="f-urgency-color"
+                class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition bg-white">
+                <option value="">ninguno</option>
+                <option value="orange">Naranja</option>
+                <option value="rose">Rojo</option>
+                <option value="slate">Gris</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- VENDEDOR -->
+        <fieldset>
+          <legend class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 block">Vendedor</legend>
+          <div class="space-y-2.5">
+            <div class="flex gap-5">
+              <label class="flex items-center gap-2 text-sm text-slate-700 cursor-pointer select-none">
+                <input type="radio" name="f-owner" value="self" id="f-owner-self" class="accent-brand-600" checked />
+                Propio
+              </label>
+              <label class="flex items-center gap-2 text-sm text-slate-700 cursor-pointer select-none">
+                <input type="radio" name="f-owner" value="partner" id="f-owner-partner" class="accent-brand-600" />
+                Partner
+              </label>
+            </div>
+            <div id="partner-fields" class="hidden space-y-2.5 pl-4 border-l-2 border-slate-100">
+              <div class="grid grid-cols-2 gap-2.5">
+                <div>
+                  <label class="block text-xs font-semibold text-slate-600 mb-1" for="f-partner-name">Nombre</label>
+                  <input id="f-partner-name" type="text" placeholder="RunStore Oficial"
+                    class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition" />
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-slate-600 mb-1" for="f-partner-handle">Handle</label>
+                  <input id="f-partner-handle" type="text" placeholder="@runstore"
+                    class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition" />
+                </div>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1" for="f-commission">Comisión (0–1)</label>
+                <input id="f-commission" type="number" step="0.01" min="0" max="1" placeholder="0.15"
+                  class="w-1/2 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition" />
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- TAGS -->
+        <fieldset>
+          <legend class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 block">Tags</legend>
+          <input id="f-tags" type="text" placeholder="auriculares, bluetooth, audio"
+            class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 transition" />
+          <p class="text-xs text-slate-400 mt-1">Separados por comas.</p>
+        </fieldset>
+
+      </form>
+
+      <!-- Save button -->
+      <div class="px-5 py-3.5 border-t border-slate-100 bg-white sticky bottom-0">
+        <button id="btn-save"
+          class="w-full bg-brand-600 hover:bg-brand-700 active:scale-[0.98] text-white font-bold py-2.5 rounded-xl transition-all flex items-center justify-center gap-2 text-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          Generar código
+        </button>
+      </div>
+
+      <!-- Code output -->
+      <div id="code-output" class="hidden border-t-4 border-brand-600 bg-slate-950">
+        <div class="px-5 pt-5 pb-4 space-y-4">
+          <div>
+            <p class="text-xs font-bold text-white mb-0.5">Código generado</p>
+            <p class="text-[11px] text-slate-400">Copia y pega en <code class="bg-white/10 px-1 rounded">products.js</code></p>
+          </div>
+
+          <!-- Single object -->
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Objeto del producto</span>
+              <button id="btn-copy-single"
+                class="text-[11px] bg-white/10 hover:bg-white/20 text-white font-semibold px-2.5 py-1.5 rounded-lg transition-colors flex items-center gap-1.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copiar objeto
+              </button>
+            </div>
+            <pre id="code-single" class="text-[11px] text-emerald-300 bg-black/40 rounded-xl p-3.5 overflow-x-auto max-h-56 leading-relaxed font-mono whitespace-pre"></pre>
+          </div>
+
+          <!-- Full array -->
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Array PRODUCTS completo</span>
+              <button id="btn-copy-array"
+                class="text-[11px] bg-white/10 hover:bg-white/20 text-white font-semibold px-2.5 py-1.5 rounded-lg transition-colors flex items-center gap-1.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copiar array
+              </button>
+            </div>
+            <pre id="code-array" class="text-[11px] text-slate-300 bg-black/40 rounded-xl p-3.5 overflow-x-auto max-h-56 leading-relaxed font-mono whitespace-pre"></pre>
+          </div>
+
+          <p class="text-[11px] text-slate-500 text-center pb-1">
+            Reemplaza el contenido correspondiente en
+            <code class="text-slate-400">products.js</code> y recarga la página.
+          </p>
+        </div>
+      </div>
+
+    </div><!-- /panel-form -->
+  </div><!-- /main flex -->
+
+  <script src="config.js" defer></script>
+  <script src="products.js" defer></script>
+  <script src="categories.js" defer></script>
+  <script src="admin.js" defer></script>
+</body>
+</html>

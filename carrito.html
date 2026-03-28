@@ -101,9 +101,9 @@
               <span>Envío</span>
               <span class="font-semibold text-emerald-600">Gratis</span>
             </div>
-            <div class="flex justify-between text-slate-600">
-              <span>Descuento</span>
-              <span class="font-semibold text-slate-900">—</span>
+            <div id="discount-row" class="flex justify-between text-slate-600 hidden">
+              <span id="discount-label">Descuento</span>
+              <span id="summary-discount" class="font-semibold text-emerald-600">—</span>
             </div>
           </div>
 
@@ -144,33 +144,69 @@
 
   <div id="site-footer"></div>
 
+  <script src="config.js" defer></script>
   <script src="components.js" defer></script>
   <script src="app.js" defer></script>
   <script>
-    // Sync summary sidebar with cart total
     document.addEventListener('DOMContentLoaded', () => {
+      const sym = (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.currencySymbol) || '$';
+      const fmt = n => sym + n.toFixed(2);
+
       function updateSummary() {
-        const total = typeof getCartTotal === 'function' ? getCartTotal() : 0;
-        const fmt   = n => '$' + n.toFixed(2);
-        document.getElementById('summary-subtotal').textContent = fmt(total);
-        document.getElementById('summary-total').textContent    = fmt(total);
+        const subtotal  = typeof getCartTotal === 'function' ? getCartTotal() : 0;
+        const coupon    = typeof getCoupon    === 'function' ? getCoupon()    : null;
+
+        document.getElementById('summary-subtotal').textContent = fmt(subtotal);
+
+        const discountRow  = document.getElementById('discount-row');
+        const discountEl   = document.getElementById('summary-discount');
+        const discountLbl  = document.getElementById('discount-label');
+
+        let discountAmount = 0;
+
+        if (coupon) {
+          if (coupon.type === 'percent') {
+            discountAmount = subtotal * coupon.discount;
+            if (discountLbl) discountLbl.textContent = `Descuento (${coupon.code})`;
+            if (discountEl)  discountEl.textContent  = `−${fmt(discountAmount)}`;
+          } else if (coupon.type === 'fixed') {
+            discountAmount = Math.min(coupon.discount, subtotal);
+            if (discountLbl) discountLbl.textContent = `Descuento (${coupon.code})`;
+            if (discountEl)  discountEl.textContent  = `−${fmt(discountAmount)}`;
+          } else if (coupon.type === 'shipping') {
+            if (discountLbl) discountLbl.textContent = `Cupón (${coupon.code})`;
+            if (discountEl)  discountEl.textContent  = 'Envío gratis';
+          }
+          discountRow?.classList.remove('hidden');
+        } else {
+          discountRow?.classList.add('hidden');
+        }
+
+        const total = Math.max(0, subtotal - discountAmount);
+        document.getElementById('summary-total').textContent = fmt(total);
       }
-      // Re-run after renderCart draws (it fires synchronously on DOMContentLoaded)
+
+      // Restore any coupon already applied in this session
       setTimeout(updateSummary, 0);
 
-      // Coupon demo
+      // Coupon apply button
       document.getElementById('coupon-apply')?.addEventListener('click', () => {
-        const code = document.getElementById('coupon-input').value.trim().toUpperCase();
-        const msg  = document.getElementById('coupon-msg');
+        const code   = document.getElementById('coupon-input').value;
+        const msg    = document.getElementById('coupon-msg');
+        const result = typeof applyCoupon === 'function'
+          ? applyCoupon(code)
+          : { valid: false, message: '✗ Error interno.' };
+
         msg.classList.remove('hidden', 'text-emerald-600', 'text-rose-500');
-        if (code === 'BIENVENIDO10') {
-          msg.textContent = '✓ Código aplicado: 10% de descuento';
-          msg.classList.add('text-emerald-600');
-        } else {
-          msg.textContent = '✗ Código inválido o expirado';
-          msg.classList.add('text-rose-500');
-        }
-        msg.classList.remove('hidden');
+        msg.textContent = result.message;
+        msg.classList.add(result.valid ? 'text-emerald-600' : 'text-rose-500');
+
+        if (result.valid) updateSummary();
+      });
+
+      // Allow re-applying on Enter key
+      document.getElementById('coupon-input')?.addEventListener('keydown', e => {
+        if (e.key === 'Enter') document.getElementById('coupon-apply')?.click();
       });
     });
   </script>

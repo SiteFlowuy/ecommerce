@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Mis favoritos — ShopBase</title>
+  <meta name="description" content="Tus productos guardados en ShopBase." />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          colors: {
+            brand: { 50:'#f0f4ff', 100:'#e0eaff', 500:'#6366f1', 600:'#4f46e5', 700:'#4338ca' },
+          },
+          animation: { 'fade-in': 'fadeIn .3s ease' },
+          keyframes: { fadeIn: { from: { opacity: 0, transform: 'translateY(6px)' }, to: { opacity: 1, transform: 'translateY(0)' } } },
+        },
+      },
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased">
+
+  <div id="site-header"></div>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Ruta de navegación" class="mb-8">
+      <ol class="flex items-center gap-1.5 text-xs text-slate-500">
+        <li><a href="index.html" class="hover:text-brand-600 transition-colors">Inicio</a></li>
+        <li aria-hidden="true" class="text-slate-300">›</li>
+        <li class="text-slate-800 font-medium" aria-current="page">Mis favoritos</li>
+      </ol>
+    </nav>
+
+    <!-- Header row -->
+    <div class="flex items-center justify-between mb-8 gap-4 flex-wrap">
+      <div>
+        <h1 class="text-2xl font-extrabold text-slate-900 leading-tight">Mis favoritos</h1>
+        <p id="wishlist-count-text" class="text-sm text-slate-400 mt-0.5"></p>
+      </div>
+      <button id="btn-clear-wishlist"
+        class="hidden text-xs text-rose-500 hover:bg-rose-50 font-semibold px-3 py-2 rounded-xl border border-rose-200 transition-colors">
+        Borrar todos
+      </button>
+    </div>
+
+    <!-- Empty state -->
+    <div id="wishlist-empty" class="hidden text-center py-24">
+      <div class="w-20 h-20 bg-rose-50 rounded-full flex items-center justify-center mx-auto mb-5">
+        <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <h2 class="text-xl font-bold text-slate-800 mb-2">Aún no hay favoritos guardados</h2>
+      <p class="text-slate-400 text-sm mb-7">Hacé clic en el corazón de cualquier producto para guardarlo aquí.</p>
+      <a href="index.html"
+        class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-bold px-7 py-3.5 rounded-xl transition-colors shadow-lg text-sm">
+        Explorar productos
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+
+    <!-- Products grid -->
+    <ul id="wishlist-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" role="list"></ul>
+
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="config.js" defer></script>
+  <script src="products.js" defer></script>
+  <script src="categories.js" defer></script>
+  <script src="components.js" defer></script>
+  <script src="app.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const grid      = document.getElementById('wishlist-grid');
+      const emptyEl   = document.getElementById('wishlist-empty');
+      const countEl   = document.getElementById('wishlist-count-text');
+      const clearBtn  = document.getElementById('btn-clear-wishlist');
+
+      function render() {
+        const products = typeof getWishlistProducts === 'function' ? getWishlistProducts() : [];
+
+        if (products.length === 0) {
+          grid.innerHTML = '';
+          emptyEl.classList.remove('hidden');
+          clearBtn.classList.add('hidden');
+          countEl.textContent = '';
+        } else {
+          emptyEl.classList.add('hidden');
+          clearBtn.classList.remove('hidden');
+          const n = products.length;
+          countEl.textContent = `${n} producto${n !== 1 ? 's' : ''} guardado${n !== 1 ? 's' : ''}`;
+          grid.innerHTML = products.map((p, i) => _cardHtml(p, i)).join('');
+          // Mark all hearts as active immediately
+          grid.querySelectorAll('.product-card').forEach(card => {
+            const btn = card.querySelector('.wishlist-btn');
+            if (btn) {
+              btn.classList.add('active');
+              btn.setAttribute('aria-label', 'Quitar de favoritos');
+            }
+          });
+        }
+
+        _syncWishlistBadge();
+      }
+
+      render();
+
+      // Clear all
+      clearBtn?.addEventListener('click', () => {
+        if (!confirm('¿Borrar todos los favoritos?')) return;
+        localStorage.removeItem(typeof WISHLIST_KEY !== 'undefined' ? WISHLIST_KEY : 'shopbase_wishlist');
+        render();
+      });
+
+      // Re-render when a wishlist heart is toggled (the delegated listener in app.js
+      // already calls toggleWishlist; we just need to re-draw the page)
+      document.addEventListener('click', e => {
+        if (e.target.closest('.wishlist-btn')) {
+          // Small delay so toggleWishlist() in app.js runs first
+          setTimeout(render, 0);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
